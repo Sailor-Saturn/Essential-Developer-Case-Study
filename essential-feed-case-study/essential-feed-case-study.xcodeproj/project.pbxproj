@@ -104,8 +104,7 @@
 				0BCA0A0A2B4825D800CDB46D /* Assets.xcassets */,
 				0BCA0A0F2B4825D800CDB46D /* essential_feed_case_study.entitlements */,
 				0BCA0A0C2B4825D800CDB46D /* Preview Content */,
-				0BCA0A312B48260F00CDB46D /* FeedItem.swift */,
-				0BCA0A332B4826BE00CDB46D /* FeedLoader.swift */,
+				0BCA0A352B4827FA00CDB46D /* FeedFeature */,
 			);
 			path = "essential-feed-case-study";
 			sourceTree = "<group>";
@@ -133,6 +132,15 @@
 				0BCA0A242B4825D800CDB46D /* essential_feed_case_studyUITestsLaunchTests.swift */,
 			);
 			path = "essential-feed-case-studyUITests";
+			sourceTree = "<group>";
+		};
+		0BCA0A352B4827FA00CDB46D /* FeedFeature */ = {
+			isa = PBXGroup;
+			children = (
+				0BCA0A312B48260F00CDB46D /* FeedItem.swift */,
+				0BCA0A332B4826BE00CDB46D /* FeedLoader.swift */,
+			);
+			path = FeedFeature;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
