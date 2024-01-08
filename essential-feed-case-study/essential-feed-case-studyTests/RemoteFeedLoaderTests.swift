@@ -1,22 +1,5 @@
 import XCTest
-
-class RemoteFeedLoader {
-    let url: URL
-    let client: HTTPClient
-    
-    init(url: URL, client: HTTPClient) {
-        self.url = url
-        self.client = client
-    }
-    
-    func load() {
-        client.get(from: url)
-    }
-}
-
-protocol HTTPClient {
-    func get(from url: URL)
-}
+import essential_feed_case_study
 
 final class RemoteFeedLoaderTests: XCTestCase {
     
@@ -26,7 +9,7 @@ final class RemoteFeedLoaderTests: XCTestCase {
         XCTAssertNil(client.requestedURL)
     }
     
-    func test_load_requestDataFromURL() {
+    func test_load_requestsDataFromURL() {
         let url = URL(string: "https://a-given-url.com")!
         
         let (sut, client) = makeSut(url: url)
@@ -37,7 +20,6 @@ final class RemoteFeedLoaderTests: XCTestCase {
     }
     
     // MARK: Helpers
-    
     private func makeSut(url: URL = URL(string: "https://a-url.com")!) -> (sut: RemoteFeedLoader, client: HTTPClientSpy) {
         let client = HTTPClientSpy()
         let sut = RemoteFeedLoader(url: url, client: client)
