@@ -1,0 +1,28 @@
+{
+  "configurations" : [
+    {
+      "id" : "69EDFD4C-A336-4D90-80D3-D17182F08628",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:essential-feed-case-study.xcodeproj",
+      "identifier" : "0BCA0A022B4825D700CDB46D",
+      "name" : "essential-feed-case-study"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:essential-feed-case-study.xcodeproj",
+        "identifier" : "0BCA0A132B4825D800CDB46D",
+        "name" : "essential-feed-case-studyTests"
+      }
+    }
+  ],
+  "version" : 1
+}
