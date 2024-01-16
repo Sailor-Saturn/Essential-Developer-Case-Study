@@ -1,4 +1,3 @@
-
 import Foundation
 
 public class URLSessionHTTPClient: HTTPClient {
@@ -16,7 +15,7 @@ public class URLSessionHTTPClient: HTTPClient {
                 completion(.failure(error))
             } else if let data = data, let response = response as? HTTPURLResponse {
                 completion(.success(data, response))
-            }else {
+            } else {
                 completion(.failure(UnexpectedValuesRepresentation()))
             }
         }.resume()
