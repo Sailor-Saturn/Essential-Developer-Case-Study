@@ -17,8 +17,10 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Select Xcode
-      run: sudo xcode-select -switch /Applications/Xcode_15.1.app/Contents/Developer
+    - name: Xcode Select Version
+      uses: mobiledevops/xcode-select-version-action@v1
+      with:
+       xcode-select-version: 14.2
 
     - name: Build and Test
       run: xcodebuild clean build test -project EssentialDeveloper/EssentialDeveloper.xcodeproj -scheme "CI" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
