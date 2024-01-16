@@ -1,4 +1,0 @@
-os: osx
-osx_image: xcode15.2
-language: swift
-script: xcodebuild clean build test -project EssentialDeveloper/EssentialDeveloper.xcodeproj -scheme "CI" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
