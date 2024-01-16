@@ -21,9 +21,14 @@ final class EssentialFeedAPIEndToEndTests: XCTestCase {
         switch receivedResult {
         case .success(let items):
             XCTAssertEqual(items.count, 8, "Expected 8 items in the test account feed.")
-            items.enumerated().forEach { index, item in
-                XCTAssertEqual(item, expectedItem(at: index), "Unexpected item values at index \(index)")
-            }
+            XCTAssertEqual(items[0], expectedItem(at: 0))
+            XCTAssertEqual(items[1], expectedItem(at: 1))
+            XCTAssertEqual(items[2], expectedItem(at: 2))
+            XCTAssertEqual(items[3], expectedItem(at: 3))
+            XCTAssertEqual(items[4], expectedItem(at: 4))
+            XCTAssertEqual(items[5], expectedItem(at: 5))
+            XCTAssertEqual(items[6], expectedItem(at: 6))
+            XCTAssertEqual(items[7], expectedItem(at: 7))
             
         case .failure(let error):
             XCTFail("Expected successful feed result, got \(error) instead")
