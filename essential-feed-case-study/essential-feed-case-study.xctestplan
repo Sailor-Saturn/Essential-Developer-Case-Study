@@ -13,7 +13,8 @@
       "containerPath" : "container:essential-feed-case-study.xcodeproj",
       "identifier" : "0BCA0A022B4825D700CDB46D",
       "name" : "essential-feed-case-study"
-    }
+    },
+    "testExecutionOrdering" : "random"
   },
   "testTargets" : [
     {
