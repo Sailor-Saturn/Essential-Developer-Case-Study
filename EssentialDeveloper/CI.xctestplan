@@ -4,7 +4,8 @@
       "id" : "7283AEA2-2437-4CEA-9E39-63F17E56E5C7",
       "name" : "Test Scheme Action",
       "options" : {
-        "testExecutionOrdering" : "random"
+        "testExecutionOrdering" : "random",
+        "threadSanitizerEnabled" : true
       }
     }
   ],
