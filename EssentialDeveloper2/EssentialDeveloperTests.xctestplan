@@ -1,7 +1,7 @@
 {
   "configurations" : [
     {
-      "id" : "CBFE00C0-F599-4DF2-AF3C-68AE2ADCBB1F",
+      "id" : "CB35865D-902B-42A7-B938-B0132CB635BB",
       "name" : "Configuration 1",
       "options" : {
 
@@ -18,7 +18,8 @@
         }
       ]
     },
-    "testExecutionOrdering" : "random"
+    "testExecutionOrdering" : "random",
+    "threadSanitizerEnabled" : true
   },
   "testTargets" : [
     {
