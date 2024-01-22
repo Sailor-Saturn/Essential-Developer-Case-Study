@@ -1,7 +1,7 @@
 import Foundation
 import EssentialDeveloper
 
-internal class FeedStoreSpy: FeedStore {
+class FeedStoreSpy: FeedStore {
     enum ReceivedMessage: Equatable {
         case deleteCachedFeed
         case insert([LocalFeedImage], Date)

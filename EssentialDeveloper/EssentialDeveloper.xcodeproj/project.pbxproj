@@ -189,12 +189,20 @@
 			path = EssentialDeveloperAPIEndToEndTEsts;
 			sourceTree = "<group>";
 		};
+		0B7DF7322B5EC2EC00CB8787 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				0B7DF7302B5EC23B00CB8787 /* FeedStoreSpy.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		0B99F0FC2B5C1A3000730405 /* Feed Cache */ = {
 			isa = PBXGroup;
 			children = (
+				0B7DF7322B5EC2EC00CB8787 /* Helpers */,
 				0B99F0FD2B5C1A4E00730405 /* CacheFeedUseCaseTests.swift */,
 				0B7DF72E2B5EC1D900CB8787 /* LoadFeedFromCacheTests.swift */,
-				0B7DF7302B5EC23B00CB8787 /* FeedStoreSpy.swift */,
 			);
 			path = "Feed Cache";
 			sourceTree = "<group>";

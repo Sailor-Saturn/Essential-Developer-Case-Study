@@ -8,6 +8,7 @@ final class LoadFeedFromCacheTests: XCTestCase {
         
         XCTAssertEqual(store.receivedMessages, [])
     }
+
     private func makeSUT(
         currentDate: @escaping () -> Date = Date.init,
         file: StaticString = #file,
