@@ -77,7 +77,7 @@ final class ValidateFeedCacheUseCaseTests: XCTestCase {
         sut = nil
         store.completeRetrieval(with: anyNSError())
         
-        XCTAssertEqual(store.receivedMessages, [])
+        XCTAssertEqual(store.receivedMessages, [.retrieve])
     }
     
     private func makeSUT(
