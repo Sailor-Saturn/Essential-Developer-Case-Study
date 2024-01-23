@@ -1,22 +1,7 @@
 import Foundation
 
-private enum FeedCachePolicy {
-    private static let calendar = Calendar(identifier: .gregorian)
-    
-    private static var maxCacheAgeInDays: Int {
-        return 7
-    }
-    
-    static func validate(_ timestamp: Date, against currentDate: () -> Date) -> Bool {
-        guard let maxCacheAge = calendar.date(byAdding: .day, value: maxCacheAgeInDays, to: timestamp) else {
-            return false
-        }
-        
-        return currentDate() < maxCacheAge
-    }
-}
-
 public final class LocalFeedLoader {
+
     private let store: FeedStore
     private let currentDate: () -> Date
     
@@ -94,6 +79,7 @@ extension LocalFeedLoader: FeedLoader {
 }
 
 private extension Array where Element == FeedImage {
+
     func toLocal() -> [LocalFeedImage] {
         return map { LocalFeedImage(id: $0.id, description: $0.description, location: $0.location, url: $0.url)
             
@@ -102,6 +88,7 @@ private extension Array where Element == FeedImage {
 }
 
 private extension Array where Element == LocalFeedImage {
+
     func toModels() -> [FeedImage] {
         return map { FeedImage(id: $0.id, description: $0.description, location: $0.location, url: $0.url)
             
