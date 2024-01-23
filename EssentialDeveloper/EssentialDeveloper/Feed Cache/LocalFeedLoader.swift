@@ -37,18 +37,15 @@ public final class LocalFeedLoader {
             guard let self = self else {
                 return
             }
-
+            
             switch result {
             case let .failure(error):
                 completion(.failure(error))
-
+                
             case let .found(feed, timestamp) where self.validate(timestamp):
                 completion(.success(feed.toModels()))
-
-            case .found:
-                return completion(.success([]))
                 
-            case .empty:
+            case .found, .empty:
                 return completion(.success([]))
             }
         }
@@ -71,7 +68,7 @@ public final class LocalFeedLoader {
             guard let self = self else {
                 return
             }
-
+            
             switch result {
             case .failure:
                 store.deleteCachedFeed { _ in  }
