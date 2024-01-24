@@ -25,9 +25,28 @@ final class CodableFeedStoreTests: XCTestCase {
             case .empty:
                 break
             default:
-                XCTFail("Expected error got \(result) instead.")
+                XCTFail("Expected empty got \(result) instead.")
             }
             exp.fulfill()
+        }
+        
+        wait(for: [exp], timeout: 1.0)
+    }
+    
+    func test_retrieves_twice_hasNoSideEffects() {
+        let sut = CodableFeedStore()
+        let exp = expectation(description: "Wait for cache retrieval" )
+        
+        sut.retrieve { firstResult in
+            sut.retrieve { secondResult in
+                switch (firstResult, secondResult) {
+                case (.empty, .empty):
+                    break
+                default:
+                    XCTFail("Expected retrieving twice got \(firstResult) and \(secondResult) instead.")
+                }
+                exp.fulfill()
+            }
         }
         
         wait(for: [exp], timeout: 1.0)
