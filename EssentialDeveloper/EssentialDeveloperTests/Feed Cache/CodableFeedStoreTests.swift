@@ -62,6 +62,10 @@ class CodableFeedStore {
             completion(error)
         }
     }
+    
+    func delete() {
+        
+    }
 }
 
 final class CodableFeedStoreTests: XCTestCase {
@@ -152,6 +156,15 @@ final class CodableFeedStoreTests: XCTestCase {
         let insertionError = insert((feed, timestamp), to: sut)
         
         XCTAssertNotNil(insertionError, "Expected cache insertion to fail with an error.")
+    }
+    
+    func test_delete_hasNoSideEffects() {
+        let sut = makeSUT()
+        
+        sut.delete()
+        
+        expect(sut, toRetrieve: .empty)
+    }
         
     }
     
