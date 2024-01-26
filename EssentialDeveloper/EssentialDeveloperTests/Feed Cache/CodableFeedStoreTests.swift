@@ -1,40 +1,7 @@
 import XCTest
 import EssentialDeveloper
 
-protocol FeedStoreSpecs {
-    func test_retrieves_deliverEmptyOnEmptyCache()
-    func test_retrieves_twice_hasNoSideEffects()
-    func test_retrieve_deliversFoundValuesOnNonEmptyCache()
-    func test_retrieve_twice_hasNoSideEffectsOnNonEmptyCache()
-    
-    func test_insert_deliversNoErrorOnEmptyCache()
-    func test_insert_deliversNoErrorNonEmptyCache()
-    func test_insert_overridesPreviouslyInsertedCacheValues()
-    
-    func test_delete_deliversNoErrorOnEmptyCache()
-    func test_delete_hasNoSideEffectsOnEmptyCache()
-    func test_delete_deliversNoErrorOnNonEmptyCache()
-    func test_delete_emptiesPreviouslyInsertedCache()
-    
-    func test_storeSideEffects_RunSerially()
-}
-
-protocol FailableRetrieveSpecs {
-    func test_retrieve_twice_deliversFailureOnRetrievalError()
-    func test_retrieve_deliversFailureOnRetrievalError()
-}
-
-protocol FailableInsertSpecs {
-    func test_insert_deliversErrorOnInsertionError()
-    func test_insert_hasNoSideEffectsOnInsertionError()
-}
-
-protocol FailableDeleteSpecs {
-    func test_delete_deliversErrorOnDeletionError()
-    func test_delete_hasNoSideEffectsOnDeletionError()
-}
-
-final class CodableFeedStoreTests: XCTestCase {
+final class CodableFeedStoreTests: XCTestCase, FailableFeedStoreSpecs {
     override func setUp() {
         super.setUp()
         
@@ -111,7 +78,7 @@ final class CodableFeedStoreTests: XCTestCase {
         let feed = uniqueImageFeed().local
         let timestamp = Date()
         
-        let firstInsertionError = insert((feed,timestamp), to: sut)
+        insert((feed,timestamp), to: sut)
         
         let latestFeed = uniqueImageFeed().local
         let latestTimestamp = Date()
@@ -125,10 +92,10 @@ final class CodableFeedStoreTests: XCTestCase {
         let feed = uniqueImageFeed().local
         let timestamp = Date()
         
-        let firstInsertionError = insert((feed,timestamp), to: sut)
+        insert((feed,timestamp), to: sut)
         let latestFeed = uniqueImageFeed().local
         let latestTimestamp = Date()
-        let latestInsertionError = insert((latestFeed, latestTimestamp), to: sut)
+        insert((latestFeed, latestTimestamp), to: sut)
 
         expect(sut, toRetrieve: .found(feed: latestFeed, timestamp: latestTimestamp))
     }
@@ -177,7 +144,7 @@ final class CodableFeedStoreTests: XCTestCase {
         let feed = uniqueImageFeed().local
         let timestamp = Date()
         
-        let firstInsertionError = insert((feed,timestamp), to: sut)
+        insert((feed,timestamp), to: sut)
         
         let deletionError = deleteCache(to: sut)
         XCTAssertNil(deletionError, "Expected deletion on non empty cache with no side effects.")
