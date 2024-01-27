@@ -13,13 +13,13 @@ final class CoreDataFeedStore: FeedStore {
     }
     
     func deleteCachedFeed(completion: @escaping DeletionCompletion) {
-        completion(nil)
         let context = self.context
         context.perform {
             do {
                 try ManagedCache.findAndDestroy(in: context)
                 try context.save()
 
+                completion(nil)
             }catch {
                 completion(error)
             }
