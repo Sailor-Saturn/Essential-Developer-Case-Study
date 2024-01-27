@@ -255,13 +255,21 @@
 		0B99F0FF2B5E7A1700730405 /* Feed Cache */ = {
 			isa = PBXGroup;
 			children = (
+				0BB1A4F22B654860005E024E /* Codable */,
 				0B99F1002B5E7A2600730405 /* LocalFeedLoader.swift */,
 				0B99F1022B5E7A5800730405 /* FeedStore.swift */,
 				0B7DF72C2B5E95F600CB8787 /* LocalFeedImage.swift */,
 				0B9994132B601C7D00FCF210 /* FeedCachePolicy.swift */,
-				0B9994172B62B1C500FCF210 /* CodableFeedStore.swift */,
 			);
 			path = "Feed Cache";
+			sourceTree = "<group>";
+		};
+		0BB1A4F22B654860005E024E /* Codable */ = {
+			isa = PBXGroup;
+			children = (
+				0B9994172B62B1C500FCF210 /* CodableFeedStore.swift */,
+			);
+			path = Codable;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
