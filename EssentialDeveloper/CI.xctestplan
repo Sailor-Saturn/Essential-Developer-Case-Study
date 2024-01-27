@@ -34,6 +34,13 @@
         "identifier" : "0B68F2562B59301000C5E3F8",
         "name" : "EssentialDeveloperTests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:EssentialDeveloper.xcodeproj",
+        "identifier" : "0B93D8CC2B65555B009B5938",
+        "name" : "EssentialDeveloperCacheIntegrationTests"
+      }
     }
   ],
   "version" : 1
