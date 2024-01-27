@@ -20,6 +20,7 @@ final class CoreDataFeedStore: FeedStore {
         let context = self.context
         context.perform {
             do {
+                try ManagedCache.find(in: context).map(context.delete)
                 let managedCache = ManagedCache(context: context)
                 managedCache.timestamp = timestamp
                 managedCache.feed = ManagedFeedImage.images(from: feed, in: context)
@@ -159,11 +160,15 @@ class CoreDataFeedStoreTests: XCTestCase, FeedStoreSpecs {
     }
     
     func test_insert_deliversNoErrorNonEmptyCache() {
+        let sut = makeSUT()
         
+        assertThatInsertDeliversNoErrorOnNonEmptyCache(on: sut)
     }
     
     func test_insert_overridesPreviouslyInsertedCacheValues() {
+        let sut = makeSUT()
         
+        assertThatInsertOverridesPreviouslyInsertedCacheValues(on: sut)
     }
     
     func test_delete_deliversNoErrorOnEmptyCache() {
