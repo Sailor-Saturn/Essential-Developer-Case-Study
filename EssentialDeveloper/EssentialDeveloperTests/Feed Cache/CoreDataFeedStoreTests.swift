@@ -1,7 +1,5 @@
-import Foundation
 import XCTest
 import EssentialDeveloper
-import CoreData
 
 class CoreDataFeedStoreTests: XCTestCase, FailableFeedStoreSpecs {
     override func setUp() {
@@ -165,6 +163,17 @@ class CoreDataFeedStoreTests: XCTestCase, FailableFeedStoreSpecs {
         assertThatSideEffectsRunSerially(on: sut)
     }
     
+    func test_imageEntity_properties() throws {
+        let entity = try XCTUnwrap(
+            CoreDataFeedStore.model?.entitiesByName["ManagedFeedImage"]
+        )
+
+        entity.verify(attribute: "id", hasType: .UUIDAttributeType, isOptional: false)
+        entity.verify(attribute: "imageDescription", hasType: .stringAttributeType, isOptional: true)
+        entity.verify(attribute: "location", hasType: .stringAttributeType, isOptional: true)
+        entity.verify(attribute: "url", hasType: .URIAttributeType, isOptional: false)
+    }
+    
     private func makeSut(file: StaticString = #file, line: UInt = #line) throws -> FeedStore {
         let sut = try CoreDataFeedStore(storeURL: inMemoryStoreURL())
         trackForMemoryLeaks(sut, file: file, line: line)
@@ -174,5 +183,11 @@ class CoreDataFeedStoreTests: XCTestCase, FailableFeedStoreSpecs {
     private func inMemoryStoreURL() -> URL {
         URL(fileURLWithPath: "/dev/null")
             .appendingPathComponent("\(type(of: self)).store")
+    }
+}
+
+extension CoreDataFeedStore.ModelNotFound: CustomStringConvertible {
+    public var description: String {
+        "Core Data Model '\(modelName).xcdatamodeld' not found. You need to create it in the production target."
     }
 }
