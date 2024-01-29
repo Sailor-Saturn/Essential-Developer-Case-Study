@@ -9,7 +9,7 @@ public protocol FeedStore {
     typealias InsertionResult = Result<Void, Error>
     typealias InsertionCompletion = (InsertionResult) -> Void
     
-    typealias RetrievalResult = Swift.Result<CachedFeed?, Error>
+    typealias RetrievalResult = Result<CachedFeed?, Error>
     typealias RetrievalCompletion = (RetrievalResult) -> Void
 
     /// The completion handler can be invoked in any thread.
