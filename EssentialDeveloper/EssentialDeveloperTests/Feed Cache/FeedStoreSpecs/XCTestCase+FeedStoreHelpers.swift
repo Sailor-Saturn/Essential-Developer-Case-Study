@@ -34,27 +34,28 @@ extension XCTestCase {
     func insert(_ cache: (feed: [LocalFeedImage], timestamp: Date), to sut: FeedStore) -> Error? {
         let exp = expectation(description: "Wait for cache retrieval" )
         
-        var error: Error?
-        sut.insert(cache.feed, timestamp: cache.timestamp){ insertionError  in
-            error = insertionError
+        var insertionError: Error?
+        sut.insert(cache.feed, timestamp: cache.timestamp){ result  in
+            if case let Result.failure(error) = result { insertionError = error }
+            
             exp.fulfill()
         }
         
         wait(for: [exp], timeout: 1.0)
-        return error
+        return insertionError
     }
     
     @discardableResult
     func deleteCache(from sut: FeedStore) -> Error? {
         let exp = expectation(description: "Wait for deletion on empty cache.")
         
-        var error: Error?
-        sut.deleteCachedFeed { deletionError in
-            error = deletionError
+        var deletionError: Error?
+        sut.deleteCachedFeed { result in
+            if case let Result.failure(error) = result { deletionError = error }
             exp.fulfill()
         }
         
         wait(for: [exp], timeout: 1.0)
-        return error
+        return deletionError
     }
 }
