@@ -108,7 +108,7 @@ extension FeedStoreSpecs where Self: XCTestCase {
     }
 }
 
-extension FeedStoreSpecs where Self: XCTestCase {
+extension XCTestCase {
     func expect(_ sut: FeedStore, toRetrieve expectedResult: RetrieveCachedFeedResult, file: StaticString = #file, line: UInt = #line) {
         let exp = expectation(description: "Wait for cache retrieval")
         
