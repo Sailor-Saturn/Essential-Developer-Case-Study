@@ -136,7 +136,7 @@ class CoreDataFeedStoreTests: XCTestCase, FailableFeedStoreSpecs {
 
         deleteCache(from: sut)
 
-        expect(sut, toRetrieve: .found(feed: feed, timestamp: timestamp))
+        expect(sut, toRetrieve: .success(.found(feed: feed, timestamp: timestamp)))
     }
     
     func test_delete_removesAllObjects() throws {
