@@ -79,9 +79,13 @@ class CoreDataFeedStoreTests: XCTestCase, FailableFeedStoreSpecs {
     }
     
     func test_insert_hasNoSideEffectsOnInsertionError() throws {
-        
+        let stub = NSManagedObjectContext.alwaysFailingSaveStub()
+        stub.startIntercepting()
+
+        let sut = try makeSut()
+
+        assertThatInsertHasNoSideEffectsOnInsertionError(on: sut)
     }
-    
     
     func test_delete_deliversNoErrorOnEmptyCache() throws  {
         let sut = try makeSut()
