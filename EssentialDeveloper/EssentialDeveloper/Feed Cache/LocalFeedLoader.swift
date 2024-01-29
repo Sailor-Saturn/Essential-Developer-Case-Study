@@ -49,7 +49,7 @@ extension LocalFeedLoader: FeedLoader {
             case let .failure(error):
                 completion(.failure(error))
                 
-            case let .found(feed, timestamp) where FeedCachePolicy.validate(timestamp, against: currentDate):
+            case let .found(feed, timestamp) where FeedCachePolicy.validate(timestamp, against: self.currentDate):
                 completion(.success(feed.toModels()))
                 
             case .found, .empty:
@@ -66,10 +66,10 @@ extension LocalFeedLoader: FeedLoader {
             
             switch result {
             case .failure:
-                store.deleteCachedFeed { _ in  }
+                self.store.deleteCachedFeed { _ in  }
                 
-            case let .found(_, timestamp ) where !FeedCachePolicy.validate(timestamp, against: currentDate):
-                store.deleteCachedFeed { _ in  }
+            case let .found(_, timestamp ) where !FeedCachePolicy.validate(timestamp, against: self.currentDate):
+                self.store.deleteCachedFeed { _ in  }
                 
             case .empty, .found:
                 break
@@ -80,9 +80,7 @@ extension LocalFeedLoader: FeedLoader {
 
 private extension Array where Element == FeedImage {
     func toLocal() -> [LocalFeedImage] {
-        return map { LocalFeedImage(id: $0.id, description: $0.description, location: $0.location, url: $0.url)
-            
-        }
+        return map { LocalFeedImage(id: $0.id, description: $0.description, location: $0.location, url: $0.url)}
     }
 }
 
