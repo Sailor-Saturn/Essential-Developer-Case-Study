@@ -9,7 +9,7 @@ class CoreDataFeedStoreTests: XCTestCase, FeedStoreSpecs {
         
     }
     
-    func test_retrieves_deliverEmptyOnEmptyCache() {
+    func test_retrieves_deliversEmptyOnEmptyCache() {
         let sut = makeSUT()
         
         assertThatRetrieveDeliversEmptyOnEmptyCache(on: sut)

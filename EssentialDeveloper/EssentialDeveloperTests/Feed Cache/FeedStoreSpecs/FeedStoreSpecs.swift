@@ -1,5 +1,5 @@
 protocol FeedStoreSpecs {
-    func test_retrieves_deliverEmptyOnEmptyCache()
+    func test_retrieves_deliversEmptyOnEmptyCache()
     func test_retrieves_twice_hasNoSideEffects()
     func test_retrieve_deliversFoundValuesOnNonEmptyCache()
     func test_retrieve_twice_hasNoSideEffectsOnNonEmptyCache()
