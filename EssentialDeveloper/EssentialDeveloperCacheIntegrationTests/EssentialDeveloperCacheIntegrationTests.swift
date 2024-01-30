@@ -18,7 +18,7 @@ final class EssentialDeveloperCacheIntegrationTests: XCTestCase {
     func test_retrieve_deliversEmptyOnEmptyCache() throws {
         let sut = try makeSUT()
 
-        expect(sut, toRetrieve: .empty)
+        expect(sut, toRetrieve: .success(.none))
     }
     
     func test_retrieve_deliversFeedInsertedOnAnotherInstance() throws {
@@ -29,7 +29,7 @@ final class EssentialDeveloperCacheIntegrationTests: XCTestCase {
 
         insert((feed, timestamp), to: storeToInsert)
 
-        expect(storeToLoad, toRetrieve: .found(feed: feed, timestamp: timestamp))
+        expect(storeToLoad, toRetrieve: .success(CachedFeed(feed: feed, timestamp: timestamp)))
     }
     
     func test_insert_overridesFeedInsertedOnAnotherInstance() throws {
@@ -43,7 +43,7 @@ final class EssentialDeveloperCacheIntegrationTests: XCTestCase {
         let latestTimestamp = Date()
         insert((latestFeed, latestTimestamp), to: storeToOverride)
 
-        expect(storeToLoad, toRetrieve: .found(feed: latestFeed, timestamp: latestTimestamp))
+        expect(storeToLoad, toRetrieve:  .success(CachedFeed(feed: latestFeed, timestamp: latestTimestamp)))
     }
     
     func test_delete_deletesFeedInsertedOnAnotherInstance() throws {
@@ -55,7 +55,7 @@ final class EssentialDeveloperCacheIntegrationTests: XCTestCase {
 
         deleteCache(from: storeToDelete)
 
-        expect(storeToLoad, toRetrieve: .empty)
+        expect(storeToLoad, toRetrieve: .success(.none))
     }
     
     // MARK: Helpers
