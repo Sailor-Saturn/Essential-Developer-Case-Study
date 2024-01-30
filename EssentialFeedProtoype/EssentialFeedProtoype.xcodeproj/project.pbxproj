@@ -12,6 +12,7 @@
 		0BB43E102B69235F00973C6F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BB43E0E2B69235F00973C6F /* Main.storyboard */; };
 		0BB43E122B69236000973C6F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0BB43E112B69236000973C6F /* Assets.xcassets */; };
 		0BB43E152B69236000973C6F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BB43E132B69236000973C6F /* LaunchScreen.storyboard */; };
+		0BB43E1D2B694EE000973C6F /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB43E1C2B694EDF00973C6F /* FeedViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		0BB43E112B69236000973C6F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0BB43E142B69236000973C6F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0BB43E162B69236000973C6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0BB43E1C2B694EDF00973C6F /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 				0BB43E112B69236000973C6F /* Assets.xcassets */,
 				0BB43E132B69236000973C6F /* LaunchScreen.storyboard */,
 				0BB43E162B69236000973C6F /* Info.plist */,
+				0BB43E1C2B694EDF00973C6F /* FeedViewController.swift */,
 			);
 			path = EssentialFeedProtoype;
 			sourceTree = "<group>";
@@ -136,6 +139,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0BB43E092B69235F00973C6F /* AppDelegate.swift in Sources */,
+				0BB43E1D2B694EE000973C6F /* FeedViewController.swift in Sources */,
 				0BB43E0B2B69235F00973C6F /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
