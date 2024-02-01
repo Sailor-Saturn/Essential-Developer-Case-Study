@@ -125,6 +125,7 @@
 		0BB43DF52B67CEFF00973C6F /* NSManagedObjectContext+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Helper.swift"; sourceTree = "<group>"; };
 		0BB43DF72B67D06900973C6F /* NSEntityDescription+Assertions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSEntityDescription+Assertions.swift"; sourceTree = "<group>"; };
 		0BB43DF92B67D39C00973C6F /* XCTestCase+FeedStoreHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+FeedStoreHelpers.swift"; sourceTree = "<group>"; };
+		0BB43E222B6BA16A00973C6F /* EssentialDeveloperAPIEndToEndTEsts.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = EssentialDeveloperAPIEndToEndTEsts.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +166,7 @@
 		0B68F2452B59301000C5E3F8 = {
 			isa = PBXGroup;
 			children = (
+				0BB43E222B6BA16A00973C6F /* EssentialDeveloperAPIEndToEndTEsts.xctestplan */,
 				0B93D8D72B65557B009B5938 /* EssentialDeveloperCacheIntegrationTests.xctestplan */,
 				0B68F2932B59348000C5E3F8 /* CI.xctestplan */,
 				0B68F2512B59301000C5E3F8 /* EssentialDeveloper */,
@@ -834,7 +836,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "Sailor-Saturn.EssentialDeveloperAPIEndToEndTEsts";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTED_PLATFORMS = macosx;
+				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 			};
@@ -851,7 +853,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "Sailor-Saturn.EssentialDeveloperAPIEndToEndTEsts";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTED_PLATFORMS = macosx;
+				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 			};
