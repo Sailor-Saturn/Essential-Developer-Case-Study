@@ -141,6 +141,7 @@
 		0BB43E2F2B6BA31800973C6F /* EssentialDeveloperiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EssentialDeveloperiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BB43E342B6BA31800973C6F /* EssentialDeveloperiOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialDeveloperiOSTests.swift; sourceTree = "<group>"; };
 		0BB43E3D2B6BA35800973C6F /* EssentialDeveloperiOS.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = EssentialDeveloperiOS.xctestplan; sourceTree = "<group>"; };
+		0BB43E3E2B6BA48E00973C6F /* CI_iOS.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = CI_iOS.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +197,7 @@
 		0B68F2452B59301000C5E3F8 = {
 			isa = PBXGroup;
 			children = (
+				0BB43E3E2B6BA48E00973C6F /* CI_iOS.xctestplan */,
 				0BB43E3D2B6BA35800973C6F /* EssentialDeveloperiOS.xctestplan */,
 				0BB43E222B6BA16A00973C6F /* EssentialDeveloperAPIEndToEndTEsts.xctestplan */,
 				0B93D8D72B65557B009B5938 /* EssentialDeveloperCacheIntegrationTests.xctestplan */,
