@@ -44,14 +44,14 @@ final class FeedViewControllerTests: XCTestCase {
     func test_viewDidLoad_loadsFeed() {
         let (sut, loader) = makeSUT()
         
-        sut.simulateAppearance()
+        sut.simulateUserInitiatedFeedReload()
         
         XCTAssertEqual(loader.loadCallCount, 1)
     }
     
-    func test_pullToRefresh_loadsFeed () {
+    func test_userInitiatedFeedReload_reloadsFeed () {
         let (sut, loader) = makeSUT()
-        sut.simulateAppearance()
+        sut.simulateUserInitiatedFeedReload()
         
         sut.refreshControl?.simulatePullToRefresh()
         
@@ -65,7 +65,7 @@ final class FeedViewControllerTests: XCTestCase {
     func test_viewDidLoad_showsLoadingIndicator() {
         let (sut, loader) = makeSUT()
         
-        sut.simulateAppearance()
+        sut.simulateUserInitiatedFeedReload()
         
         XCTAssertEqual(sut.refreshControl?.isRefreshing, true)
     }
@@ -73,24 +73,24 @@ final class FeedViewControllerTests: XCTestCase {
     func test_viewDidLoad_hidesLoadingIndicatorOnLoaderCompletion () {
         let (sut, loader) = makeSUT()
         
-        sut.simulateAppearance()
+        sut.simulateUserInitiatedFeedReload()
         loader.completeFeedLoading()
         
         XCTAssertEqual(sut.refreshControl?.isRefreshing, false)
     }
     
-    func test_pullToRefresh_showsLoadingIndicator() {
+    func test_userInitiatedFeedReload_showsLoadingIndicator() {
         let (sut, _) = makeSUT()
         
-        sut.simulateAppearance()
+        sut.simulateUserInitiatedFeedReload()
         
         XCTAssertEqual(sut.refreshControl?.isRefreshing, true)
     }
 
-    func test_pullToRefresh_hidesLoadingIndicatorOnLoaderCompletion() {
+    func test_userInitiatedFeedReload_hidesLoadingIndicatorOnLoaderCompletion() {
         let (sut, loader) = makeSUT()
         
-        sut.simulateAppearance()
+        sut.simulateUserInitiatedFeedReload()
         loader.completeFeedLoading()
         
         XCTAssertEqual(sut.refreshControl?.isRefreshing, false)
@@ -126,7 +126,7 @@ final class FeedViewControllerTests: XCTestCase {
 
 extension UITableViewController {
     
-    func simulateAppearance() {
+    func simulateUserInitiatedFeedReload() {
         if !isViewLoaded {
             loadViewIfNeeded()
             prepareForFirstAppearance()
