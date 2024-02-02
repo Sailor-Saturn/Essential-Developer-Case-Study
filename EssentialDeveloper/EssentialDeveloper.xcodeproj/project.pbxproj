@@ -59,6 +59,7 @@
 		0BB43E432B6BB97F00973C6F /* EssentialDeveloper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0B68F24F2B59301000C5E3F8 /* EssentialDeveloper.framework */; platformFilters = (macos, ); settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0BB43E472B6BBA6D00973C6F /* XCTestCase+MemoryLeakTrackingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B68F2792B5930E600C5E3F8 /* XCTestCase+MemoryLeakTrackingHelper.swift */; };
 		0BB43E492B6BCBDD00973C6F /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB43E482B6BCBDD00973C6F /* FeedViewController.swift */; };
+		0BB43E4B2B6D115700973C6F /* FeedImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB43E4A2B6D115700973C6F /* FeedImageCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -166,6 +167,7 @@
 		0BB43E3E2B6BA48E00973C6F /* CI_iOS.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = CI_iOS.xctestplan; sourceTree = "<group>"; };
 		0BB43E3F2B6BB5CC00973C6F /* FeedViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewControllerTests.swift; sourceTree = "<group>"; };
 		0BB43E482B6BCBDD00973C6F /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
+		0BB43E4A2B6D115700973C6F /* FeedImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -410,6 +412,7 @@
 			isa = PBXGroup;
 			children = (
 				0BB43E482B6BCBDD00973C6F /* FeedViewController.swift */,
+				0BB43E4A2B6D115700973C6F /* FeedImageCell.swift */,
 			);
 			path = EssentialDeveloperiOS;
 			sourceTree = "<group>";
@@ -737,6 +740,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0BB43E492B6BCBDD00973C6F /* FeedViewController.swift in Sources */,
+				0BB43E4B2B6D115700973C6F /* FeedImageCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
