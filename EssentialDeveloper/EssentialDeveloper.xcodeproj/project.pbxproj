@@ -68,6 +68,7 @@
 		0BB43E5B2B6E300600973C6F /* UIControl+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB43E5A2B6E300600973C6F /* UIControl+TestHelpers.swift */; };
 		0BB43E5D2B6E30BD00973C6F /* FeedViewController+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB43E5C2B6E30BD00973C6F /* FeedViewController+TestHelpers.swift */; };
 		0BB43E5F2B6E312300973C6F /* FeedImage+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB43E5E2B6E312300973C6F /* FeedImage+TestHelpers.swift */; };
+		0BB43E632B6E323800973C6F /* FeedViewControllerTests+LoaderSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB43E622B6E323800973C6F /* FeedViewControllerTests+LoaderSpy.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -183,6 +184,7 @@
 		0BB43E5A2B6E300600973C6F /* UIControl+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+TestHelpers.swift"; sourceTree = "<group>"; };
 		0BB43E5C2B6E30BD00973C6F /* FeedViewController+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedViewController+TestHelpers.swift"; sourceTree = "<group>"; };
 		0BB43E5E2B6E312300973C6F /* FeedImage+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedImage+TestHelpers.swift"; sourceTree = "<group>"; };
+		0BB43E622B6E323800973C6F /* FeedViewControllerTests+LoaderSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedViewControllerTests+LoaderSpy.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -490,6 +492,7 @@
 				0BB43E5A2B6E300600973C6F /* UIControl+TestHelpers.swift */,
 				0BB43E5C2B6E30BD00973C6F /* FeedViewController+TestHelpers.swift */,
 				0BB43E5E2B6E312300973C6F /* FeedImage+TestHelpers.swift */,
+				0BB43E622B6E323800973C6F /* FeedViewControllerTests+LoaderSpy.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -813,6 +816,7 @@
 			files = (
 				0BB43E5D2B6E30BD00973C6F /* FeedViewController+TestHelpers.swift in Sources */,
 				0BB43E572B6E2F0F00973C6F /* UIRefreshControl+TestHelper.swift in Sources */,
+				0BB43E632B6E323800973C6F /* FeedViewControllerTests+LoaderSpy.swift in Sources */,
 				0BB43E5B2B6E300600973C6F /* UIControl+TestHelpers.swift in Sources */,
 				0BB43E4E2B6D363600973C6F /* SharedTestsHelpers.swift in Sources */,
 				0BB43E5F2B6E312300973C6F /* FeedImage+TestHelpers.swift in Sources */,
