@@ -72,6 +72,7 @@
 		0BB43E652B6E32B200973C6F /* FeedViewControllerTests+Assertions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB43E642B6E32B200973C6F /* FeedViewControllerTests+Assertions.swift */; };
 		0BB43E672B6E347800973C6F /* UITableViewController+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB43E662B6E347800973C6F /* UITableViewController+Helpers.swift */; };
 		0BB43E692B6E34BD00973C6F /* UIRefreshControl+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB43E682B6E34BD00973C6F /* UIRefreshControl+Fake.swift */; };
+		0BB43E6B2B6E352F00973C6F /* FeedImageDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB43E6A2B6E352F00973C6F /* FeedImageDataLoader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -191,6 +192,7 @@
 		0BB43E642B6E32B200973C6F /* FeedViewControllerTests+Assertions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedViewControllerTests+Assertions.swift"; sourceTree = "<group>"; };
 		0BB43E662B6E347800973C6F /* UITableViewController+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewController+Helpers.swift"; sourceTree = "<group>"; };
 		0BB43E682B6E34BD00973C6F /* UIRefreshControl+Fake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIRefreshControl+Fake.swift"; sourceTree = "<group>"; };
+		0BB43E6A2B6E352F00973C6F /* FeedImageDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageDataLoader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -485,6 +487,7 @@
 		0BB43E522B6E2E8000973C6F /* Feed Image Loader */ = {
 			isa = PBXGroup;
 			children = (
+				0BB43E6A2B6E352F00973C6F /* FeedImageDataLoader.swift */,
 			);
 			path = "Feed Image Loader";
 			sourceTree = "<group>";
@@ -813,6 +816,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BB43E6B2B6E352F00973C6F /* FeedImageDataLoader.swift in Sources */,
 				0BB43E4D2B6D344400973C6F /* UIView+Shimmering.swift in Sources */,
 				0BB43E492B6BCBDD00973C6F /* FeedViewController.swift in Sources */,
 				0BB43E4B2B6D115700973C6F /* FeedImageCell.swift in Sources */,
