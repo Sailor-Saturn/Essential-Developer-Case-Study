@@ -1,5 +1,4 @@
 import UIKit
-import EssentialDeveloper
 
 public final class FeedViewController: UITableViewController, UITableViewDataSourcePrefetching {
     
