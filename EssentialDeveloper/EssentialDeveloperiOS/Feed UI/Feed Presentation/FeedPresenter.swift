@@ -5,7 +5,7 @@ struct FeedLoadingViewModel {
 }
 
 protocol FeedLoadingView {
-    func display(viewModel: FeedLoadingViewModel)
+    func display(_ viewModel: FeedLoadingViewModel)
 }
 
 struct FeedViewModel {
@@ -13,7 +13,7 @@ struct FeedViewModel {
 }
 
 protocol FeedView {
-    func display(viewModel: FeedViewModel)
+    func display(_ viewModel: FeedViewModel)
 }
 
 final class FeedPresenter {
@@ -26,15 +26,15 @@ final class FeedPresenter {
     }
     
     func didStartLoadingFeed() {
-        loadingView.display(viewModel: FeedLoadingViewModel(isLoading: true))
+        loadingView.display(FeedLoadingViewModel(isLoading: true))
     }
     
     func didFinishLoadingFeed(with feed: [FeedImage]) {
-        feedView.display(viewModel: FeedViewModel(feed: feed))
-        loadingView.display(viewModel: FeedLoadingViewModel(isLoading: false))
+        feedView.display(FeedViewModel(feed: feed))
+        loadingView.display(FeedLoadingViewModel(isLoading: false))
     }
     
     func didFinishLoadingFeed(with error: Error) {
-        loadingView.display(viewModel: FeedLoadingViewModel(isLoading: false))
+        loadingView.display(FeedLoadingViewModel(isLoading: false))
     }
 }
