@@ -727,6 +727,7 @@
 				en,
 				Base,
 				"pt-BR",
+				el,
 			);
 			mainGroup = 0B68F2452B59301000C5E3F8;
 			productRefGroup = 0B68F2502B59301000C5E3F8 /* Products */;

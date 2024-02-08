@@ -4,6 +4,12 @@
     "FEED_VIEW_TITLE" : {
       "extractionState" : "manual",
       "localizations" : {
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Το Feed μου"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
