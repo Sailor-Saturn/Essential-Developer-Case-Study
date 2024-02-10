@@ -83,5 +83,9 @@ extension FeedViewController {
         
         refreshControl = fakeRefreshControl
     }
+    
+    var errorMessage: String? {
+        return errorView?.message
+    }
 }
 

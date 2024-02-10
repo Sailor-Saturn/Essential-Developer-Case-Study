@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B164E022B77CD6D00EE148F /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B164E012B77CD6D00EE148F /* ErrorView.swift */; };
 		0B4F23E22B70E6070058E66E /* FeedUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4F23E12B70E6070058E66E /* FeedUIComposer.swift */; };
 		0B68F2582B59301000C5E3F8 /* EssentialDeveloper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B68F24F2B59301000C5E3F8 /* EssentialDeveloper.framework */; };
 		0B68F25E2B59301000C5E3F8 /* EssentialDeveloper.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B68F2522B59301000C5E3F8 /* EssentialDeveloper.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -140,6 +141,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0B164E012B77CD6D00EE148F /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		0B4F23E12B70E6070058E66E /* FeedUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedUIComposer.swift; sourceTree = "<group>"; };
 		0B68F24F2B59301000C5E3F8 /* EssentialDeveloper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EssentialDeveloper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B68F2522B59301000C5E3F8 /* EssentialDeveloper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EssentialDeveloper.h; sourceTree = "<group>"; };
@@ -548,6 +550,7 @@
 				0BA4E1852B73CD1400DC35BE /* Feed.storyboard */,
 				0BA4E1872B73CD8B00DC35BE /* Feed.xcassets */,
 				0BA4E18B2B74D80900DC35BE /* UIImageView+Animations.swift */,
+				0B164E012B77CD6D00EE148F /* ErrorView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -900,6 +903,7 @@
 				0B4F23E22B70E6070058E66E /* FeedUIComposer.swift in Sources */,
 				0BD157CB2B7242EF00687F56 /* FeedImageViewModel.swift in Sources */,
 				0BA4E18A2B74D6BB00DC35BE /* UITableView+DequeueReusable.swift in Sources */,
+				0B164E022B77CD6D00EE148F /* ErrorView.swift in Sources */,
 				0BA4E18C2B74D80900DC35BE /* UIImageView+Animations.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
