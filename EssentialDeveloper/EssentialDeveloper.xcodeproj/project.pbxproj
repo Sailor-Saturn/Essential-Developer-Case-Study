@@ -217,6 +217,7 @@
 		0BB43E682B6E34BD00973C6F /* UIRefreshControl+Fake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIRefreshControl+Fake.swift"; sourceTree = "<group>"; };
 		0BB43E6A2B6E352F00973C6F /* FeedImageDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageDataLoader.swift; sourceTree = "<group>"; };
 		0BB43E6E2B6E6C4E00973C6F /* FeedImageCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageCellController.swift; sourceTree = "<group>"; };
+		0BC9B43D2B7A4DED00955B48 /* viewIsAppearing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = viewIsAppearing.h; sourceTree = "<group>"; };
 		0BD157CA2B7242EF00687F56 /* FeedImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageViewModel.swift; sourceTree = "<group>"; };
 		0BD157CC2B72845100687F56 /* FeedPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -537,6 +538,7 @@
 			children = (
 				0BB43E482B6BCBDD00973C6F /* FeedViewController.swift */,
 				0BB43E6E2B6E6C4E00973C6F /* FeedImageCellController.swift */,
+				0BC9B43D2B7A4DED00955B48 /* viewIsAppearing.h */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1296,6 +1298,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/EssentialDeveloperiOS/Feed\\ UI/Controllers/viewIsAppearing.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1337,6 +1340,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/EssentialDeveloperiOS/Feed\\ UI/Controllers/viewIsAppearing.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
