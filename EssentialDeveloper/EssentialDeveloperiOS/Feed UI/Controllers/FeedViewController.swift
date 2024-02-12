@@ -6,7 +6,7 @@ protocol FeedViewControllerDelegate {
 
 public final class FeedViewController: UITableViewController, UITableViewDataSourcePrefetching, FeedLoadingView, FeedErrorView {
     var delegate: FeedViewControllerDelegate?
-    private var onViewIsAppearing: ((FeedViewController) -> Void)?
+    private var onViewIsAppearing: (() -> Void)?
     
     @IBOutlet private(set) public var errorView: ErrorView?
     
@@ -17,8 +17,8 @@ public final class FeedViewController: UITableViewController, UITableViewDataSou
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        onViewIsAppearing = { [weak self] vc in
-            vc.onViewIsAppearing = nil
+        onViewIsAppearing = { [weak self]  in
+            self?.onViewIsAppearing = nil
             self?.refresh()
         }
     }
@@ -41,7 +41,7 @@ public final class FeedViewController: UITableViewController, UITableViewDataSou
     
     public override func viewIsAppearing(_ animated: Bool) {
         super.viewIsAppearing(animated)
-        onViewIsAppearing?(self)
+        onViewIsAppearing?()
     }
     
     public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
