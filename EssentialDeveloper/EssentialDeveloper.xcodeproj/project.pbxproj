@@ -500,7 +500,7 @@
 		0BB43E292B6BA31800973C6F /* EssentialDeveloperiOS */ = {
 			isa = PBXGroup;
 			children = (
-				0BB43E4F2B6E2E5100973C6F /* Feed UI */,
+				0BB43E4F2B6E2E5100973C6F /* FeedUI */,
 			);
 			path = EssentialDeveloperiOS;
 			sourceTree = "<group>";
@@ -521,7 +521,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		0BB43E4F2B6E2E5100973C6F /* Feed UI */ = {
+		0BB43E4F2B6E2E5100973C6F /* FeedUI */ = {
 			isa = PBXGroup;
 			children = (
 				0BB43E502B6E2E5900973C6F /* Controllers */,
@@ -530,7 +530,7 @@
 				0BB43E522B6E2E8000973C6F /* Feed Image Loader */,
 				0BB43E512B6E2E6600973C6F /* Views */,
 			);
-			path = "Feed UI";
+			path = FeedUI;
 			sourceTree = "<group>";
 		};
 		0BB43E502B6E2E5900973C6F /* Controllers */ = {
@@ -1298,7 +1298,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/EssentialDeveloperiOS/Feed\\ UI/Controllers/viewIsAppearing.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/EssentialDeveloperiOS/FeedUI/Controllers/viewIsAppearing.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1340,7 +1340,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/EssentialDeveloperiOS/Feed\\ UI/Controllers/viewIsAppearing.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/EssentialDeveloperiOS/FeedUI/Controllers/viewIsAppearing.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
