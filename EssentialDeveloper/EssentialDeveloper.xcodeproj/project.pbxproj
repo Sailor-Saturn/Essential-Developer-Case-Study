@@ -52,7 +52,7 @@
 		0B99F1012B5E7A2600730405 /* LocalFeedLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B99F1002B5E7A2600730405 /* LocalFeedLoader.swift */; };
 		0B99F1032B5E7A5800730405 /* FeedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B99F1022B5E7A5800730405 /* FeedStore.swift */; };
 		0BA4E1812B73966B00DC35BE /* FeedImagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA4E1802B73966B00DC35BE /* FeedImagePresenter.swift */; };
-		0BA4E1822B73A6A600DC35BE /* EssentialDeveloper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B68F24F2B59301000C5E3F8 /* EssentialDeveloper.framework */; platformFilters = (macos, ); };
+		0BA4E1822B73A6A600DC35BE /* EssentialDeveloper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B68F24F2B59301000C5E3F8 /* EssentialDeveloper.framework */; platformFilters = (ios, macos, ); };
 		0BA4E1862B73CD1400DC35BE /* Feed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BA4E1852B73CD1400DC35BE /* Feed.storyboard */; };
 		0BA4E1882B73CD8B00DC35BE /* Feed.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0BA4E1872B73CD8B00DC35BE /* Feed.xcassets */; };
 		0BA4E18A2B74D6BB00DC35BE /* UITableView+DequeueReusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA4E1892B74D6BB00DC35BE /* UITableView+DequeueReusable.swift */; };
@@ -939,6 +939,7 @@
 		0BB43E452B6BB97F00973C6F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			platformFilters = (
+				ios,
 				macos,
 			);
 			target = 0B68F24E2B59301000C5E3F8 /* EssentialDeveloper */;
@@ -1245,6 +1246,7 @@
 		0BB43E382B6BA31800973C6F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1254,6 +1256,8 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_MODULE_VERIFIER = YES;
+				EXCLUDED_ARCHS = "";
+				"EXCLUDED_ARCHS[sdk=*]" = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1284,6 +1288,7 @@
 		0BB43E392B6BA31800973C6F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1293,6 +1298,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_MODULE_VERIFIER = YES;
+				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1323,6 +1329,7 @@
 		0BB43E3B2B6BA31800973C6F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1348,6 +1355,7 @@
 		0BB43E3C2B6BA31800973C6F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
