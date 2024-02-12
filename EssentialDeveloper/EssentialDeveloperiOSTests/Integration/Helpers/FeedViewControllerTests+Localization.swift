@@ -4,8 +4,8 @@ import EssentialDeveloperiOS
 
 extension FeedUIIntegrationTests {
     func localized(_ key: String, file: StaticString = #file, line: UInt = #line) -> String {
-        let table = "FeedTests"
-        let bundle = Bundle(for: FeedUIIntegrationTests.self)
+        let table = "Feed"
+        let bundle = Bundle(for: FeedPresenter.self)
         let value = bundle.localizedString(forKey: key, value: nil, table: table)
         
         if value == key {
