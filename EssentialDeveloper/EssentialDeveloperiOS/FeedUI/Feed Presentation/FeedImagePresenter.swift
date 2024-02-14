@@ -1,6 +1,5 @@
 import Foundation
 import EssentialDeveloper
-import Foundation
 
 protocol FeedImageView {
     associatedtype Image

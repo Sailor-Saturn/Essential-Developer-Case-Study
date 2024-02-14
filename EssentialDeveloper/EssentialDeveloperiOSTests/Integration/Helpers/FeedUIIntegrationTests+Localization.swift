@@ -1,6 +1,6 @@
 import Foundation
 import XCTest
-import EssentialDeveloperiOS
+import EssentialDeveloper
 
 extension FeedUIIntegrationTests {
     func localized(_ key: String, file: StaticString = #file, line: UInt = #line) -> String {
