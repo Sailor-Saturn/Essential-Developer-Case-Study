@@ -1,54 +1,6 @@
 import XCTest
 import EssentialDeveloper
 
-
-
-protocol FeedImageView {
-    associatedtype Image: Equatable
-    
-    func display(_ model: FeedImageViewModel<Image>)
-}
-
-final class FeedImagePresenter<View: FeedImageView, Image> where View.Image == Image, Image: Equatable {
-    private let view: View
-    private let imageTransformer: (Data) -> Image?
-    
-    init(view: View,  imageTransformer: @escaping (Data) -> Image?) {
-        self.view = view
-        self.imageTransformer = imageTransformer
-    }
-    
-    struct InvalidImageDataError: Error, Equatable {}
-    
-    func didStartLoadingImageData(for model: FeedImage) {
-        view.display(FeedImageViewModel(
-            description: model.description,
-            location: model.location,
-            image: nil,
-            isLoading: true,
-            shouldRetry: false))
-    }
-    
-    func didFinishLoadingImageData(with data: Data, for model: FeedImage) {
-        guard let image = imageTransformer(data) else {
-            return didFinishLoadingImageData(with: InvalidImageDataError(), for: model)
-        }
-        
-        return  view.display(FeedImageViewModel(
-            description: model.description,
-            location: model.location,
-            image: image,
-            isLoading: false,
-            shouldRetry: false)
-        )
-    }
-    
-    func didFinishLoadingImageData(with error: Error, for model: FeedImage) {
-        return view.display(FeedImageViewModel(description: model.description, location: model.location, image: nil, isLoading: false, shouldRetry: true))
-    }
-    
-}
-
 final class FeedImagePresenterTests: XCTestCase {
     
     func test_init_doesNotSendMessagesToView() {
@@ -92,9 +44,7 @@ final class FeedImagePresenterTests: XCTestCase {
         let transformedData = AnyImage()
         let (sut, view) = makeSUT(imageTransformer: { _ in transformedData })
         
-        
         sut.didFinishLoadingImageData(with: anyData(), for: image)
-        
         
         let message = view.messages.first
         XCTAssertEqual(view.messages.count, 1)
