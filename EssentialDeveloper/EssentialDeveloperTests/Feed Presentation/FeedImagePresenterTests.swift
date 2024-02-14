@@ -26,6 +26,8 @@ final class FeedImagePresenter<View: FeedImageView, Image> where View.Image == I
         self.view = view
     }
     
+    struct InvalidImageDataError: Error, Equatable {}
+    
     func didStartLoadingImageData(for model: FeedImage) {
         view.display(FeedImageViewModel(
             description: model.description,
@@ -34,6 +36,15 @@ final class FeedImagePresenter<View: FeedImageView, Image> where View.Image == I
             isLoading: true,
             shouldRetry: false))
     }
+    
+    func didFinishLoadingImageData(with data: Data, for model: FeedImage) {
+        return didFinishLoadingImageData(with: InvalidImageDataError(), for: model)
+    }
+    
+    private func didFinishLoadingImageData(with error: Error, for model: FeedImage) {
+        return view.display(FeedImageViewModel(description: model.description, location: model.location, image: nil, isLoading: false, shouldRetry: true))
+    }
+        
 }
 
 final class FeedImagePresenterTests: XCTestCase {
@@ -44,7 +55,7 @@ final class FeedImagePresenterTests: XCTestCase {
         XCTAssertEqual(view.messages.isEmpty, true)
     }
     
-    func test_didFinishLoadingImageData_displaysInformation() {
+    func test_didStartLoadingImageData_displaysInformationWithLoading() {
         let (sut, view) = makeSUT()
         let expectedModel = uniqueImage()
         let expectedFeedImageModel = FeedImageViewModel<AnyImage>(description: expectedModel.description, location: expectedModel.location, image: nil, isLoading: true, shouldRetry: false)
@@ -52,6 +63,21 @@ final class FeedImagePresenterTests: XCTestCase {
         sut.didStartLoadingImageData(for: expectedModel)
         
         XCTAssertEqual(view.messages, [.display(expectedFeedImageModel)])
+    }
+    
+    func test_didFinishLoadingImageData_WithInvalidData_ShouldDisplayError() {
+        let (sut, view) = makeSUT()
+        let expectedModel = uniqueImage()
+        let expectedErrorInformation = FeedImageViewModel<AnyImage>(
+            description: expectedModel.description,
+            location: expectedModel.location,
+            image: nil,
+            isLoading: false,
+            shouldRetry: true)
+        
+        sut.didFinishLoadingImageData(with: anyData(), for: expectedModel)
+        
+        XCTAssertEqual(view.messages, [.display(expectedErrorInformation)])
     }
     
     // Helpers
@@ -63,6 +89,10 @@ final class FeedImagePresenterTests: XCTestCase {
         trackForMemoryLeaks(sut)
         return (sut, view)
     }
+    private func anyData() -> Data {
+        Data("any data".utf8)
+    }
+    
     
     struct AnyImage: Equatable {}
 
