@@ -88,9 +88,9 @@ final class FeedImagePresenterTests: XCTestCase {
         return { _ in nil }
     }
     
-    struct AnyImage: Equatable {}
+    private struct AnyImage: Equatable {}
     
-    final class ImageViewSpy: FeedImageView {
+    private final class ImageViewSpy: FeedImageView {
         private(set) var messages = [FeedImageViewModel<AnyImage>]()
         
         func display(_ model: FeedImageViewModel<AnyImage>) {
