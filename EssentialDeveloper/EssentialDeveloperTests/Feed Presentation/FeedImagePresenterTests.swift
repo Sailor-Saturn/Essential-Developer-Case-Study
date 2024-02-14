@@ -1,17 +1,7 @@
 import XCTest
 import EssentialDeveloper
 
-struct FeedImageViewModel<Image>: Equatable where Image: Equatable {
-    let description: String?
-    let location: String?
-    let image: Image?
-    let isLoading: Bool
-    let shouldRetry: Bool
-    
-    var hasLocation: Bool {
-        return location != nil
-    }
-}
+
 
 protocol FeedImageView {
     associatedtype Image: Equatable
