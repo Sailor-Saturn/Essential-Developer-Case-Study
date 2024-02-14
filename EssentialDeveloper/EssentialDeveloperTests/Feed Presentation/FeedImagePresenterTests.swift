@@ -90,9 +90,6 @@ final class FeedImagePresenterTests: XCTestCase {
     func test_didFinishLoadingImageData_displaysImageOnSuccessfulTransformation() {
         let image = uniqueImage()
         let transformedData = AnyImage()
-        let imageTransformerStub: (Data) -> AnyImage = { _ in
-            transformedData
-        }
         let (sut, view) = makeSUT(imageTransformer: { _ in transformedData })
         
         
