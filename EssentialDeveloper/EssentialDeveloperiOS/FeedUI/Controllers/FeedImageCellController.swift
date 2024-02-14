@@ -1,4 +1,5 @@
 import UIKit
+import EssentialDeveloper
 
 protocol FeedImageCellControllerDelegate {
     func didRequestImage()

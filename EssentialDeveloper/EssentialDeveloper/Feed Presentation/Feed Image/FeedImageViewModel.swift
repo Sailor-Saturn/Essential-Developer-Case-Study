@@ -5,7 +5,7 @@ public struct FeedImageViewModel<Image>: Equatable where Image: Equatable {
     public let isLoading: Bool
     public let shouldRetry: Bool
     
-    var hasLocation: Bool {
+    public var hasLocation: Bool {
         return location != nil
     }
     
