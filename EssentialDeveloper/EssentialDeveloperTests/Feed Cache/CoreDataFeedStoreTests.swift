@@ -1,5 +1,6 @@
 import XCTest
 import EssentialDeveloper
+import CoreData
 
 class CoreDataFeedStoreTests: XCTestCase, FailableFeedStoreSpecs {
     override func setUp() {
