@@ -5,13 +5,24 @@ final class RemoteImageLoader {
     let client: HTTPClient
     let url: URL
     
+    public enum Error: Swift.Error {
+        case connectivity
+    }
+    
     init(client: HTTPClient, url: URL) {
         self.client = client
         self.url = url
     }
     
     func load(completion: @escaping (Result<(Data, HTTPURLResponse), Error>) -> Void) {
-        client.get(from: url, completion: completion)
+        client.get(from: url) { result in
+            switch result {
+            case .success:
+                break
+            case .failure(let error):
+                completion(.failure(Error.connectivity))
+            }
+        }
     }
 }
 
@@ -41,6 +52,26 @@ final class RemoteImageFeedLoaderTests: XCTestCase {
         sut.load{ _ in }
         
         XCTAssertEqual(client.requestedURLs, [url, url])
+    }
+    
+    func test_load_deliversErrorOnClientError() {
+        let (sut, client) = makeSut()
+        let error = NSError(domain: "Test", code: 0)
+        let expectation = expectation(description: "Wait for load completion with error.")
+        
+        sut.load{ result in
+            switch result {
+            case .success(let success):
+                XCTFail("Expected error due to client error, got \(success) instead.")
+            case .failure(let failure):
+                XCTAssertEqual(failure, .connectivity)
+            }
+            
+            expectation.fulfill()
+        }
+        
+        client.complete(with: error)
+        wait(for: [expectation], timeout: 1.0)
     }
     
     // MARK: Helpers
