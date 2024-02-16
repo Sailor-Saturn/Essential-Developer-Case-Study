@@ -2,8 +2,16 @@ import XCTest
 import EssentialDeveloper
 
 final class RemoteImageLoader {
-    init(client: HTTPClient) {
-        
+    let client: HTTPClient
+    let url: URL
+    
+    init(client: HTTPClient, url: URL) {
+        self.client = client
+        self.url = url
+    }
+    
+    func load(completion: @escaping (Result<(Data, HTTPURLResponse), Error>) -> Void) {
+        client.get(from: url, completion: completion)
     }
 }
 
@@ -14,6 +22,16 @@ final class RemoteImageFeedLoaderTests: XCTestCase {
         XCTAssertTrue(client.requestedURLs.isEmpty)
     }
     
+    func test_load_requestsDataFromURL() {
+        let url = URL(string: "https://a-given-url.com")!
+        
+        let (sut, client) = makeSut(url: url)
+        
+        sut.load{ _ in }
+        
+        XCTAssertEqual(client.requestedURLs, [url])
+    }
+    
     // MARK: Helpers
     private func makeSut(
         url: URL = URL(string: "https://a-url.com")!,
@@ -21,7 +39,7 @@ final class RemoteImageFeedLoaderTests: XCTestCase {
         line: UInt = #line
     ) -> (sut: RemoteImageLoader, client: HTTPClientSpy) {
         let client = HTTPClientSpy()
-        let sut = RemoteImageLoader(client: client)
+        let sut = RemoteImageLoader(client: client, url: url)
         
         trackForMemoryLeaks(sut)
         trackForMemoryLeaks(client)
