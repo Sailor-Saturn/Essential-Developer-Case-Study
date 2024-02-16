@@ -36,8 +36,7 @@ final class RemoteFeedLoaderTests: XCTestCase {
                when: {
             let clientError = NSError(domain: "Test", code: 0)
             client.complete(with: clientError)
-        }
-        )
+        })
     }
     
     func test_load_deliversErrorOnNon200HTTPResponse() {

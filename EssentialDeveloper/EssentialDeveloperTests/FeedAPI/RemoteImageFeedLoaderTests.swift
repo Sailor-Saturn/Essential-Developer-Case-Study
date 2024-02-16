@@ -7,6 +7,7 @@ final class RemoteImageLoader {
     
     public enum Error: Swift.Error {
         case connectivity
+        case invalidData
     }
     
     init(client: HTTPClient, url: URL) {
@@ -18,9 +19,9 @@ final class RemoteImageLoader {
         client.get(from: url) { result in
             switch result {
             case .success:
-                break
+                completion(.failure(.invalidData))
             case .failure(let error):
-                completion(.failure(Error.connectivity))
+                completion(.failure(.connectivity))
             }
         }
     }
@@ -74,6 +75,25 @@ final class RemoteImageFeedLoaderTests: XCTestCase {
         wait(for: [expectation], timeout: 1.0)
     }
     
+    func test_load_deliversErrorOnNon200HTTPResponse() {
+        let (sut, client) = makeSut()
+        let expectation = expectation(description: "Wait for load completion with error.")
+        
+        sut.load{ result in
+            switch result {
+            case .success(let success):
+                XCTFail("Expected error due to client error, got \(success) instead.")
+            case .failure(let failure):
+                XCTAssertEqual(failure, .invalidData)
+            }
+            
+            expectation.fulfill()
+        }
+        
+        client.complete(withStatusCode: 199, data: anyData())
+        wait(for: [expectation], timeout: 1.0)
+    }
+    
     // MARK: Helpers
     private func makeSut(
         url: URL = URL(string: "https://a-url.com")!,
@@ -87,6 +107,10 @@ final class RemoteImageFeedLoaderTests: XCTestCase {
         trackForMemoryLeaks(client)
         
         return (sut, client)
+    }
+    
+    private func anyData() -> Data {
+        Data("any data".utf8)
     }
     
     
