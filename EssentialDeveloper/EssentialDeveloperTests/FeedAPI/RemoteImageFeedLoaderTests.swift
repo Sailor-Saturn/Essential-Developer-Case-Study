@@ -15,9 +15,16 @@ final class RemoteImageLoader {
         self.url = url
     }
     
-    func load(completion: @escaping (Result<(Data, HTTPURLResponse), Error>) -> Void) {
+    func load(completion: @escaping (Result<Data, Error>) -> Void) {
         client.get(from: url) { result in
             switch result {
+            case let .success((data, response)) where response.statusCode == 200:
+                guard !data.isEmpty
+                else {
+                    completion(.failure(.invalidData))
+                    return
+                }
+                completion(.success(data))
             case .success:
                 completion(.failure(.invalidData))
             case .failure(let error):
@@ -88,12 +95,12 @@ final class RemoteImageFeedLoaderTests: XCTestCase {
         }
     }
     
-    func test_load_deliversErrorOn200HTTPResponseWithInvalidJSON() {
+    func test_loadImageDataFromURL_deliversInvalidDataErrorOn200HTTPResponseWithEmptyData() {
         let (sut, client) = makeSut()
         
         let expectation = expectation(description: "Wait for load completion with error.")
         
-        sut.load{ result in
+        sut.load { result in
             switch result {
             case .success(let success):
                 XCTFail("Expected error due to client error, got \(success) instead.")
@@ -104,7 +111,29 @@ final class RemoteImageFeedLoaderTests: XCTestCase {
             expectation.fulfill()
         }
         
-        client.complete(withStatusCode: 200, data: Data("invalid json".utf8))
+        client.complete(withStatusCode: 200, data: Data())
+        wait(for: [expectation], timeout: 1.0)
+    }
+    
+    // MARK: Happy Path
+    func test_loadImageDataFromURL_deliversReceivedNonEmptyDataOn200HTTPResponse() {
+        let (sut, client) = makeSut()
+        let nonEmptyData = Data("non-empty data".utf8)
+        
+        let expectation = expectation(description: "Wait for load completion with error.")
+        
+        sut.load { result in
+            switch result {
+            case let .success(data):
+                XCTAssertEqual(data, nonEmptyData)
+            case .failure(let failure):
+                XCTFail("Expected success due to client error, got \(failure) instead.")
+            }
+            
+            expectation.fulfill()
+        }
+        
+        client.complete(withStatusCode: 200, data: nonEmptyData)
         wait(for: [expectation], timeout: 1.0)
     }
     
