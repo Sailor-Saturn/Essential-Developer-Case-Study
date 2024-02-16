@@ -88,6 +88,26 @@ final class RemoteImageFeedLoaderTests: XCTestCase {
         }
     }
     
+    func test_load_deliversErrorOn200HTTPResponseWithInvalidJSON() {
+        let (sut, client) = makeSut()
+        
+        let expectation = expectation(description: "Wait for load completion with error.")
+        
+        sut.load{ result in
+            switch result {
+            case .success(let success):
+                XCTFail("Expected error due to client error, got \(success) instead.")
+            case .failure(let failure):
+                XCTAssertEqual(failure, .invalidData)
+            }
+            
+            expectation.fulfill()
+        }
+        
+        client.complete(withStatusCode: 200, data: Data("invalid json".utf8))
+        wait(for: [expectation], timeout: 1.0)
+    }
+    
     private func expectConnectivityError(sut: RemoteImageLoader, client: HTTPClientSpy, action: () -> Void ) {
         let expectation = expectation(description: "Wait for load completion with error.")
         sut.load{ result in
