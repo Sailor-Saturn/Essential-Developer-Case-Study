@@ -80,10 +80,6 @@ final class FeedImagePresenterTests: XCTestCase {
         return (sut, view)
     }
     
-    private func anyData() -> Data {
-        Data("any data".utf8)
-    }
-    
     private var fail: (Data) -> AnyImage? {
         return { _ in nil }
     }

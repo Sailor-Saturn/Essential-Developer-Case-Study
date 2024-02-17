@@ -43,7 +43,7 @@ final class RemoteFeedImageDataLoader {
                 completion(.success(data))
             case .success:
                 completion(.failure(.invalidData))
-            case .failure(let error):
+            case .failure:
                 completion(.failure(.connectivity))
             }
         }
@@ -161,9 +161,7 @@ final class RemoteImageFeedLoaderTests: XCTestCase {
         return (sut, client)
     }
     
-    private func anyData() -> Data {
-        Data("any data".utf8)
-    }
+    
     
     private func failure(_ error: RemoteFeedImageDataLoader.Error) -> FeedImageDataLoader.Result {
         return .failure(error)
