@@ -13,11 +13,11 @@ public final class RemoteFeedImageDataLoader {
     }
     
     private final class HTTPURLPropertyWrapper: FeedImageDataLoaderTask {
-        var completion: (Result<Data, Error>) -> Void
+        var completion: ((FeedImageDataLoader.Result)) -> Void
         
         var wrapped: HTTPClientTask?
         
-        init(completion: @escaping (Result<Data, Error>) -> Void) {
+        init(completion: @escaping (FeedImageDataLoader.Result) -> Void) {
             self.completion = completion
         }
         
@@ -26,7 +26,7 @@ public final class RemoteFeedImageDataLoader {
         }
     }
     
-    public func loadImageData(from url: URL, completion: @escaping (Result<Data, Error>) -> Void) -> FeedImageDataLoaderTask {
+    public func loadImageData(from url: URL, completion: @escaping (FeedImageDataLoader.Result) -> Void) -> FeedImageDataLoaderTask {
         let task = HTTPURLPropertyWrapper(completion: completion)
         
         task.wrapped = client.get(from: url) { result in
@@ -34,14 +34,14 @@ public final class RemoteFeedImageDataLoader {
             case let .success((data, response)) where response.statusCode == 200:
                 guard !data.isEmpty
                 else {
-                    completion(.failure(.invalidData))
+                    completion(.failure(Error.invalidData))
                     return
                 }
                 completion(.success(data))
             case .success:
-                completion(.failure(.invalidData))
+                completion(.failure(Error.invalidData))
             case .failure:
-                completion(.failure(.connectivity))
+                completion(.failure(Error.connectivity))
             }
         }
         
