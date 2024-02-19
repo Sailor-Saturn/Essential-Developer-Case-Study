@@ -1,17 +1,17 @@
 import EssentialDeveloper
 
-class FeedImageDataStoreSpy: FeedImageStore {
+class FeedImageDataStoreSpy: FeedImageDataStore {
     enum Message: Equatable {
         case retrieve
         case insert(data: Data, for: URL)
     }
     
-    private var retrievalCompletions = [(FeedImageStore.Result) -> Void]()
+    private var retrievalCompletions = [(FeedImageDataStore.RetrievalResult) -> Void]()
     private var insertionCompletions = [(LocalFeedImageDataLoader.SaveResult) -> Void]()
     
     var receivedMessages = [Message]()
     
-    func retrieveImageData(from url: URL, completion: @escaping (FeedImageStore.Result) -> Void) {
+    func retrieve(dataForURL url: URL, completion: @escaping (FeedImageDataStore.RetrievalResult) -> Void) {
         receivedMessages.append(.retrieve)
         retrievalCompletions.append(completion)
     }

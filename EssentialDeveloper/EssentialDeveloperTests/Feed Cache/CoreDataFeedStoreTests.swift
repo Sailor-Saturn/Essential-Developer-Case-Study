@@ -28,25 +28,25 @@ class CoreDataFeedStoreTests: XCTestCase, FailableFeedStoreSpecs {
     
     func test_retrieve_hasNoSideEffectsOnNonEmptyCache() throws {
         let sut = try makeSut()
-
+        
         assertThatRetrieveHasNoSideEffectsOnNonEmptyCache(on: sut)
     }
     
     func test_retrieve_hasNoSideEffectsOnFailure() throws  {
         let stub = NSManagedObjectContext.alwaysFailingFetchStub()
         stub.startIntercepting()
-
+        
         let sut = try makeSut()
-
+        
         assertThatRetrieveHasNoSideEffectsOnFailure(on: sut)
     }
     
     func test_retrieve_deliversFailureOnRetrievalError() throws  {
         let stub = NSManagedObjectContext.alwaysFailingFetchStub()
         stub.startIntercepting()
-
+        
         let sut = try makeSut()
-
+        
         assertThatRetrieveDeliversFailureOnRetrievalError(on: sut)
     }
     
@@ -71,18 +71,18 @@ class CoreDataFeedStoreTests: XCTestCase, FailableFeedStoreSpecs {
     func test_insert_deliversErrorOnInsertionError() throws {
         let stub = NSManagedObjectContext.alwaysFailingSaveStub()
         stub.startIntercepting()
-
+        
         let sut = try makeSut()
-
+        
         assertThatInsertDeliversErrorOnInsertionError(on: sut)
     }
     
     func test_insert_hasNoSideEffectsOnInsertionError() throws {
         let stub = NSManagedObjectContext.alwaysFailingSaveStub()
         stub.startIntercepting()
-
+        
         let sut = try makeSut()
-
+        
         assertThatInsertHasNoSideEffectsOnInsertionError(on: sut)
     }
     
@@ -115,13 +115,13 @@ class CoreDataFeedStoreTests: XCTestCase, FailableFeedStoreSpecs {
         let feed = uniqueImageFeed().local
         let timestamp = Date()
         let sut = try makeSut()
-
+        
         insert((feed, timestamp), to: sut)
-
+        
         stub.startIntercepting()
-
+        
         let deletionError = deleteCache(from: sut)
-
+        
         XCTAssertNotNil(deletionError, "Expected cache deletion to fail")
     }
     
@@ -130,37 +130,37 @@ class CoreDataFeedStoreTests: XCTestCase, FailableFeedStoreSpecs {
         let feed = uniqueImageFeed().local
         let timestamp = Date()
         let sut = try makeSut()
-
+        
         insert((feed, timestamp), to: sut)
-
+        
         stub.startIntercepting()
-
+        
         deleteCache(from: sut)
-
+        
         expect(sut, toRetrieve: .success(CachedFeed(feed: feed, timestamp: timestamp)))
     }
     
     func test_delete_removesAllObjects() throws {
         let store = try makeSut()
-
+        
         insert((uniqueImageFeed().local, Date()), to: store)
-
+        
         deleteCache(from: store)
-
+        
         let context = try NSPersistentContainer.load(
             name: CoreDataFeedStore.modelName,
             model: XCTUnwrap(CoreDataFeedStore.model),
             url: inMemoryStoreURL()
         ).viewContext
-
+        
         let existingObjects = try context.allExistingObjects()
-
+        
         XCTAssertEqual(existingObjects, [], "found orphaned objects in Core Data")
     }
     
     func test_storeSideEffects_RunSerially() throws  {
         let sut = try makeSut()
-
+        
         assertThatSideEffectsRunSerially(on: sut)
     }
     
@@ -168,7 +168,7 @@ class CoreDataFeedStoreTests: XCTestCase, FailableFeedStoreSpecs {
         let entity = try XCTUnwrap(
             CoreDataFeedStore.model?.entitiesByName["ManagedFeedImage"]
         )
-
+        
         entity.verify(attribute: "id", hasType: .UUIDAttributeType, isOptional: false)
         entity.verify(attribute: "imageDescription", hasType: .stringAttributeType, isOptional: true)
         entity.verify(attribute: "location", hasType: .stringAttributeType, isOptional: true)
@@ -176,7 +176,8 @@ class CoreDataFeedStoreTests: XCTestCase, FailableFeedStoreSpecs {
     }
     
     private func makeSut(file: StaticString = #file, line: UInt = #line) throws -> FeedStore {
-        let sut = try CoreDataFeedStore(storeURL: inMemoryStoreURL())
+        let storeURL = URL(fileURLWithPath: "/dev/null")
+        let sut = try! CoreDataFeedStore(storeURL: storeURL)
         trackForMemoryLeaks(sut, file: file, line: line)
         return sut
     }

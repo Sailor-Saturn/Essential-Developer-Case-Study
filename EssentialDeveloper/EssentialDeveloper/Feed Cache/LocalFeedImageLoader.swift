@@ -1,7 +1,7 @@
 public final class LocalFeedImageDataLoader {
-    let store: FeedImageStore
+    let store: FeedImageDataStore
     
-    public init(store: FeedImageStore) {
+    public init(store: FeedImageDataStore) {
         self.store = store
     }
 }
@@ -38,7 +38,7 @@ extension LocalFeedImageDataLoader: FeedImageDataLoader {
     public func loadImageData(from url: URL, completion: @escaping (LoadResult) -> Void) -> EssentialDeveloper.FeedImageDataLoaderTask {
         let task = Task(completion: completion)
         
-        store.retrieveImageData(from: url) { [weak self] result in
+        store.retrieve(dataForURL: url) { [weak self] result in
             guard self != nil else {
                 return
             }
