@@ -1,4 +1,17 @@
-public final class LocalFeedImageDataLoader: FeedImageDataLoader {
+public final class LocalFeedImageDataLoader {
+    let store: FeedImageStore
+    
+    public init(store: FeedImageStore) {
+        self.store = store
+    }
+    
+    public func save(_ data: Data, for url: URL, completion: @escaping (FeedImageDataLoader.Result) -> Void) {
+        store.insert(data: data, for: url) { _ in }
+    }
+}
+
+// MARK: Retrieve
+extension LocalFeedImageDataLoader: FeedImageDataLoader {
     private final class Task: FeedImageDataLoaderTask {
         var completion: (((FeedImageDataLoader.Result)) -> Void)?
         
@@ -24,11 +37,6 @@ public final class LocalFeedImageDataLoader: FeedImageDataLoader {
         case notFound
     }
     
-    let store: FeedImageStore
-    
-    public init(store: FeedImageStore) {
-        self.store = store
-    }
     
     public func loadImageData(from url: URL, completion: @escaping (FeedImageDataLoader.Result) -> Void) -> EssentialDeveloper.FeedImageDataLoaderTask {
         let task = Task(completion: completion)
@@ -47,9 +55,5 @@ public final class LocalFeedImageDataLoader: FeedImageDataLoader {
         }
         
         return task
-    }
-    
-    public func save(_ data: Data, for url: URL, completion: @escaping (FeedImageDataLoader.Result) -> Void) {
-        store.insert(data: data, for: url) { _ in }
     }
 }
