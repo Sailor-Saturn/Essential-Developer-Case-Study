@@ -30,10 +30,7 @@ final class LocalImageFeedLoader: FeedImageDataLoader {
             completion(result
                 .mapError { _ in Error.failed}
                 .flatMap{ data in
-                    guard let data = data else {
-                        return .failure(Error.notFound)
-                    }
-                    return .success(data)
+                    data.map { .success($0)} ?? .failure(Error.notFound)
                 }
             )
         }
