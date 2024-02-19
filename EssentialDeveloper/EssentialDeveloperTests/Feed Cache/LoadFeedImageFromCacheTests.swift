@@ -4,7 +4,7 @@ import EssentialDeveloper
 protocol FeedImageStore {
     typealias Result = Swift.Result<Data?, Error>
     
-    func retrieveImageData(completion: @escaping (Result) -> Void)
+    func retrieveImageData(from url: URL, completion: @escaping (Result) -> Void)
 }
 
 final class LocalImageFeedLoader: FeedImageDataLoader {
@@ -26,7 +26,7 @@ final class LocalImageFeedLoader: FeedImageDataLoader {
     }
     
     func loadImageData(from url: URL, completion: @escaping (FeedImageDataLoader.Result) -> Void) -> EssentialDeveloper.FeedImageDataLoaderTask {
-        store.retrieveImageData { result in
+        store.retrieveImageData(from: url) { result in
             completion(result
                 .mapError { _ in Error.failed}
                 .flatMap{ data in
@@ -128,7 +128,7 @@ final class LoadFeedImageFromCacheTests: XCTestCase {
         
         var receivedMessages = [Message]()
         
-        func retrieveImageData(completion: @escaping (FeedImageStore.Result) -> Void) {
+        func retrieveImageData(from url: URL, completion: @escaping (FeedImageStore.Result) -> Void) {
             receivedMessages.append(.retrieve)
             completions.append(completion)
         }
