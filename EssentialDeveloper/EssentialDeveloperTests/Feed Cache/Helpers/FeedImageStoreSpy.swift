@@ -1,6 +1,6 @@
 import EssentialDeveloper
 
-class StoreSpy: FeedImageStore {
+class FeedImageDataStoreSpy: FeedImageStore {
     enum Message: Equatable {
         case retrieve
         case insert(data: Data, for: URL)
