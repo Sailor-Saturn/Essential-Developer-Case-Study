@@ -21,13 +21,13 @@ final class LoadFeedImageDataFromCacheUseCaseTests: XCTestCase {
         let (sut, store) = makeSUT()
         let retrievalError = anyNSError()
         
-        expect(sut, toCompleteWith: .failure(LocalFeedImageDataLoader.Error.failed), with: anyURL(),  when: { store.complete(with: retrievalError)})
+        expect(sut, toCompleteWith: .failure(LocalFeedImageDataLoader.Error.failed), with: anyURL(),  when: { store.completeRetrieval(with: retrievalError)})
     }
     
     func test_load_failsOnNotFoundError() {
         let (sut, store) = makeSUT()
         
-        expect(sut, toCompleteWith: .failure(LocalFeedImageDataLoader.Error.notFound), with: anyURL(),  when: { store.complete(with: .none)})
+        expect(sut, toCompleteWith: .failure(LocalFeedImageDataLoader.Error.notFound), with: anyURL(),  when: { store.completeRetrievalSuccessfully(with: .none)})
     }
     
     func test_loadImageDataFromURL_deliversStoredDataOnFoundData() {
@@ -35,7 +35,7 @@ final class LoadFeedImageDataFromCacheUseCaseTests: XCTestCase {
         let foundData = anyData()
         
         expect(sut, toCompleteWith: .success(foundData), when: {
-            store.complete(with: foundData)
+            store.completeRetrievalSuccessfully(with: foundData)
         })
     }
     
@@ -47,9 +47,9 @@ final class LoadFeedImageDataFromCacheUseCaseTests: XCTestCase {
         let task = sut.loadImageData(from: anyURL()) { received.append($0) }
         task.cancel()
         
-        store.complete(with: foundData)
-        store.complete(with: .none)
-        store.complete(with: anyNSError())
+        store.completeRetrievalSuccessfully(with: foundData)
+        store.completeRetrievalSuccessfully(with: .none)
+        store.completeRetrieval(with: anyNSError())
         
         XCTAssertTrue(received.isEmpty, "Expected no received results after cancelling task")
     }
@@ -62,7 +62,7 @@ final class LoadFeedImageDataFromCacheUseCaseTests: XCTestCase {
             _ = sut?.loadImageData(from: anyURL()) { received.append($0) }
 
             sut = nil
-            store.complete(with: anyData())
+            store.completeRetrievalSuccessfully(with: anyData())
 
             XCTAssertTrue(received.isEmpty, "Expected no received results after instance has been deallocated")
         }

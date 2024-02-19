@@ -2,13 +2,13 @@ import XCTest
 import EssentialDeveloper
 
 final class CacheFeedImageDataUseCaseTests: XCTestCase {
-    func test_saveImageDataForURL_requestsImageDataInsertionForURL() {
+    func test_save_requestsImageDataInsertionForURL() {
         let (sut, store) = makeSUT()
         let url = anyURL()
         let data = anyData()
-
+        
         sut.save(data, for: url) { _ in }
-
+        
         XCTAssertEqual(store.receivedMessages, [.insert(data: data, for: url)])
     }
     
