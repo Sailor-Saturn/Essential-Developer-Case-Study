@@ -48,4 +48,8 @@ public final class LocalFeedImageDataLoader: FeedImageDataLoader {
         
         return task
     }
+    
+    public func save(_ data: Data, for url: URL, completion: @escaping (FeedImageDataLoader.Result) -> Void) {
+        store.insert(data: data, for: url) { _ in }
+    }
 }

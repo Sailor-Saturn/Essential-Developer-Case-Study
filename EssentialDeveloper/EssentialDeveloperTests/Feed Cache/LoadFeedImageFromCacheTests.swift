@@ -54,6 +54,16 @@ final class LoadFeedImageFromCacheTests: XCTestCase {
         XCTAssertTrue(received.isEmpty, "Expected no received results after cancelling task")
     }
     
+    func test_saveImageDataForURL_requestsImageDataInsertionForURL() {
+        let (sut, store) = makeSUT()
+        let url = anyURL()
+        let data = anyData()
+
+        sut.save(data, for: url) { _ in }
+
+        XCTAssertEqual(store.receivedMessages, [.insert(data: data, for: url)])
+    }
+    
     func test_loadImageDataFromURL_doesNotDeliverResultAfterSUTInstanceHasBeenDeallocated() {
             let store = StoreSpy()
             var sut: LocalFeedImageDataLoader? = LocalFeedImageDataLoader(store: store)
@@ -107,8 +117,10 @@ final class LoadFeedImageFromCacheTests: XCTestCase {
     }
     
     class StoreSpy: FeedImageStore {
+               
         enum Message: Equatable {
             case retrieve
+            case insert(data: Data, for: URL)
         }
         
         private var completions = [(FeedImageStore.Result) -> Void]()
@@ -118,6 +130,10 @@ final class LoadFeedImageFromCacheTests: XCTestCase {
         func retrieveImageData(from url: URL, completion: @escaping (FeedImageStore.Result) -> Void) {
             receivedMessages.append(.retrieve)
             completions.append(completion)
+        }
+        
+        func insert(data: Data, for url: URL, completion: @escaping (FeedImageStore.Result) -> Void) {
+            receivedMessages.append(.insert(data: data, for: url))
         }
         
         func complete(with error: Error, at index: Int = 0){
