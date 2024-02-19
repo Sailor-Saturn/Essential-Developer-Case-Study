@@ -1,65 +1,6 @@
 import XCTest
 import EssentialDeveloper
 
-protocol FeedImageStore {
-    typealias Result = Swift.Result<Data?, Error>
-    
-    func retrieveImageData(from url: URL, completion: @escaping (Result) -> Void)
-}
-
-final class LocalFeedImageDataLoader: FeedImageDataLoader {
-    
-    private final class Task: FeedImageDataLoaderTask {
-        var completion: (((FeedImageDataLoader.Result)) -> Void)?
-        
-        init(completion: @escaping (FeedImageDataLoader.Result) -> Void) {
-            self.completion = completion
-        }
-        
-        func deliverCompletion(with result: FeedImageDataLoader.Result) {
-            completion?(result)
-        }
-        
-        func cancel() {
-            preventFurtherCompletions()
-        }
-        
-        private func preventFurtherCompletions() {
-            completion = nil
-        }
-    }
-    
-    enum Error: Swift.Error {
-        case failed
-        case notFound
-    }
-    
-    let store: FeedImageStore
-    
-    init(store: FeedImageStore) {
-        self.store = store
-    }
-    
-    func loadImageData(from url: URL, completion: @escaping (FeedImageDataLoader.Result) -> Void) -> EssentialDeveloper.FeedImageDataLoaderTask {
-        let task = Task(completion: completion)
-        
-        store.retrieveImageData(from: url) { [weak self] result in
-            guard self != nil else {
-                return
-            }
-            
-            task.deliverCompletion(with: result
-                .mapError { _ in Error.failed}
-                .flatMap{ data in
-                    data.map { .success($0)} ?? .failure(Error.notFound)
-                }
-            )
-        }
-        
-        return task
-    }
-}
-
 final class LoadFeedImageFromCacheTests: XCTestCase {
     func test_init_doesNotMessageTheStoreUponCreation() {
         let (_, store) = makeSUT()
