@@ -7,6 +7,7 @@ class StoreSpy: FeedImageStore {
     }
     
     private var retrievalCompletions = [(FeedImageStore.Result) -> Void]()
+    private var insertionCompletions = [(FeedImageStore.Result) -> Void]()
     
     var receivedMessages = [Message]()
     
@@ -25,5 +26,10 @@ class StoreSpy: FeedImageStore {
     
     func insert(data: Data, for url: URL, completion: @escaping (FeedImageStore.Result) -> Void) {
         receivedMessages.append(.insert(data: data, for: url))
+        insertionCompletions.append(completion)
+    }
+    
+    func completeInsertion(with error: Error, at index: Int = 0){
+        insertionCompletions[index](.failure(error))
     }
 }

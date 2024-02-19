@@ -21,13 +21,13 @@ final class LoadFeedImageDataFromCacheUseCaseTests: XCTestCase {
         let (sut, store) = makeSUT()
         let retrievalError = anyNSError()
         
-        expect(sut, toCompleteWith: .failure(LocalFeedImageDataLoader.Error.failed), with: anyURL(),  when: { store.completeRetrieval(with: retrievalError)})
+        expect(sut, toCompleteWith: .failure(LocalFeedImageDataLoader.RetrievalError.failed), with: anyURL(),  when: { store.completeRetrieval(with: retrievalError)})
     }
     
     func test_load_failsOnNotFoundError() {
         let (sut, store) = makeSUT()
         
-        expect(sut, toCompleteWith: .failure(LocalFeedImageDataLoader.Error.notFound), with: anyURL(),  when: { store.completeRetrievalSuccessfully(with: .none)})
+        expect(sut, toCompleteWith: .failure(LocalFeedImageDataLoader.RetrievalError.notFound), with: anyURL(),  when: { store.completeRetrievalSuccessfully(with: .none)})
     }
     
     func test_loadImageDataFromURL_deliversStoredDataOnFoundData() {
