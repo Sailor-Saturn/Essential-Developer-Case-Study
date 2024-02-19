@@ -4,10 +4,6 @@ public final class LocalFeedImageDataLoader {
     public init(store: FeedImageStore) {
         self.store = store
     }
-    
-    public func save(_ data: Data, for url: URL, completion: @escaping (FeedImageDataLoader.Result) -> Void) {
-        store.insert(data: data, for: url) { _ in }
-    }
 }
 
 // MARK: Retrieve
@@ -55,5 +51,11 @@ extension LocalFeedImageDataLoader: FeedImageDataLoader {
         }
         
         return task
+    }
+}
+
+extension LocalFeedImageDataLoader {
+    public func save(_ data: Data, for url: URL, completion: @escaping (FeedImageDataLoader.Result) -> Void) {
+        store.insert(data: data, for: url) { _ in }
     }
 }
