@@ -8,14 +8,16 @@ public final class LocalFeedImageDataLoader {
 
 // MARK: Retrieve
 extension LocalFeedImageDataLoader: FeedImageDataLoader {
+    public typealias LoadResult = FeedImageDataLoader.Result
+    
     private final class Task: FeedImageDataLoaderTask {
-        var completion: (((FeedImageDataLoader.Result)) -> Void)?
+        var completion: (((LoadResult)) -> Void)?
         
-        init(completion: @escaping (FeedImageDataLoader.Result) -> Void) {
+        init(completion: @escaping (LoadResult) -> Void) {
             self.completion = completion
         }
         
-        func deliverCompletion(with result: FeedImageDataLoader.Result) {
+        func deliverCompletion(with result: LoadResult) {
             completion?(result)
         }
         
@@ -33,7 +35,7 @@ extension LocalFeedImageDataLoader: FeedImageDataLoader {
         case notFound
     }
     
-    public func loadImageData(from url: URL, completion: @escaping (FeedImageDataLoader.Result) -> Void) -> EssentialDeveloper.FeedImageDataLoaderTask {
+    public func loadImageData(from url: URL, completion: @escaping (LoadResult) -> Void) -> EssentialDeveloper.FeedImageDataLoaderTask {
         let task = Task(completion: completion)
         
         store.retrieveImageData(from: url) { [weak self] result in
