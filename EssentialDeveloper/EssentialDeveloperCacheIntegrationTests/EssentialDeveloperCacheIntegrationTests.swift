@@ -16,14 +16,14 @@ final class EssentialDeveloperCacheIntegrationTests: XCTestCase {
     }
     
     func test_retrieve_deliversEmptyOnEmptyCache() throws {
-        let sut = try makeSUT()
+        let sut = try makeFeedLoader()
 
         expect(sut, toRetrieve: .success(.none))
     }
     
     func test_retrieve_deliversFeedInsertedOnAnotherInstance() throws {
-        let storeToInsert = try makeSUT()
-        let storeToLoad = try makeSUT()
+        let storeToInsert = try makeFeedLoader()
+        let storeToLoad = try makeFeedLoader()
         let feed = uniqueImageFeed().local
         let timestamp = Date()
 
@@ -33,9 +33,9 @@ final class EssentialDeveloperCacheIntegrationTests: XCTestCase {
     }
     
     func test_insert_overridesFeedInsertedOnAnotherInstance() throws {
-        let storeToInsert = try makeSUT()
-        let storeToOverride = try makeSUT()
-        let storeToLoad = try makeSUT()
+        let storeToInsert = try makeFeedLoader()
+        let storeToOverride = try makeFeedLoader()
+        let storeToLoad = try makeFeedLoader()
 
         insert((uniqueImageFeed().local, Date()), to: storeToInsert)
 
@@ -47,9 +47,9 @@ final class EssentialDeveloperCacheIntegrationTests: XCTestCase {
     }
     
     func test_delete_deletesFeedInsertedOnAnotherInstance() throws {
-        let storeToInsert = try makeSUT()
-        let storeToDelete = try makeSUT()
-        let storeToLoad = try makeSUT()
+        let storeToInsert = try makeFeedLoader()
+        let storeToDelete = try makeFeedLoader()
+        let storeToLoad = try makeFeedLoader()
 
         insert((uniqueImageFeed().local, Date()), to: storeToInsert)
 
@@ -59,7 +59,7 @@ final class EssentialDeveloperCacheIntegrationTests: XCTestCase {
     }
     
     // MARK: Helpers
-    private func makeSUT(file: StaticString = #file, line: UInt = #line) throws -> FeedStore {
+    private func makeFeedLoader(file: StaticString = #file, line: UInt = #line) throws -> FeedStore {
         let sut = try CoreDataFeedStore(storeURL: testSpecificStoreURL())
         trackForMemoryLeaks(sut, file: file, line: line)
         return sut
