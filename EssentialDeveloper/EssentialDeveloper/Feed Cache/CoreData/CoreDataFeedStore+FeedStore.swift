@@ -1,8 +1,34 @@
+//import CoreData
 //
-//  CoreDataFeedStore+FeedStore.swift
-//  EssentialDeveloper
+//extension CoreDataFeedStore: FeedStore {
 //
-//  Created by Vera Dias on 19/02/2024.
+//    public func retrieve(completion: @escaping RetrievalCompletion) {
+//        perform { context in
+//            completion(Result {
+//                try ManagedCache.find(in: context).map {
+//                    CachedFeed(feed: $0.localFeed, timestamp: $0.timestamp)
+//                }
+//            })
+//        }
+//    }
 //
-
-import Foundation
+//    public func insert(_ feed: [LocalFeedImage], timestamp: Date, completion: @escaping InsertionCompletion) {
+//        perform { context in
+//            completion(Result {
+//                let managedCache = try ManagedCache.createNewUniqueInstance(in: context)
+//                managedCache.timestamp = timestamp
+//                managedCache.feed = ManagedFeedImage.images(from: feed, in: context)
+//                try context.save()
+//            })
+//        }
+//    }
+//
+//    public func deleteCachedFeed(completion: @escaping DeletionCompletion) {
+//        perform { context in
+//            completion(Result {
+//                try ManagedCache.find(in: context).map(context.delete).map(context.save)
+//            })
+//        }
+//    }
+//
+//}
