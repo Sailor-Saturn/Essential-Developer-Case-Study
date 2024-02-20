@@ -15,13 +15,13 @@ final class EssentialDeveloperCacheIntegrationTests: XCTestCase {
         try super.tearDownWithError()
     }
     
-    func test_retrieve_deliversEmptyOnEmptyCache() throws {
-        let sut = try makeFeedLoader()
+    func test_loadFeed_deliversEmptyOnEmptyCache() throws {
+        let feedLoader = try makeFeedLoader()
 
-        expect(sut, toRetrieve: .success(.none))
+        expect(feedLoader, toRetrieve: .success(.none))
     }
     
-    func test_retrieve_deliversFeedInsertedOnAnotherInstance() throws {
+    func test_loadFeed_deliversFeedInsertedOnAnotherInstance() throws {
         let storeToInsert = try makeFeedLoader()
         let storeToLoad = try makeFeedLoader()
         let feed = uniqueImageFeed().local
@@ -32,7 +32,7 @@ final class EssentialDeveloperCacheIntegrationTests: XCTestCase {
         expect(storeToLoad, toRetrieve: .success(CachedFeed(feed: feed, timestamp: timestamp)))
     }
     
-    func test_insert_overridesFeedInsertedOnAnotherInstance() throws {
+    func test_saveFeed_overridesFeedInsertedOnAnotherInstance() throws {
         let storeToInsert = try makeFeedLoader()
         let storeToOverride = try makeFeedLoader()
         let storeToLoad = try makeFeedLoader()
