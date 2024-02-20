@@ -3,7 +3,7 @@ import CoreData
 public final class CoreDataFeedStore {
     public static let modelName = "FeedStore"
     public static let model = NSManagedObjectModel(name: modelName, in: Bundle(for: CoreDataFeedStore.self))
-
+    
     
     private let container: NSPersistentContainer
     private let context: NSManagedObjectContext
@@ -13,10 +13,11 @@ public final class CoreDataFeedStore {
     }
     
     public init(storeURL: URL) throws {
+        let bundle = Bundle(for: CoreDataFeedStore.self)
         guard let model = CoreDataFeedStore.model else {
             throw ModelNotFound(modelName: CoreDataFeedStore.modelName)
         }
-
+        
         container = try NSPersistentContainer.load(
             name: CoreDataFeedStore.modelName,
             model: model,
@@ -26,8 +27,19 @@ public final class CoreDataFeedStore {
     }
     
     public func perform(_ action: @escaping (NSManagedObjectContext) -> Void) {
-            let context = self.context
-            context.perform { action(context) }
+        let context = self.context
+        context.perform { action(context) }
+    }
+    
+    private func cleanUpReferencesToPersistentStores() {
+        context.performAndWait {
+            let coordinator = self.container.persistentStoreCoordinator
+            try? coordinator.persistentStores.forEach(coordinator.remove)
+        }
+    }
+    
+    deinit {
+        cleanUpReferencesToPersistentStores()
     }
 }
 
