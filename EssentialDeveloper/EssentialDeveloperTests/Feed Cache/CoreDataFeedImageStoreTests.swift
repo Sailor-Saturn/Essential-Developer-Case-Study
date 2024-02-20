@@ -1,25 +1,15 @@
 import XCTest
 import EssentialDeveloper
 
-extension CoreDataFeedStore: FeedImageDataStore {
-    public func retrieve(dataForURL url: URL, completion: @escaping (FeedImageDataStore.RetrievalResult) -> Void) {
-        completion(.success(.none))
-    }
-    
-    public func insert(_ data: Data, for url: URL, completion: @escaping (FeedImageDataStore.InsertionResult) -> Void) {
-        
-    }
-}
-
 final class CoreDataFeedImageStoreTests: XCTestCase {
     func test_retrieveImageData_deliversNotFoundWhenEmpty() {
-        let sut = makeSut()
+        let sut = makeSUT()
         
         expect(sut, toCompleteRetrievalWith: .success(.none), for: anyURL())
     }
     
     func test_retrieveImageData_deliversNotFoundWhenStoredDataURLDoesNotMatch() {
-        let sut = makeSut()
+        let sut = makeSUT()
         let url = URL(string: "http://a-url.com")!
         let nonMatchingURL = URL(string: "http://another-url.com")!
         
@@ -28,7 +18,17 @@ final class CoreDataFeedImageStoreTests: XCTestCase {
         expect(sut, toCompleteRetrievalWith: .success(.none), for: nonMatchingURL)
     }
     
-    private func makeSut(file: StaticString = #file, line: UInt = #line) -> CoreDataFeedStore {
+    func test_retrieveImageData_deliversFoundDataWhenThereIsAStoredImageDataMatchingURL() {
+        let sut = makeSUT()
+        let storedData = anyData()
+        let matchingURL = URL(string: "http://a-url.com")!
+            
+        insert(storedData, for: matchingURL, into: sut)
+
+        expect(sut, toCompleteRetrievalWith: .success(storedData), for: matchingURL)
+    }
+    
+    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> CoreDataFeedStore {
         let storeURL = URL(fileURLWithPath: "/dev/null")
         let sut = try! CoreDataFeedStore(storeURL: storeURL)
         trackForMemoryLeaks(sut, file: file, line: line)

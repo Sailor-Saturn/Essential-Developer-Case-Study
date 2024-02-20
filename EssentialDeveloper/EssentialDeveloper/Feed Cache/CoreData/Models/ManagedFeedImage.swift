@@ -1,7 +1,8 @@
 import CoreData
+import Foundation
 
 @objc(ManagedFeedImage)
-class ManagedFeedImage: NSManagedObject {
+public class ManagedFeedImage: NSManagedObject {
     @NSManaged var id: UUID
     @NSManaged var imageDescription: String?
     @NSManaged var location: String?
@@ -18,6 +19,14 @@ class ManagedFeedImage: NSManagedObject {
             managed.url = local.url
             return managed
         })
+    }
+    
+    public static func find(in context: NSManagedObjectContext, url: URL) throws -> ManagedFeedImage? {
+        let request = NSFetchRequest<ManagedFeedImage>(entityName: ManagedFeedImage.entity().name!)
+        request.predicate = NSPredicate(format: "%K = %@", argumentArray: [#keyPath(ManagedFeedImage.url), url])
+        request.returnsObjectsAsFaults = false
+        request.fetchLimit = 1
+        return try context.fetch(request).first
     }
     
     var local: LocalFeedImage {
