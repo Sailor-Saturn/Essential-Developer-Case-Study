@@ -1,7 +1,7 @@
 import CoreData
 
 @objc(ManagedCache)
-class ManagedCache: NSManagedObject {
+public class ManagedCache: NSManagedObject {
     @NSManaged var timestamp: Date
     @NSManaged var feed: NSOrderedSet
     
@@ -15,7 +15,7 @@ class ManagedCache: NSManagedObject {
         return try context.fetch(request).first
     }
     
-    static func createNewUniqueInstance(in context: NSManagedObjectContext) throws -> ManagedCache {
+    public static func createNewUniqueInstance(in context: NSManagedObjectContext) throws -> ManagedCache {
         try findAndDestroy(in: context)
         return ManagedCache(context: context)
     }
