@@ -102,7 +102,7 @@ final class RemoteImageFeedLoaderTests: XCTestCase {
         line: UInt = #line
     ) -> (sut: RemoteFeedImageDataLoader, client: HTTPClientSpy) {
         let client = HTTPClientSpy()
-        let sut = RemoteFeedImageDataLoader(client: client, url: url)
+        let sut = RemoteFeedImageDataLoader(client: client)
         
         trackForMemoryLeaks(sut)
         trackForMemoryLeaks(client)
