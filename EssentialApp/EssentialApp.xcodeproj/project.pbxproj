@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B1ED68E2B861B6500B99E42 /* EssentialDeveloper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B1ED68C2B861B6500B99E42 /* EssentialDeveloper.framework */; };
+		0B1ED68F2B861B6500B99E42 /* EssentialDeveloper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0B1ED68C2B861B6500B99E42 /* EssentialDeveloper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0B1ED6902B861B6500B99E42 /* EssentialDeveloperiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B1ED68D2B861B6500B99E42 /* EssentialDeveloperiOS.framework */; };
+		0B1ED6912B861B6500B99E42 /* EssentialDeveloperiOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0B1ED68D2B861B6500B99E42 /* EssentialDeveloperiOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0B7857D32B86191C00CF67DD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7857D22B86191C00CF67DD /* AppDelegate.swift */; };
 		0B7857D52B86191C00CF67DD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7857D42B86191C00CF67DD /* SceneDelegate.swift */; };
 		0B7857D72B86191C00CF67DD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7857D62B86191C00CF67DD /* ViewController.swift */; };
@@ -35,7 +39,24 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		0B1ED6922B861B6500B99E42 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				0B1ED6912B861B6500B99E42 /* EssentialDeveloperiOS.framework in Embed Frameworks */,
+				0B1ED68F2B861B6500B99E42 /* EssentialDeveloper.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		0B1ED68C2B861B6500B99E42 /* EssentialDeveloper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = EssentialDeveloper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0B1ED68D2B861B6500B99E42 /* EssentialDeveloperiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = EssentialDeveloperiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B7857CF2B86191C00CF67DD /* EssentialApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EssentialApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B7857D22B86191C00CF67DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0B7857D42B86191C00CF67DD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -56,6 +77,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B1ED6902B861B6500B99E42 /* EssentialDeveloperiOS.framework in Frameworks */,
+				0B1ED68E2B861B6500B99E42 /* EssentialDeveloper.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +99,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B1ED68B2B861B6500B99E42 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0B1ED68C2B861B6500B99E42 /* EssentialDeveloper.framework */,
+				0B1ED68D2B861B6500B99E42 /* EssentialDeveloperiOS.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		0B7857C62B86191C00CF67DD = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +115,7 @@
 				0B7857E82B86191F00CF67DD /* EssentialAppTests */,
 				0B7857F22B86191F00CF67DD /* EssentialAppUITests */,
 				0B7857D02B86191C00CF67DD /* Products */,
+				0B1ED68B2B861B6500B99E42 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -137,6 +170,7 @@
 				0B7857CB2B86191C00CF67DD /* Sources */,
 				0B7857CC2B86191C00CF67DD /* Frameworks */,
 				0B7857CD2B86191C00CF67DD /* Resources */,
+				0B1ED6922B861B6500B99E42 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
