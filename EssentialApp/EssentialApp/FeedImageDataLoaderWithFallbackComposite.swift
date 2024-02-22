@@ -29,7 +29,6 @@ public final class FeedImageDataLoaderWithFallbackComposite: FeedImageDataLoader
             }
         }
         
-        
         return task
     }
 }
