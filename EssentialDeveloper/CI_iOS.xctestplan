@@ -53,6 +53,13 @@
         "identifier" : "0BB43E2E2B6BA31800973C6F",
         "name" : "EssentialDeveloperiOSTests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:EssentialApp\/EssentialApp.xcodeproj",
+        "identifier" : "0B7857E42B86191F00CF67DD",
+        "name" : "EssentialAppTests"
+      }
     }
   ],
   "version" : 1
