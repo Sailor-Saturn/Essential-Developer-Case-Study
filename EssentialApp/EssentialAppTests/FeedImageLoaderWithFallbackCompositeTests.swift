@@ -36,18 +36,15 @@ final class FeedImageDataLoaderWithFallbackComposite: FeedImageDataLoader {
 
 final class FeedImageLoaderWithFallbackCompositeTests: XCTestCase {
     func test_init_doesNotLoadImageData() {
-        let primaryLoader = LoaderSpy()
-        let fallbackLoader = LoaderSpy()
-        _ = FeedImageDataLoaderWithFallbackComposite(primary: primaryLoader, fallback: fallbackLoader)
+        let (_, primaryLoader, fallbackLoader) = makeSUT()
         XCTAssertTrue(primaryLoader.loadedURLs.isEmpty, "Expected no loaded URLs in the primary loader")
         XCTAssertTrue(fallbackLoader.loadedURLs.isEmpty, "Expected no loaded URLs in the fallback loader")
     }
     
     func test_loadImageData_loadsFromPrimaryLoaderFirst() {
         let url = anyURL()
-        let primaryLoader = LoaderSpy()
-        let fallbackLoader = LoaderSpy()
-        let sut = FeedImageDataLoaderWithFallbackComposite(primary: primaryLoader, fallback: fallbackLoader)
+        
+        let (sut, primaryLoader, fallbackLoader) = makeSUT()
         
         _ = sut.loadImageData(from: url) { _ in }
         
@@ -56,7 +53,7 @@ final class FeedImageLoaderWithFallbackCompositeTests: XCTestCase {
     }
     
     // MARK: - Helpers
-    private func makeSUT(primaryResult: FeedImageDataLoader.Result, fallbackResult: FeedImageDataLoader.Result, file: StaticString = #file, line: UInt = #line) -> FeedImageDataLoader {
+    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: FeedImageDataLoader, primary: LoaderSpy, fallback: LoaderSpy) {
         let primaryLoader = LoaderSpy()
         let fallbackLoader = LoaderSpy()
         let sut = FeedImageDataLoaderWithFallbackComposite(primary: primaryLoader, fallback: fallbackLoader)
@@ -64,7 +61,7 @@ final class FeedImageLoaderWithFallbackCompositeTests: XCTestCase {
         trackForMemoryLeaks(primaryLoader, file: file, line: line)
         trackForMemoryLeaks(fallbackLoader, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
-        return sut
+        return (sut, primaryLoader, fallbackLoader)
     }
     
     private func expect(_ sut: FeedImageDataLoader, toCompleteWith expectedResult: FeedImageDataLoader.Result, with url: URL,  file: StaticString = #file, line: UInt = #line) {
