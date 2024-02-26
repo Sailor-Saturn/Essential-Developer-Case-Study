@@ -18,10 +18,10 @@ final class FeedLoaderCacheDecorator: FeedLoader {
     
     func load(completion: @escaping (FeedLoader.Result) -> Void) {
         decoratee.load { [weak self] result in
-            result.map { feedImages in
+            completion(result.map { feedImages in
                 self?.cache.save(feedImages) { _ in}
-            }
-            completion(result)
+                return feedImages
+            })
         }
     }
 }
