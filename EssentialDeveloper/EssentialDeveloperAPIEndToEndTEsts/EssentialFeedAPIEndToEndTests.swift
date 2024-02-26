@@ -57,7 +57,7 @@ final class EssentialFeedAPIEndToEndTests: XCTestCase {
         file: StaticString = #file,
         line: UInt = #line
     ) -> FeedImageDataLoader.Result? {
-        let loader = RemoteFeedImageDataLoader(client: createEphemeralClient(), url: testServerURL)
+        let loader = RemoteFeedImageDataLoader(client: createEphemeralClient())
         
         trackForMemoryLeaks(loader, file: file, line: line)
         let exp = expectation(description: "Wait for load completion")
