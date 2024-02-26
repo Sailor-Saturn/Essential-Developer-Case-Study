@@ -24,5 +24,3 @@ private extension FeedCache {
         save(feed) { _ in }
     }
 }
-
-
