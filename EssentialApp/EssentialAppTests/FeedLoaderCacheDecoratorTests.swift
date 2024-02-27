@@ -20,7 +20,6 @@ final class FeedLoaderCacheDecoratorTests: XCTestCase, FeedLoaderTestCase {
         let feed = uniqueFeed()
         let cache = CacheSpy()
 
-       
         let sut = makeSUT(loaderResult: .success(feed), cache: cache)
         
         sut.load { _ in }
@@ -31,7 +30,6 @@ final class FeedLoaderCacheDecoratorTests: XCTestCase, FeedLoaderTestCase {
     func test_load_cachesLoadedFeedOnLoaderFailure() {
         let cache = CacheSpy()
 
-       
         let sut = makeSUT(loaderResult: .failure(anyNSError()), cache: cache)
         
         sut.load { _ in }

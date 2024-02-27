@@ -1,6 +1,6 @@
 import EssentialDeveloper
 
-class FeedLoaderStub: FeedLoader {
+final class FeedLoaderStub: FeedLoader {
     private let result: FeedLoader.Result
     
     init(result: FeedLoader.Result) {

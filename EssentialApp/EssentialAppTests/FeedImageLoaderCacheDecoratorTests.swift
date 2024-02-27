@@ -27,7 +27,7 @@ final class FeedImageLoaderCacheDecorator: FeedImageDataLoader {
 
 final class FeedImageLoaderCacheDecoratorTests: XCTestCase {
     func test_init_doesNotLoadImageData() {
-        let (sut, loader) = makeSUT()
+        let (_, loader) = makeSUT()
         
         XCTAssertEqual(loader.loadedURLs, [])
     }
@@ -73,6 +73,7 @@ final class FeedImageLoaderCacheDecoratorTests: XCTestCase {
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (FeedImageDataLoader, LoaderSpy) {
         let loader = LoaderSpy()
         let sut = FeedImageLoaderCacheDecorator(decoratee: loader)
+        let loader = FeedImageLoaderSpy()
         
         trackForMemoryLeaks(loader, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
@@ -98,35 +99,15 @@ final class FeedImageLoaderCacheDecoratorTests: XCTestCase {
         wait(for: [exp], timeout: 1.0)
     }
     
-    private class LoaderSpy: FeedImageDataLoader {
-        private var messages = [(url: URL, completion: (FeedImageDataLoader.Result) -> Void)]()
+    private final class CacheSpy: FeedImageCache {
+        var messages = [Messages]()
         
-        var loadedURLs: [URL] {
-            return messages.map { $0.url }
-        }
-        private (set) var cancelledURLs = [URL]()
-        
-        private struct TaskSpy: FeedImageDataLoaderTask {
-            let cancelCallback: () -> Void
-            
-            func cancel() {
-                cancelCallback()
-            }
+        enum Messages: Equatable  {
+            case save(Data)
         }
         
-        func loadImageData(from url: URL, completion: @escaping (FeedImageDataLoader.Result) -> Void) -> FeedImageDataLoaderTask {
-            messages.append((url, completion))
-            return TaskSpy { [weak self] in
-                self?.cancelledURLs.append(url)
-            }
-        }
-        
-        func complete(with error: Error, index: Int = 0) {
-            messages[index].completion(.failure(error))
-        }
-        
-        func complete(with data: Data, index: Int = 0) {
-            messages[index].completion(.success(data))
+        func save(_ data: Data, for url: URL, completion: @escaping (SaveResult) -> Void) {
+            messages.append(.save(data))
         }
     }
 }
