@@ -2,7 +2,6 @@ import XCTest
 import EssentialDeveloper
 
 final class FeedImageLoaderCacheDecorator: FeedImageDataLoader {
-        
     let decoratee: FeedImageDataLoader
     
     init(decoratee: FeedImageDataLoader) {
@@ -27,13 +26,47 @@ final class FeedImageLoaderCacheDecorator: FeedImageDataLoader {
 }
 
 final class FeedImageLoaderCacheDecoratorTests: XCTestCase {
-    func test_load_deliversFeedImageOnLoaderSuccess() {
+    func test_init_doesNotLoadImageData() {
+        let (sut, loader) = makeSUT()
+        
+        XCTAssertEqual(loader.loadedURLs, [])
+    }
+    
+    func test_loadImageData_loadsFromLoader() {
+        let (sut, loader) = makeSUT()
+        let url = anyURL()
+        
+        _ = sut.loadImageData(from: url) { _ in }
+        
+        XCTAssertEqual(loader.loadedURLs, [url])
+    }
+    
+    func test_loadImageData_deliversFeedImageOnLoaderSuccess() {
         let feedImage = uniqueImage()
         let (sut, loader) = makeSUT()
         
         expect(sut, toCompleteWith: .success(anyData()), when: {
             loader.complete(with: anyData())
         } )
+    }
+    
+    func test_loadImageData_deliversErrorOnLoaderError() {
+        let (sut, loader) = makeSUT()
+        
+        expect(sut, toCompleteWith: .failure(anyNSError()), when: {
+            loader.complete(with: anyNSError())
+        })
+    }
+    
+    func test_cancelLoadImageData_cancelsLoaderTask() {
+        let (sut, loader) = makeSUT()
+        let url = anyURL()
+        
+        let task = sut.loadImageData(from: url) { _ in  }
+        
+        task.cancel()
+        
+        XCTAssertEqual(loader.cancelledURLs, [url], "Expected to cancel URL loading from loader.")
     }
     
     // MARK: - Helpers
