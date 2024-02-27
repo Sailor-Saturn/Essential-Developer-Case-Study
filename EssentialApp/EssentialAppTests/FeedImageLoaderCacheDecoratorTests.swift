@@ -1,17 +1,11 @@
 import XCTest
 import EssentialDeveloper
 
-protocol FeedImageCache {
-    typealias SaveResult = Result<Void, Error>
-    
-    func save(_ data: Data, for url: URL, completion: @escaping (SaveResult) -> Void)
-}
-
 final class FeedImageLoaderCacheDecorator: FeedImageDataLoader {
     let decoratee: FeedImageDataLoader
-    let cache: FeedImageCache
+    let cache: FeedImageDataCache
     
-    init(decoratee: FeedImageDataLoader, cache: FeedImageCache) {
+    init(decoratee: FeedImageDataLoader, cache: FeedImageDataCache) {
         self.decoratee = decoratee
         self.cache = cache
     }
@@ -127,7 +121,7 @@ final class FeedImageLoaderCacheDecoratorTests: XCTestCase, FeedImageTestCase {
         return (sut, loader)
     }
     
-    private final class CacheSpy: FeedImageCache {
+    private final class CacheSpy: FeedImageDataCache {
         var messages = [Messages]()
         
         enum Messages: Equatable  {
