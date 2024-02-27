@@ -58,7 +58,5 @@ final class FeedLoaderCacheDecoratorTests: XCTestCase, FeedLoaderTestCase {
             messages.append(.save(feed))
             completion(.success(()))
         }
-        
-        
     }
 }

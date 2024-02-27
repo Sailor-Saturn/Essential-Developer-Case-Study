@@ -1,36 +1,6 @@
 import XCTest
 import EssentialDeveloper
-
-final class FeedImageLoaderCacheDecorator: FeedImageDataLoader {
-    let decoratee: FeedImageDataLoader
-    let cache: FeedImageDataCache
-    
-    init(decoratee: FeedImageDataLoader, cache: FeedImageDataCache) {
-        self.decoratee = decoratee
-        self.cache = cache
-    }
-    
-    private final class Task: FeedImageDataLoaderTask {
-        var wrapped: FeedImageDataLoaderTask?
-        
-        func cancel() {
-            wrapped?.cancel()
-        }
-    }
-    
-    func loadImageData(from url: URL, completion: @escaping (FeedImageDataLoader.Result) -> Void) -> FeedImageDataLoaderTask {
-        let task = Task()
-        
-        task.wrapped = decoratee.loadImageData(from: url) {[weak self] result in
-            completion(result.map { data in
-                self?.cache.save(data, for: url) { _ in }
-                return data
-            })
-        }
-        
-        return task
-    }
-}
+import EssentialApp
 
 final class FeedImageLoaderCacheDecoratorTests: XCTestCase, FeedImageTestCase {
     func test_init_doesNotLoadImageData() {
@@ -114,7 +84,7 @@ final class FeedImageLoaderCacheDecoratorTests: XCTestCase, FeedImageTestCase {
     // MARK: - Helpers
     private func makeSUT(cache: CacheSpy = .init(), file: StaticString = #file, line: UInt = #line) -> (FeedImageDataLoader, FeedImageLoaderSpy) {
         let loader = FeedImageLoaderSpy()
-        let sut = FeedImageLoaderCacheDecorator(decoratee: loader, cache: cache)
+        let sut = FeedImageDataLoaderCacheDecorator(decoratee: loader, cache: cache)
         
         trackForMemoryLeaks(loader, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
