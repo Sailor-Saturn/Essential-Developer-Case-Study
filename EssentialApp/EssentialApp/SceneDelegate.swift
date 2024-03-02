@@ -29,9 +29,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let localFeedLoader = LocalFeedLoader(store: localFeedStore, currentDate: Date.init)
         let localImageLoader = LocalFeedImageDataLoader(store: localFeedStore)
         
+        #if DEBUG
         if CommandLine.arguments.contains("-reset") {
             try? FileManager.default.removeItem(at: localStoreURL)
         }
+        #endif
         
         let feedViewController = FeedUIComposer.feedComposedWith(
             feedLoader: FeedLoaderWithFallbackComposite(primary: FeedLoaderCacheDecorator(decoratee: remoteFeedLoader, cache: localFeedLoader), fallback: localFeedLoader),
@@ -41,12 +43,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func makeRemoteClient() -> HTTPClient {
-        switch UserDefaults.standard.string(forKey: "connectivity") {
-        case "offline":
+        #if DEBUG
+        if UserDefaults.standard.string(forKey: "connectivity") == "offline" {
             return AlwaysFailingHTTPClient()
-        default:
-            return URLSessionHTTPClient(session: URLSession(configuration: .ephemeral))
         }
+        #endif
+        
+        return URLSessionHTTPClient(session: URLSession(configuration: .ephemeral))
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -78,6 +81,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 }
 
+#if DEBUG
 private class AlwaysFailingHTTPClient: HTTPClient {
     private class Task: HTTPClientTask {
         func cancel() {
@@ -90,4 +94,5 @@ private class AlwaysFailingHTTPClient: HTTPClient {
         return Task()
     }
 }
+#endif
 
