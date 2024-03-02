@@ -33,6 +33,7 @@
 		0B7857DC2B86191E00CF67DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B7857DB2B86191E00CF67DD /* Assets.xcassets */; };
 		0B7857DF2B86191E00CF67DD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B7857DD2B86191E00CF67DD /* LaunchScreen.storyboard */; };
 		0B7857EA2B86191F00CF67DD /* EssentialAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7857E92B86191F00CF67DD /* EssentialAppTests.swift */; };
+		0B91B8282B938FD5004A1872 /* DebuggingSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B91B8272B938FD5004A1872 /* DebuggingSceneDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +97,7 @@
 		0B7857E02B86191E00CF67DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0B7857E52B86191F00CF67DD /* EssentialAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EssentialAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B7857E92B86191F00CF67DD /* EssentialAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialAppTests.swift; sourceTree = "<group>"; };
+		0B91B8272B938FD5004A1872 /* DebuggingSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebuggingSceneDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +183,7 @@
 			children = (
 				0B7857D22B86191C00CF67DD /* AppDelegate.swift */,
 				0B7857D42B86191C00CF67DD /* SceneDelegate.swift */,
+				0B91B8272B938FD5004A1872 /* DebuggingSceneDelegate.swift */,
 				0B7857D62B86191C00CF67DD /* ViewController.swift */,
 				0B7857D82B86191C00CF67DD /* Main.storyboard */,
 				0B7857DB2B86191E00CF67DD /* Assets.xcassets */,
@@ -351,6 +354,7 @@
 				0B7857D32B86191C00CF67DD /* AppDelegate.swift in Sources */,
 				0B1ED6962B875EC800B99E42 /* FeedLoaderWithFallbackComposite.swift in Sources */,
 				0B6B63152B8CB1E7005C1C65 /* FeedLoaderCacheDecorator.swift in Sources */,
+				0B91B8282B938FD5004A1872 /* DebuggingSceneDelegate.swift in Sources */,
 				0B7857D52B86191C00CF67DD /* SceneDelegate.swift in Sources */,
 				0B1ED69C2B87B5CC00B99E42 /* FeedImageDataLoaderWithFallbackComposite.swift in Sources */,
 				0B6B63232B8DF715005C1C65 /* FeedImageDataLoaderCacheDecorator.swift in Sources */,
