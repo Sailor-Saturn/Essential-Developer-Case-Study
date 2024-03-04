@@ -34,6 +34,7 @@
 		0B7857DF2B86191E00CF67DD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B7857DD2B86191E00CF67DD /* LaunchScreen.storyboard */; };
 		0B7857EA2B86191F00CF67DD /* EssentialAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7857E92B86191F00CF67DD /* EssentialAppTests.swift */; };
 		0B91B8282B938FD5004A1872 /* DebuggingSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B91B8272B938FD5004A1872 /* DebuggingSceneDelegate.swift */; };
+		0BF1199D2B96359B002C3E04 /* SceneDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF1199C2B96359B002C3E04 /* SceneDelegateTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +99,7 @@
 		0B7857E52B86191F00CF67DD /* EssentialAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EssentialAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B7857E92B86191F00CF67DD /* EssentialAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialAppTests.swift; sourceTree = "<group>"; };
 		0B91B8272B938FD5004A1872 /* DebuggingSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebuggingSceneDelegate.swift; sourceTree = "<group>"; };
+		0BF1199C2B96359B002C3E04 /* SceneDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegateTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +208,7 @@
 				0B1ED6972B87731100B99E42 /* FeedImageLoaderWithFallbackCompositeTests.swift */,
 				0B6B630B2B8C954F005C1C65 /* FeedLoaderCacheDecoratorTests.swift */,
 				0B6B63162B8CB859005C1C65 /* FeedImageLoaderCacheDecoratorTests.swift */,
+				0BF1199C2B96359B002C3E04 /* SceneDelegateTests.swift */,
 			);
 			path = EssentialAppTests;
 			sourceTree = "<group>";
@@ -376,6 +379,7 @@
 				0B6B631D2B8DF0FD005C1C65 /* FeedImageLoaderStub.swift in Sources */,
 				0B6B630C2B8C954F005C1C65 /* FeedLoaderCacheDecoratorTests.swift in Sources */,
 				0B6B631F2B8DF4AE005C1C65 /* XCTestCase+FeedImageDataLoader.swift in Sources */,
+				0BF1199D2B96359B002C3E04 /* SceneDelegateTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
