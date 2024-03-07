@@ -89,6 +89,7 @@
 		0BC9B4572B7B9B1E00955B48 /* FeedLoadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC9B4562B7B9B1E00955B48 /* FeedLoadingViewModel.swift */; };
 		0BC9B4592B7B9B3D00955B48 /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC9B4582B7B9B3D00955B48 /* FeedViewModel.swift */; };
 		0BC9B45B2B7B9B5D00955B48 /* FeedErrorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC9B45A2B7B9B5D00955B48 /* FeedErrorViewModel.swift */; };
+		0BF119C92B99CFF9002C3E04 /* FeedSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF119C82B99CFF9002C3E04 /* FeedSnapshotTests.swift */; };
 		0BF464742B7A408100128D8A /* EssentialDeveloperiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB43E282B6BA31800973C6F /* EssentialDeveloperiOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -214,6 +215,7 @@
 		0BC9B4562B7B9B1E00955B48 /* FeedLoadingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLoadingViewModel.swift; sourceTree = "<group>"; };
 		0BC9B4582B7B9B3D00955B48 /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
 		0BC9B45A2B7B9B5D00955B48 /* FeedErrorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedErrorViewModel.swift; sourceTree = "<group>"; };
+		0BF119C82B99CFF9002C3E04 /* FeedSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedSnapshotTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -501,6 +503,7 @@
 		0BB43E332B6BA31800973C6F /* EssentialDeveloperiOSTests */ = {
 			isa = PBXGroup;
 			children = (
+				0BF119C82B99CFF9002C3E04 /* FeedSnapshotTests.swift */,
 			);
 			path = EssentialDeveloperiOSTests;
 			sourceTree = "<group>";
@@ -912,6 +915,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0BB43E4E2B6D363600973C6F /* SharedTestsHelpers.swift in Sources */,
+				0BF119C92B99CFF9002C3E04 /* FeedSnapshotTests.swift in Sources */,
 				0BB43E472B6BBA6D00973C6F /* XCTestCase+MemoryLeakTrackingHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
