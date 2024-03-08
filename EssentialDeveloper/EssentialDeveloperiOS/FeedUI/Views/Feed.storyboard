@@ -21,7 +21,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mDQ-bc-M3m">
-                                    <rect key="frame" x="0.0" y="0.0" width="393" height="34"/>
+                                    <rect key="frame" x="0.0" y="8" width="393" height="18"/>
                                     <accessibility key="accessibilityConfiguration">
                                         <accessibilityTraits key="traits" button="YES" staticText="YES" allowsDirectInteraction="YES"/>
                                     </accessibility>
@@ -33,10 +33,10 @@
                             <color key="backgroundColor" red="0.99951404330000004" green="0.41759261489999999" blue="0.4154433012" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <gestureRecognizers/>
                             <constraints>
-                                <constraint firstAttribute="bottom" secondItem="mDQ-bc-M3m" secondAttribute="bottom" id="QH6-m8-hCd"/>
+                                <constraint firstAttribute="bottom" secondItem="mDQ-bc-M3m" secondAttribute="bottom" constant="8" id="QH6-m8-hCd"/>
                                 <constraint firstItem="mDQ-bc-M3m" firstAttribute="leading" secondItem="SMn-53-WF0" secondAttribute="leading" id="Vhc-Jf-nok"/>
                                 <constraint firstAttribute="trailing" secondItem="mDQ-bc-M3m" secondAttribute="trailing" id="dN4-un-jjv"/>
-                                <constraint firstItem="mDQ-bc-M3m" firstAttribute="top" secondItem="SMn-53-WF0" secondAttribute="top" id="r8n-py-eGc"/>
+                                <constraint firstItem="mDQ-bc-M3m" firstAttribute="top" secondItem="SMn-53-WF0" secondAttribute="top" constant="8" id="r8n-py-eGc"/>
                             </constraints>
                             <connections>
                                 <outlet property="label" destination="mDQ-bc-M3m" id="r9s-uc-TTZ"/>
