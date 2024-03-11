@@ -1,15 +1,13 @@
-public final class RemoteFeedImageDataLoader {
+public final class RemoteFeedImageDataLoader: FeedImageDataLoader {
     let client: HTTPClient
-    let url: URL
     
     public enum Error: Swift.Error {
         case connectivity
         case invalidData
     }
     
-    public init(client: HTTPClient, url: URL) {
+    public init(client: HTTPClient) {
         self.client = client
-        self.url = url
     }
     
     private final class HTTPURLPropertyWrapper: FeedImageDataLoaderTask {
