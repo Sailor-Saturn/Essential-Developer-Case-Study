@@ -11,3 +11,4 @@ func anyNSError() -> NSError {
 func anyData() -> Data {
     Data("any data".utf8)
 }
+
