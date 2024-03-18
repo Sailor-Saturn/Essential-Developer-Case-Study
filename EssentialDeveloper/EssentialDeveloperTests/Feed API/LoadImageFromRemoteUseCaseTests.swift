@@ -1,7 +1,7 @@
 import XCTest
 import EssentialDeveloper
 
-final class RemoteImageFeedLoaderTests: XCTestCase {
+final class LoadImageFromRemoteUseCaseTests: XCTestCase {
     func test_init_doesNotRequestDataFromURL() {
         let (_, client) = makeSut()
         
