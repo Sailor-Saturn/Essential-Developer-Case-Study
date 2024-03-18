@@ -1,7 +1,7 @@
 import XCTest
 import EssentialDeveloper
 
-final class LoadImageCommentsFromRemoteUseCaseTests: XCTestCase {
+final class ImageCommentsMapperTests: XCTestCase {
     func test_load_deliversErrorOnNon2xxHTTPResponse() {
         let (sut, client) = makeSut()
         let samples = [199, 150, 300, 400, 500]
@@ -102,11 +102,6 @@ final class LoadImageCommentsFromRemoteUseCaseTests: XCTestCase {
         ]
         
         return (item, json)
-    }
-    
-    private func makeItemsJSON(_ items: [[String: Any]]) -> Data {
-        let itemsJSON = ["items": items]
-        return try! JSONSerialization.data(withJSONObject: itemsJSON)
     }
     
     private func expect(
