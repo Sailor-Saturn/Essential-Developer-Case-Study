@@ -2,43 +2,6 @@ import XCTest
 import EssentialDeveloper
 
 final class LoadImageCommentsFromRemoteUseCaseTests: XCTestCase {
-    func test_init_doesNotRequestDataFromURL() {
-        let (_, client) = makeSut()
-        
-        XCTAssertTrue(client.requestedURLs.isEmpty)
-    }
-    
-    func test_load_requestsDataFromURL() {
-        let url = URL(string: "https://a-given-url.com")!
-        
-        let (sut, client) = makeSut(url: url)
-        
-        sut.load{ _ in }
-        
-        XCTAssertEqual(client.requestedURLs, [url])
-    }
-    
-    func test_loadTwice_requestsDataFromURLTwice() {
-        let url = URL(string: "https://a-given-url.com")!
-        
-        let (sut, client) = makeSut(url: url)
-        
-        sut.load{ _ in }
-        sut.load{ _ in }
-        
-        XCTAssertEqual(client.requestedURLs, [url, url])
-    }
-    
-    func test_load_deliversErrorOnClientError() {
-        let (sut, client) = makeSut()
-        expect(sut,
-               toCompleteWith: failure(.connectivity),
-               when: {
-            let clientError = NSError(domain: "Test", code: 0)
-            client.complete(with: clientError)
-        })
-    }
-    
     func test_load_deliversErrorOnNon2xxHTTPResponse() {
         let (sut, client) = makeSut()
         let samples = [199, 150, 300, 400, 500]
@@ -108,22 +71,6 @@ final class LoadImageCommentsFromRemoteUseCaseTests: XCTestCase {
         }
     }
     
-    func test_load_doesNotDeliverResultsAfterSUTInstanceHasBeenDeallocated() {
-        let url = URL(string: "http://any-url.com")!
-        let client = HTTPClientSpy()
-        var sut: RemoteImageCommentsLoader? = RemoteImageCommentsLoader(url: url, client: client)
-        
-        var capturedResults = [RemoteImageCommentsLoader.Result]()
-        sut?.load { capturedResults.append($0) }
-        
-        // deallocate sut
-        sut = nil
-        
-        // make client do something that involves
-        client.complete(withStatusCode: 200, data: makeItemsJSON([]))
-        XCTAssertTrue(capturedResults.isEmpty)
-    }
-    
     // MARK: Helpers
     private func makeSut(
         url: URL = URL(string: "https://a-url.com")!,
@@ -174,7 +121,7 @@ final class LoadImageCommentsFromRemoteUseCaseTests: XCTestCase {
             switch (receivedResult, expectedResult) {
             case let (.success(receivedItems), .success(expectedItems)):
                 XCTAssertEqual(receivedItems, expectedItems, file: file, line: line)
-            case let (.failure(receivedError as RemoteImageCommentsLoader.Error), .failure(expectedError as RemoteImageCommentsLoader.Error)):
+            case let (.failure(receivedError), .failure(expectedError)):
                 XCTAssertEqual(receivedError, expectedError, file: file, line: line)
             default:
                 XCTFail("Expected result\(expectedResult) got \(receivedResult) instead", file: file, line: line)
