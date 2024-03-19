@@ -38,14 +38,18 @@ final class EssentialFeedAPIEndToEndTests: XCTestCase {
         file: StaticString = #file,
         line: UInt = #line
     ) -> LocalFeedLoader.LoadResult? {
-        let loader = RemoteLoader(url: testServerURL, client: createEphemeralClient(), mapper: FeedItemsMapper.map)
-        
-        trackForMemoryLeaks(loader, file: file, line: line)
+        let client = ephemeralClient()
         let exp = expectation(description: "Wait for load completion")
         
         var receivedResult: LocalFeedLoader.LoadResult?
-        loader.load { result in
-            receivedResult = result
+        client.get(from: testServerURL) { result in
+            receivedResult = result.flatMap { (data, response) in
+                do {
+                    return .success(try FeedItemsMapper.map(data, from: response))
+                } catch {
+                    return .failure(error)
+                }
+            }
             exp.fulfill()
         }
         
@@ -57,7 +61,7 @@ final class EssentialFeedAPIEndToEndTests: XCTestCase {
         file: StaticString = #file,
         line: UInt = #line
     ) -> FeedImageDataLoader.Result? {
-        let loader = RemoteFeedImageDataLoader(client: createEphemeralClient())
+        let loader = RemoteFeedImageDataLoader(client: ephemeralClient())
         
         trackForMemoryLeaks(loader, file: file, line: line)
         let exp = expectation(description: "Wait for load completion")
@@ -73,7 +77,7 @@ final class EssentialFeedAPIEndToEndTests: XCTestCase {
         return receivedResult
     }
     
-    private func createEphemeralClient(
+    private func ephemeralClient(
         file: StaticString = #file,
         line: UInt = #line
     ) -> HTTPClient {
