@@ -181,10 +181,10 @@
 				0B7857D22B86191C00CF67DD /* AppDelegate.swift */,
 				0B7857D42B86191C00CF67DD /* SceneDelegate.swift */,
 				0B7857D62B86191C00CF67DD /* ViewController.swift */,
+				0BBB2A302B9F68F70024EC62 /* CombineHelpers.swift */,
 				0B7857DB2B86191E00CF67DD /* Assets.xcassets */,
 				0B7857DD2B86191E00CF67DD /* LaunchScreen.storyboard */,
 				0B7857E02B86191E00CF67DD /* Info.plist */,
-				0BBB2A302B9F68F70024EC62 /* CombineHelpers.swift */,
 			);
 			path = EssentialApp;
 			sourceTree = "<group>";
