@@ -34,9 +34,9 @@ extension LocalFeedLoader: FeedCache {
     }
 }
     
-extension LocalFeedLoader: FeedLoader {
+extension LocalFeedLoader {
     
-    public typealias LoadResult = FeedLoader.Result
+    public typealias LoadResult = Swift.Result<[FeedImage], Error>
     public typealias ValidationResult = Result<Void, Error>
 
     public func load(completion: @escaping (LoadResult) -> Void) {
