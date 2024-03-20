@@ -64,7 +64,6 @@ final class EssentialFeedAPIEndToEndTests: XCTestCase {
         let client = ephemeralClient()
 
         let exp = expectation(description: "Wait for load completion")
-        let url = testServerURL.appendingPathComponent("73A7F70C-75DA-4C2E-B5A3-EED40DC53AA6/image")
 
         var receivedResult: FeedImageDataLoader.Result?
         client.get(from: testServerURL) { result in
