@@ -17,7 +17,7 @@ final class LoadResourcePresenterTests: XCTestCase {
         XCTAssertEqual(view.messages, [.display(errorMessage: .none), .display(isLoading: true)])
     }
     
-    func test_didFinishLoadingResource_displaysFeedAndStopLoading() {
+    func test_didFinishLoadingResource_displaysResourceAndStopLoading() {
         let (sut, view) = makeSUT(mapper: { resource in
             resource + " view model"
         })
