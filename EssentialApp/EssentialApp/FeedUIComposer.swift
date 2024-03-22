@@ -7,7 +7,7 @@ public final class FeedUIComposer {
     private init() {}
     
     public static func feedComposedWith(feedLoader: @escaping () -> AnyPublisher<[FeedImage], Error>, imageLoader: @escaping (URL) -> FeedImageDataLoader.Publisher) -> FeedViewController {
-        let presentationAdapter = FeedLoaderPresentationAdapter(feedLoader: { feedLoader().dispatchOnMainQueue() })
+        let presentationAdapter = LoadResourcePresentationAdapter<[FeedImage], FeedViewAdapter>(loader: { feedLoader().dispatchOnMainQueue() })
         
         let feedController = FeedViewController.makeWith(delegate: presentationAdapter, title: FeedPresenter.title)
         
@@ -57,30 +57,7 @@ private final class FeedViewAdapter: ResourceView {
     }
 }
 
-private final class FeedLoaderPresentationAdapter: FeedViewControllerDelegate {
-    private let feedLoader: () -> AnyPublisher<[FeedImage], Error>
-    private var cancellable: Cancellable?
-    var presenter: LoadResourcePresenter<[FeedImage], FeedViewAdapter>?
-    
-    init(feedLoader: @escaping () -> AnyPublisher<[FeedImage], Error>) {
-        self.feedLoader = feedLoader
-    }
-    
-    func didRequestFeedRefresh() {
-        presenter?.didStartLoading()
-        
-        cancellable = feedLoader().sink { [weak self] completion in
-            switch completion {
-            case .finished:
-                break
-            case let .failure(error):
-                self?.presenter?.didFinishLoading(with: error)
-            }
-        } receiveValue: { [weak self] feed in
-            self?.presenter?.didFinishLoading(with: feed)
-        }
-    }
-}
+
 
 private final class FeedImageDataLoaderPresentationAdapter<View: FeedImageView, Image>: FeedImageCellControllerDelegate where View.Image == Image {
     private let model: FeedImage
