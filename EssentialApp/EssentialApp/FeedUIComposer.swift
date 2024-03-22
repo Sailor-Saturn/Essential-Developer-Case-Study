@@ -57,13 +57,10 @@ private final class FeedViewAdapter: ResourceView {
     }
 }
 
-
-
 private final class FeedImageDataLoaderPresentationAdapter<View: FeedImageView, Image>: FeedImageCellControllerDelegate where View.Image == Image {
     private let model: FeedImage
     private let imageLoader: (URL) -> FeedImageDataLoader.Publisher
     private var cancellable: Cancellable?
-    
     
     var presenter: FeedImagePresenter<View, Image>?
     
