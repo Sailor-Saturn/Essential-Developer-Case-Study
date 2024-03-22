@@ -54,7 +54,6 @@ extension LocalFeedImageDataLoader: FeedImageDataLoader {
         return task
     }
 }
-
 extension LocalFeedImageDataLoader: FeedImageDataCache {
     public typealias SaveResult = FeedImageDataCache.SaveResult
     
