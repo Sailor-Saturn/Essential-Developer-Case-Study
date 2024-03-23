@@ -532,10 +532,8 @@
 		0B9E57E42B9A1BA6005EA3C8 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				0BA4E1892B74D6BB00DC35BE /* UITableView+DequeueReusable.swift */,
 				0BB43E4C2B6D344400973C6F /* UIView+Shimmering.swift */,
 				0BA4E18B2B74D80900DC35BE /* UIImageView+Animations.swift */,
-				0B9E57E52B9A1BE8005EA3C8 /* UITableView+HeaderSizing.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -608,6 +606,7 @@
 		0BB43E292B6BA31800973C6F /* EssentialDeveloperiOS */ = {
 			isa = PBXGroup;
 			children = (
+				0BEF84B12BAF6A8C00E9FB0B /* Shared UI */,
 				0BB43E4F2B6E2E5100973C6F /* FeedUI */,
 			);
 			path = EssentialDeveloperiOS;
@@ -641,7 +640,6 @@
 		0BB43E502B6E2E5900973C6F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				0BB43E482B6BCBDD00973C6F /* ListViewController.swift */,
 				0BB43E6E2B6E6C4E00973C6F /* FeedImageCellController.swift */,
 			);
 			path = Controllers;
@@ -654,7 +652,6 @@
 				0BB43E4A2B6D115700973C6F /* FeedImageCell.swift */,
 				0BA4E1852B73CD1400DC35BE /* Feed.storyboard */,
 				0BA4E1872B73CD8B00DC35BE /* Feed.xcassets */,
-				0B164E012B77CD6D00EE148F /* ErrorView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -716,6 +713,41 @@
 				0BEF84AF2BAF3C0500E9FB0B /* ImageComments.xcstrings */,
 			);
 			path = "Image Comments Presentation";
+			sourceTree = "<group>";
+		};
+		0BEF84B12BAF6A8C00E9FB0B /* Shared UI */ = {
+			isa = PBXGroup;
+			children = (
+				0BEF84B32BAF6A9F00E9FB0B /* Views */,
+				0BEF84B22BAF6A9500E9FB0B /* Controllers */,
+			);
+			path = "Shared UI";
+			sourceTree = "<group>";
+		};
+		0BEF84B22BAF6A9500E9FB0B /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0BB43E482B6BCBDD00973C6F /* ListViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		0BEF84B32BAF6A9F00E9FB0B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0BEF84B42BAF6AB100E9FB0B /* Helpers */,
+				0B164E012B77CD6D00EE148F /* ErrorView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0BEF84B42BAF6AB100E9FB0B /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				0B9E57E52B9A1BE8005EA3C8 /* UITableView+HeaderSizing.swift */,
+				0BA4E1892B74D6BB00DC35BE /* UITableView+DequeueReusable.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
