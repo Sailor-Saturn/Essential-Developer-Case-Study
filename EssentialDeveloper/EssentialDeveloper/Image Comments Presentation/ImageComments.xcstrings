@@ -1,31 +1,28 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "FEED_VIEW_TITLE" : {
+    "IMAGE_COMMENTS_VIEW_TITLE" : {
       "extractionState" : "manual",
       "localizations" : {
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Το Feed μου"
+            "value" : "Σχόλια"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "My Feed"
+            "value" : "Comments"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Meu Feed"
+            "value" : "Comentários"
           }
         }
       }
-    },
-    "GENERIC_CONNECTION_ERROR" : {
-      "comment" : "Error message displayed when we can't load the image feed from the server"
     }
   },
   "version" : "1.0"
