@@ -6,7 +6,7 @@ public protocol FeedImageCellControllerDelegate {
     func didCancelImageRequest()
 }
 
-public final class FeedImageCellController: NSObject{
+public final class FeedImageCellController: NSObject {
     public typealias ResourceViewModel = UIImage
     
     private let viewModel: FeedImageViewModel
@@ -18,9 +18,9 @@ public final class FeedImageCellController: NSObject{
         self.delegate = delegate
     }
 }
-extension FeedImageCellController: CellController {
+extension FeedImageCellController: UITableViewDataSource, UITableViewDelegate, UITableViewDataSourcePrefetching {
     
-    private  func cancelLoad() {
+    private func cancelLoad() {
         releaseCellForReuse()
         delegate.didCancelImageRequest()
     }
