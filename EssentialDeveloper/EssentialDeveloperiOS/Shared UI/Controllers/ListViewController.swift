@@ -5,7 +5,7 @@ public final class ListViewController: UITableViewController, UITableViewDataSou
     public var onRefresh: (() -> Void)?
     private var onViewIsAppearing: (() -> Void)?
     
-    @IBOutlet private(set) public var errorView: ErrorView?
+    private(set) public var errorView = ErrorView()
     
     private var loadingControllers = [IndexPath: CellController]()
     
@@ -15,10 +15,36 @@ public final class ListViewController: UITableViewController, UITableViewDataSou
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        
+        configureErrorView()
+
         onViewIsAppearing = { [weak self]  in
             self?.onViewIsAppearing = nil
             self?.refresh()
+            
+        }
+    }
+    
+    private func configureErrorView() {
+        let container = UIView()
+        
+        container.backgroundColor = .clear
+        container.addSubview(errorView)
+        
+        errorView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            errorView.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+            container.trailingAnchor.constraint(equalTo: errorView.trailingAnchor),
+            errorView.topAnchor.constraint(equalTo: container.topAnchor),
+            container.bottomAnchor.constraint(equalTo: errorView.bottomAnchor),
+        ])
+        
+        tableView.tableHeaderView = container
+        
+        errorView.onHide = { [weak self] in
+            self?.tableView.beginUpdates()
+            self?.tableView.sizeTableHeaderToFit()
+            self?.tableView.endUpdates()
         }
     }
     
@@ -46,7 +72,7 @@ public final class ListViewController: UITableViewController, UITableViewDataSou
     }
     
     public func display(_ viewModel: ResourceErrorViewModel) {
-        errorView?.message = viewModel.message
+        errorView.message = viewModel.message
     }
     
     public override func viewIsAppearing(_ animated: Bool) {
@@ -93,5 +119,10 @@ public final class ListViewController: UITableViewController, UITableViewDataSou
         loadingControllers[indexPath] = nil
         
         return controller
+    }
+    
+    public override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let delegate = cellController(forRowAt: indexPath).delegate
+        delegate?.tableView?(tableView, willDisplay: cell, forRowAt: indexPath)
     }
 }
