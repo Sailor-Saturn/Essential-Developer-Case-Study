@@ -111,7 +111,7 @@
 		0BEF84AE2BAF3B7900E9FB0B /* ImageCommentsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEF84AD2BAF3B7900E9FB0B /* ImageCommentsPresenter.swift */; };
 		0BEF84B02BAF3C0500E9FB0B /* ImageComments.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 0BEF84AF2BAF3C0500E9FB0B /* ImageComments.xcstrings */; };
 		0BEF84B72BAF6BCA00E9FB0B /* ListSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEF84B62BAF6BCA00E9FB0B /* ListSnapshotTests.swift */; };
-		0BF119C92B99CFF9002C3E04 /* FeedSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF119C82B99CFF9002C3E04 /* FeedSnapshotTests.swift */; };
+		0BF119C92B99CFF9002C3E04 /* UIViewSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF119C82B99CFF9002C3E04 /* UIViewSnapshotTests.swift */; };
 		0BF464742B7A408100128D8A /* EssentialDeveloperiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB43E282B6BA31800973C6F /* EssentialDeveloperiOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -259,7 +259,7 @@
 		0BEF84AD2BAF3B7900E9FB0B /* ImageCommentsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCommentsPresenter.swift; sourceTree = "<group>"; };
 		0BEF84AF2BAF3C0500E9FB0B /* ImageComments.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = ImageComments.xcstrings; sourceTree = "<group>"; };
 		0BEF84B62BAF6BCA00E9FB0B /* ListSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSnapshotTests.swift; sourceTree = "<group>"; };
-		0BF119C82B99CFF9002C3E04 /* FeedSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedSnapshotTests.swift; sourceTree = "<group>"; };
+		0BF119C82B99CFF9002C3E04 /* UIViewSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewSnapshotTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -681,7 +681,7 @@
 			children = (
 				0B3E39202BB19F7A00513BCA /* Image Comments UI */,
 				0BEF84B52BAF6B5100E9FB0B /* Shared UI */,
-				0BF119C82B99CFF9002C3E04 /* FeedSnapshotTests.swift */,
+				0BF119C82B99CFF9002C3E04 /* UIViewSnapshotTests.swift */,
 				0B9E57E12B99DD65005EA3C8 /* Helpers */,
 			);
 			path = EssentialDeveloperiOSTests;
@@ -1202,7 +1202,7 @@
 				0B79EE352BB19A2400C5608F /* XCTestCase+Snapshot.swift in Sources */,
 				0BB43E4E2B6D363600973C6F /* SharedTestsHelpers.swift in Sources */,
 				0B3E39222BB19FEB00513BCA /* ImageCommentsSnapshotTests.swift in Sources */,
-				0BF119C92B99CFF9002C3E04 /* FeedSnapshotTests.swift in Sources */,
+				0BF119C92B99CFF9002C3E04 /* UIViewSnapshotTests.swift in Sources */,
 				0BEF84B72BAF6BCA00E9FB0B /* ListSnapshotTests.swift in Sources */,
 				0BB43E472B6BBA6D00973C6F /* XCTestCase+MemoryLeakTrackingHelper.swift in Sources */,
 				0B9E57E32B99DD80005EA3C8 /* UIImage+TestHelpers.swift in Sources */,
