@@ -33,6 +33,7 @@ public final class ErrorView: UIButton {
         configuration.baseForegroundColor = .white
         configuration.background.backgroundColor = .errorBackgroundColor
         configuration.background.cornerRadius = 0
+        
         self.configuration = configuration
         backgroundColor = .errorBackgroundColor
         
