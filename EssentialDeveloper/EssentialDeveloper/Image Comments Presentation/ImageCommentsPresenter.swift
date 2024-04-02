@@ -22,9 +22,9 @@ public final class ImageCommentsPresenter {
             "IMAGE_COMMENTS_VIEW_TITLE",
             tableName: "ImageComments",
             bundle: Bundle(
-                for: FeedPresenter.self
+                for: ImageCommentsPresenter.self
             ),
-            comment: "Title for the feed view."
+            comment: "Title for the comments view."
         )
     }
     
