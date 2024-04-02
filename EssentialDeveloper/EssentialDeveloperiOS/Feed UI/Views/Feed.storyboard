@@ -72,7 +72,7 @@
                                                             <buttonConfiguration key="configuration" style="plain">
                                                                 <imageReference key="image" image="arrow.clockwise" catalog="system" symbolScale="large"/>
                                                                 <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="large"/>
-                                                                <color key="baseForegroundColor" systemColor="systemBackgroundColor"/>
+                                                                <color key="baseForegroundColor" systemColor="secondaryLabelColor"/>
                                                             </buttonConfiguration>
                                                             <connections>
                                                                 <action selector="retryButtonTapped" destination="1ti-1l-yI5" eventType="touchUpInside" id="rJu-GU-x9U"/>
@@ -150,7 +150,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="arrow.clockwise" catalog="system" width="32" height="32"/>
+        <image name="arrow.clockwise" catalog="system" width="113" height="128"/>
         <image name="pin" width="10" height="14.333333015441895"/>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
