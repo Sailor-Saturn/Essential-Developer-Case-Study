@@ -7,7 +7,7 @@ public final class FeedUIComposer {
     private init() {}
     
     public static func feedComposedWith(feedLoader: @escaping () -> AnyPublisher<[FeedImage], Error>, imageLoader: @escaping (URL) -> FeedImageDataLoader.Publisher) -> ListViewController {
-        let presentationAdapter = LoadResourcePresentationAdapter<[FeedImage], FeedViewAdapter>(loader: { feedLoader().dispatchOnMainQueue() })
+        let presentationAdapter = LoadResourcePresentationAdapter<[FeedImage], FeedViewAdapter>(loader: { feedLoader().dispatchOnMainThread() })
         
         let feedController = ListViewController.makeWith( title: FeedPresenter.title)
         feedController.onRefresh = presentationAdapter.loadResource
@@ -15,7 +15,7 @@ public final class FeedUIComposer {
         presentationAdapter.presenter = LoadResourcePresenter(
             errorView: WeakRefVirtualProxy(feedController),
             loadingView: WeakRefVirtualProxy(feedController),
-            resourceView: FeedViewAdapter(controller: feedController, imageLoader: { imageLoader($0).dispatchOnMainQueue()}),
+            resourceView: FeedViewAdapter(controller: feedController, imageLoader: { imageLoader($0).dispatchOnMainThread()}),
             mapper: FeedPresenter.map
         )
         
