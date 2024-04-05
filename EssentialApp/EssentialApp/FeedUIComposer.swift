@@ -6,7 +6,11 @@ import Combine
 public final class FeedUIComposer {
     private init() {}
     
-    public static func feedComposedWith(feedLoader: @escaping () -> AnyPublisher<[FeedImage], Error>, imageLoader: @escaping (URL) -> FeedImageDataLoader.Publisher) -> ListViewController {
+    public static func feedComposedWith(
+        feedLoader: @escaping () -> AnyPublisher<[FeedImage], Error>,
+        imageLoader: @escaping (URL) -> FeedImageDataLoader.Publisher,
+        selection: @escaping (FeedImage) -> Void = {_ in}
+    ) -> ListViewController {
         let presentationAdapter = LoadResourcePresentationAdapter<[FeedImage], FeedViewAdapter>(loader: { feedLoader().dispatchOnMainThread() })
         
         let feedController = ListViewController.makeFeedViewControllerWith( title: FeedPresenter.title)
@@ -15,7 +19,12 @@ public final class FeedUIComposer {
         presentationAdapter.presenter = LoadResourcePresenter(
             errorView: WeakRefVirtualProxy(feedController),
             loadingView: WeakRefVirtualProxy(feedController),
-            resourceView: FeedViewAdapter(controller: feedController, imageLoader: { imageLoader($0).dispatchOnMainThread()}),
+            resourceView: FeedViewAdapter(
+                controller: feedController,
+                imageLoader: {
+                   imageLoader($0).dispatchOnMainThread()
+                },
+                selection: selection),
             mapper: FeedPresenter.map
         )
         
@@ -37,10 +46,16 @@ private extension ListViewController {
 private final class FeedViewAdapter: ResourceView {
     private weak var controller: ListViewController?
     private let imageLoader: (URL) -> FeedImageDataLoader.Publisher
+    private let selection: (FeedImage) -> Void
     
-    init(controller: ListViewController, imageLoader: @escaping (URL) -> FeedImageDataLoader.Publisher) {
+    init(
+        controller: ListViewController,
+        imageLoader: @escaping (URL) -> FeedImageDataLoader.Publisher,
+        selection: @escaping (FeedImage) -> Void
+    ) {
         self.controller = controller
         self.imageLoader = imageLoader
+        self.selection = selection
     }
     
     func display(_ viewModel: FeedViewModel) {
@@ -50,7 +65,10 @@ private final class FeedViewAdapter: ResourceView {
             })
             let view = FeedImageCellController(
                 viewModel: FeedImagePresenter.map(model),
-                delegate: adapter
+                delegate: adapter,
+                selection: { [selection] in
+                    selection(model)
+                }
             )
             
             adapter.presenter = LoadResourcePresenter(
