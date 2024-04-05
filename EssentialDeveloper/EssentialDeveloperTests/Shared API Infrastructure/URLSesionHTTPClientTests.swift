@@ -90,7 +90,7 @@ final class URLSesionHTTPClientTests: XCTestCase {
     // MARK: - Helpers
     
     private func makeSUT(
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line
     ) -> HTTPClient {
         let sut = URLSessionHTTPClient()
@@ -105,7 +105,7 @@ final class URLSesionHTTPClientTests: XCTestCase {
         response: URLResponse?,
         error: Error?,
         taskHandler: (HTTPClientTask) -> Void = { _ in },
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line
     ) -> (data: Data, response: HTTPURLResponse)?{
         let result = resultFor(data: data, response: response, error: error, file: file, line: line)
@@ -122,7 +122,7 @@ final class URLSesionHTTPClientTests: XCTestCase {
     private func resultErrorFor(
         _ values: (data: Data?, response: URLResponse?, error: Error?)? = nil,
         taskHandler: (HTTPClientTask) -> Void = { _ in },
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line
     ) -> Error? {
         let result = resultFor(values, taskHandler: taskHandler, file: file, line: line)
@@ -140,7 +140,7 @@ final class URLSesionHTTPClientTests: XCTestCase {
         data: Data?,
         response: URLResponse?,
         error: Error?,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line
     ) -> HTTPClient.Result {
         URLProtocolStub.stub(data: data, response: response, error: error)
@@ -157,7 +157,7 @@ final class URLSesionHTTPClientTests: XCTestCase {
         return receivedResult
     }
     
-    private func resultFor(_ values: (data: Data?, response: URLResponse?, error: Error?)?, taskHandler: (HTTPClientTask) -> Void = { _ in },  file: StaticString = #filePath, line: UInt = #line) -> HTTPClient.Result {
+    private func resultFor(_ values: (data: Data?, response: URLResponse?, error: Error?)?, taskHandler: (HTTPClientTask) -> Void = { _ in },  file: StaticString = #filePathPath, line: UInt = #line) -> HTTPClient.Result {
         values.map { URLProtocolStub.stub(data: $0, response: $1, error: $2) }
         
         let sut = makeSUT(file: file, line: line)

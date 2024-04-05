@@ -175,7 +175,7 @@ class CoreDataFeedStoreTests: XCTestCase, FailableFeedStoreSpecs {
         entity.verify(attribute: "url", hasType: .URIAttributeType, isOptional: false)
     }
     
-    private func makeSut(file: StaticString = #file, line: UInt = #line) throws -> FeedStore {
+    private func makeSut(file: StaticString = #filePath, line: UInt = #line) throws -> FeedStore {
         let storeURL = URL(fileURLWithPath: "/dev/null")
         let sut = try! CoreDataFeedStore(storeURL: storeURL)
         trackForMemoryLeaks(sut, file: file, line: line)

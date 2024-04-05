@@ -131,7 +131,7 @@ final class LoadFeedFromCacheTests: XCTestCase {
 
     private func makeSUT(
         currentDate: @escaping () -> Date = Date.init,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line
     ) -> (sut: LocalFeedLoader, store: FeedStoreSpy) {
         let store = FeedStoreSpy()
@@ -145,7 +145,7 @@ final class LoadFeedFromCacheTests: XCTestCase {
         _ sut: LocalFeedLoader,
         toCompleteWith expectedResult: LocalFeedLoader.LoadResult,
         when action: () -> Void,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line
     ) {
         let exp = expectation(description: "Expected to retrieve error")

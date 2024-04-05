@@ -35,7 +35,7 @@ final class EssentialFeedAPIEndToEndTests: XCTestCase {
     }
     
     private func getFeedResult(
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line
     ) -> LocalFeedLoader.LoadResult? {
         let client = ephemeralClient()
@@ -58,7 +58,7 @@ final class EssentialFeedAPIEndToEndTests: XCTestCase {
     }
     
     private func getFeedImageDataResult(
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line
     ) -> FeedImageDataLoader.Result? {
         let client = ephemeralClient()
@@ -81,7 +81,7 @@ final class EssentialFeedAPIEndToEndTests: XCTestCase {
     }
     
     private func ephemeralClient(
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line
     ) -> HTTPClient {
         let client = URLSessionHTTPClient(session: URLSession(configuration: .ephemeral))

@@ -98,7 +98,7 @@ final class EssentialDeveloperCacheIntegrationTests: XCTestCase {
     }
     
     // MARK: Helpers
-    private func makeFeedLoader(currentDate: Date = Date(), file: StaticString = #file, line: UInt = #line) -> LocalFeedLoader {
+    private func makeFeedLoader(currentDate: Date = Date(), file: StaticString = #filePath, line: UInt = #line) -> LocalFeedLoader {
         let store = try! CoreDataFeedStore(storeURL: testSpecificStoreURL())
         let sut = LocalFeedLoader(store: store, currentDate: {currentDate})
         trackForMemoryLeaks(store, file: file, line: line)
@@ -106,7 +106,7 @@ final class EssentialDeveloperCacheIntegrationTests: XCTestCase {
         return sut
     }
     
-    private func expect(_ sut: LocalFeedLoader, toLoad expectedFeed: [FeedImage], file: StaticString = #file, line: UInt = #line) {
+    private func expect(_ sut: LocalFeedLoader, toLoad expectedFeed: [FeedImage], file: StaticString = #filePath, line: UInt = #line) {
         let exp = expectation(description: "Wait for load completion")
         sut.load { result in
             switch result {
@@ -122,7 +122,7 @@ final class EssentialDeveloperCacheIntegrationTests: XCTestCase {
         wait(for: [exp], timeout: 1.0)
     }
     
-    private func save(_ feed: [FeedImage], with loader: LocalFeedLoader, file: StaticString = #file, line: UInt = #line) {
+    private func save(_ feed: [FeedImage], with loader: LocalFeedLoader, file: StaticString = #filePath, line: UInt = #line) {
         let saveExp = expectation(description: "Wait for save completion")
         loader.save(feed) { result in
             if case let Result.failure(error) = result {
@@ -133,7 +133,7 @@ final class EssentialDeveloperCacheIntegrationTests: XCTestCase {
         wait(for: [saveExp], timeout: 1.0)
     }
     
-    private func validateCache(with loader: LocalFeedLoader, file: StaticString = #file, line: UInt = #line){
+    private func validateCache(with loader: LocalFeedLoader, file: StaticString = #filePath, line: UInt = #line){
         let validateCacheExp = expectation(description: "Wait for validate cache expectation")
         
         loader.validateCache { result in
@@ -145,7 +145,7 @@ final class EssentialDeveloperCacheIntegrationTests: XCTestCase {
         wait(for: [validateCacheExp], timeout: 1.0)
     }
     
-    private func expect(_ sut: LocalFeedImageDataLoader, toLoad expectedImage: Data, for url: URL, file: StaticString = #file, line: UInt = #line) {
+    private func expect(_ sut: LocalFeedImageDataLoader, toLoad expectedImage: Data, for url: URL, file: StaticString = #filePath, line: UInt = #line) {
         let exp = expectation(description: "Wait for load completion")
         _ = sut.loadImageData(from: url) { result in
             switch result {
@@ -161,7 +161,7 @@ final class EssentialDeveloperCacheIntegrationTests: XCTestCase {
         wait(for: [exp], timeout: 1.0)
     }
     
-    private func save(_ data: Data, for url: URL, with loader: LocalFeedImageDataLoader, file: StaticString = #file, line: UInt = #line) {
+    private func save(_ data: Data, for url: URL, with loader: LocalFeedImageDataLoader, file: StaticString = #filePath, line: UInt = #line) {
         let saveExp = expectation(description: "Wait for save completion")
         loader.save(data, for: url) { result in
             if case let Result.failure(error) = result {
@@ -172,7 +172,7 @@ final class EssentialDeveloperCacheIntegrationTests: XCTestCase {
         wait(for: [saveExp], timeout: 1.0)
     }
     
-    private func makeFeedImage(file: StaticString = #file, line: UInt = #line) -> LocalFeedImageDataLoader {
+    private func makeFeedImage(file: StaticString = #filePath, line: UInt = #line) -> LocalFeedImageDataLoader {
         let store = try! CoreDataFeedStore(storeURL: testSpecificStoreURL())
         let sut = LocalFeedImageDataLoader(store: store)
         trackForMemoryLeaks(store, file: file, line: line)
