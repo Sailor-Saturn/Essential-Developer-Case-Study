@@ -146,6 +146,26 @@ final class CommentsUIIntegrationTests: XCTestCase {
         sut.simulateErrorViewTap()
         XCTAssertEqual(sut.errorMessage, nil)
     }
+    
+    func test_deinit_cancelsRunningRequest() {
+        var cancelCount = 0
+        var sut: ListViewController?
+        autoreleasepool {
+            sut = CommentsUIComposer.commentsComposedWith {
+                PassthroughSubject<[ImageComment], Error>()
+                    .handleEvents(receiveCancel: {
+                        cancelCount += 1
+                    }).eraseToAnyPublisher()
+            }
+            
+        }
+        sut?.simulateAppearance()
+
+        XCTAssertEqual(cancelCount, 0)
+        
+        sut = nil
+        XCTAssertEqual(cancelCount, 1)
+    }
 
     // MARK: Helpers
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: ListViewController, loader: LoaderSpy) {
@@ -196,6 +216,4 @@ final class CommentsUIIntegrationTests: XCTestCase {
             XCTAssertEqual(sut.commentUsername(at: index), comment.username, "username at \(index)", file: file, line: line)
         }
     }
-    
-    
 }
