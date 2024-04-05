@@ -10,6 +10,47 @@ extension ListViewController {
         refreshControl?.simulatePullToRefresh()
     }
     
+    var errorMessage: String? {
+        return errorView.message
+    }
+    
+    func simulateErrorViewTap() {
+        errorView.simulateTap()
+    }
+    
+    func simulateAppearance() {
+        if !isViewLoaded {
+            loadViewIfNeeded()
+            prepareForFirstAppearance()
+        }
+        
+        beginAppearanceTransition(true, animated: false)
+        endAppearanceTransition()
+    }
+    
+    private func prepareForFirstAppearance() {
+        setSmallFrameToPreventRenderingCells()
+        replaceRefreshControlWithFakeForiOS17PlusSupport()
+    }
+    
+    private func setSmallFrameToPreventRenderingCells() {
+        tableView.frame = CGRect(x: 0, y: 0, width: 390, height: 1)
+    }
+    
+    private func replaceRefreshControlWithFakeForiOS17PlusSupport() {
+        let fakeRefreshControl = FakeUIRefreshControl()
+        
+        refreshControl?.allTargets.forEach { target in
+            refreshControl?.actions(forTarget: target, forControlEvent: .valueChanged)?.forEach { action in
+                fakeRefreshControl.addTarget(target, action: Selector(action), for: .valueChanged)
+            }
+        }
+        
+        refreshControl = fakeRefreshControl
+    }
+}
+extension ListViewController {
+    
     @discardableResult
     func simulateFeedImageViewVisible(at index: Int) -> FeedImageCell? {
         return feedImageView(at: index) as? FeedImageCell
@@ -61,45 +102,6 @@ extension ListViewController {
         return ds?.tableView(tableView, cellForRowAt: index)
     }
     
-    func simulateAppearance() {
-        if !isViewLoaded {
-            loadViewIfNeeded()
-            prepareForFirstAppearance()
-        }
-        
-        beginAppearanceTransition(true, animated: false)
-        endAppearanceTransition()
-    }
-    
-    private func prepareForFirstAppearance() {
-        setSmallFrameToPreventRenderingCells()
-        replaceRefreshControlWithFakeForiOS17PlusSupport()
-    }
-    
-    private func setSmallFrameToPreventRenderingCells() {
-        tableView.frame = CGRect(x: 0, y: 0, width: 390, height: 1)
-    }
-    
-    private func replaceRefreshControlWithFakeForiOS17PlusSupport() {
-        let fakeRefreshControl = FakeUIRefreshControl()
-        
-        refreshControl?.allTargets.forEach { target in
-            refreshControl?.actions(forTarget: target, forControlEvent: .valueChanged)?.forEach { action in
-                fakeRefreshControl.addTarget(target, action: Selector(action), for: .valueChanged)
-            }
-        }
-        
-        refreshControl = fakeRefreshControl
-    }
-    
-    var errorMessage: String? {
-        return errorView.message
-    }
-    
-    func simulateErrorViewTap() {
-        errorView.simulateTap()
-    }
-    
     @discardableResult
     func simulateFeedImageBecomingVisibleAgain(at row: Int) -> FeedImageCell? {
         let view = simulateFeedImageViewNotVisible(at: row)
@@ -109,5 +111,39 @@ extension ListViewController {
         delegate?.tableView?(tableView, willDisplay: view!, forRowAt: index)
         
         return view
+    }
+}
+
+
+extension ListViewController {
+    
+    func numberOfRenderedCommentsViews() -> Int {
+        tableView.numberOfSections == 0 ? 0 : tableView.numberOfRows(inSection: commentsSection)
+    }
+    
+    private var commentsSection: Int {
+        return 0
+    }
+    
+    func commentView(at row: Int) -> ImageCommentCell? {
+        guard numberOfRenderedCommentsViews() > row else {
+            return nil
+        }
+        
+        let ds = tableView.dataSource
+        let index = IndexPath(row: row, section: commentsSection)
+        return ds?.tableView(tableView, cellForRowAt: index) as? ImageCommentCell
+    }
+    
+    func commentMessage(at row: Int) -> String? {
+        commentView(at: row)?.messageLabel.text
+    }
+        
+    func commentUsername(at row: Int) -> String? {
+        commentView(at: row)?.usernameLabel.text
+    }
+    
+    func commentDate(at row: Int) -> String? {
+        commentView(at: row)?.dateLabel.text
     }
 }
