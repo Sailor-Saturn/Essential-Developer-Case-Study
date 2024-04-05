@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B1031942BC05AD700EFB605 /* ImageCommentsEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1031932BC05AD700EFB605 /* ImageCommentsEndpoint.swift */; };
 		0B164E022B77CD6D00EE148F /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B164E012B77CD6D00EE148F /* ErrorView.swift */; };
 		0B3E39222BB19FEB00513BCA /* ImageCommentsSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3E39212BB19FEB00513BCA /* ImageCommentsSnapshotTests.swift */; };
 		0B3E39252BB1A04500513BCA /* ImageCommentCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3E39242BB1A04500513BCA /* ImageCommentCellController.swift */; };
@@ -156,6 +157,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0B1031932BC05AD700EFB605 /* ImageCommentsEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCommentsEndpoint.swift; sourceTree = "<group>"; };
 		0B164E012B77CD6D00EE148F /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		0B3E39212BB19FEB00513BCA /* ImageCommentsSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCommentsSnapshotTests.swift; sourceTree = "<group>"; };
 		0B3E39242BB1A04500513BCA /* ImageCommentCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCommentCellController.swift; sourceTree = "<group>"; };
@@ -668,6 +670,7 @@
 			isa = PBXGroup;
 			children = (
 				0B985A232B9F7C1A008DB783 /* ImageCommentsMapper.swift */,
+				0B1031932BC05AD700EFB605 /* ImageCommentsEndpoint.swift */,
 			);
 			path = "Image Comments API";
 			sourceTree = "<group>";
@@ -1121,6 +1124,7 @@
 				0BC1CFA62BADEA1100C0D3DA /* LoadResourcePresenter.swift in Sources */,
 				0B737B042B59366600864E29 /* HTTPClient.swift in Sources */,
 				0B7857C32B83BA0400CF67DD /* CoreDataFeedStore+FeedStore.swift in Sources */,
+				0B1031942BC05AD700EFB605 /* ImageCommentsEndpoint.swift in Sources */,
 				0B7DF72D2B5E95F600CB8787 /* LocalFeedImage.swift in Sources */,
 				0B6B63122B8CABED005C1C65 /* FeedCache.swift in Sources */,
 				0B99F1032B5E7A5800730405 /* FeedStore.swift in Sources */,
