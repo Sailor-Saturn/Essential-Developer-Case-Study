@@ -4,7 +4,7 @@ import EssentialDeveloper
 protocol FeedImageTestCase: XCTestCase {}
 
 extension FeedImageTestCase {
-    func expect(_ sut: FeedImageDataLoader, toCompleteWith expectedResult: FeedImageDataLoader.Result, when action: () -> Void,  file: StaticString = #file, line: UInt = #line) {
+    func expect(_ sut: FeedImageDataLoader, toCompleteWith expectedResult: FeedImageDataLoader.Result, when action: () -> Void,  file: StaticString = #filePath, line: UInt = #line) {
         let exp = expectation(description: "Wait for load expectation")
         _ = sut.loadImageData(from: anyURL()) { receivedResult in
             switch (receivedResult, expectedResult) {

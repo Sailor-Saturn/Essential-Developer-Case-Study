@@ -20,3 +20,20 @@ func anyURL() -> URL {
 func anyData() -> Data {
     Data("any data".utf8)
 }
+
+class DummyView: ResourceView {
+    func display(_ viewModel: Any) {
+    }
+}
+
+var loadError: String {
+    LoadResourcePresenter<Any, DummyView>.loadError
+}
+
+var feedTitle: String {
+    FeedPresenter.title
+}
+
+var commentsTitle: String {
+    ImageCommentsPresenter.title
+}

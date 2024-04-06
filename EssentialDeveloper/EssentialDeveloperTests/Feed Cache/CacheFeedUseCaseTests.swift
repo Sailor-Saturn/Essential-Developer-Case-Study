@@ -92,7 +92,7 @@ final class CacheFeedUseCaseTests: XCTestCase {
     
     private func makeSUT(
         currentDate: @escaping () -> Date = Date.init,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line
     ) -> (sut: LocalFeedLoader, store: FeedStoreSpy) {
         let store = FeedStoreSpy()
@@ -106,7 +106,7 @@ final class CacheFeedUseCaseTests: XCTestCase {
         _ sut: LocalFeedLoader,
         toCompleteWithError expectedError: NSError?,
         when action: () -> Void,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line
     ) {
         let exp = expectation(description: "Waits for save completiopn")

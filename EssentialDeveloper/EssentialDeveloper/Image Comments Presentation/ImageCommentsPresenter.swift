@@ -4,7 +4,7 @@ public struct ImageCommentsViewModel {
     public let comments: [ImageCommentViewModel]
 }
 
-public struct ImageCommentViewModel: Equatable {
+public struct ImageCommentViewModel: Hashable {
     public let message: String
     public let date: String
     public let username: String
@@ -22,9 +22,9 @@ public final class ImageCommentsPresenter {
             "IMAGE_COMMENTS_VIEW_TITLE",
             tableName: "ImageComments",
             bundle: Bundle(
-                for: FeedPresenter.self
+                for: ImageCommentsPresenter.self
             ),
-            comment: "Title for the feed view."
+            comment: "Title for the comments view."
         )
     }
     

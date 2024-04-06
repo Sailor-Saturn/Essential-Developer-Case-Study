@@ -45,7 +45,7 @@ final class CacheFeedImageDataUseCaseTests: XCTestCase {
     
     // MARK: Helpers
     private func makeSUT(
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line
     ) -> (sut: LocalFeedImageDataLoader, store: FeedImageDataStoreSpy) {
         let store = FeedImageDataStoreSpy()
@@ -60,7 +60,7 @@ final class CacheFeedImageDataUseCaseTests: XCTestCase {
         toCompleteWith expectedResult: LocalFeedImageDataLoader.SaveResult,
         with url: URL = anyURL(),
         when action: () -> Void,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line
     ) {
         let exp = expectation(description: "Expected to retrieve error")

@@ -75,7 +75,7 @@ public final class ListViewController: UITableViewController, UITableViewDataSou
         if #available(iOS 15.0, *) {
           dataSource.applySnapshotUsingReloadData(snapshot)
         } else {
-          dataSource.apply(snapshot)
+          dataSource.apply(snapshot, animatingDifferences: false)
         }
     }
     
@@ -86,6 +86,11 @@ public final class ListViewController: UITableViewController, UITableViewDataSou
     public override func viewIsAppearing(_ animated: Bool) {
         super.viewIsAppearing(animated)
         onViewIsAppearing?()
+    }
+    
+    public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let delegate = cellController(forRowAt: indexPath)?.delegate
+        delegate?.tableView?(tableView, didSelectRowAt: indexPath)
     }
     
     public override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
