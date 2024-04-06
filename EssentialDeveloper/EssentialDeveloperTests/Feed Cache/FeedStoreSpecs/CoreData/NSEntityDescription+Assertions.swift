@@ -2,7 +2,7 @@ import CoreData
 import XCTest
 
 extension NSEntityDescription {
-    func verify(attribute name: String, hasType type: NSAttributeType, isOptional: Bool, file: StaticString = #filePathPath, line: UInt = #line) {
+    func verify(attribute name: String, hasType type: NSAttributeType, isOptional: Bool, file: StaticString = #filePath, line: UInt = #line) {
         guard let attribute = attributesByName[name] else {
             XCTFail("Missing expected attribute \(name)", file: file, line: line)
             return
