@@ -5,7 +5,7 @@ public struct ResourceErrorViewModel {
         return ResourceErrorViewModel(message: nil)
     }
     
-    static func error(message: String) -> ResourceErrorViewModel {
+    public static func error(message: String) -> ResourceErrorViewModel {
         return ResourceErrorViewModel(message: message)
     }
 }

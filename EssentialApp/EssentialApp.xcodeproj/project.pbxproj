@@ -35,7 +35,7 @@
 		0BF119C02B973C9B002C3E04 /* FeedViewControllerTests+LoaderSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF119B32B973C9B002C3E04 /* FeedViewControllerTests+LoaderSpy.swift */; };
 		0BF119C12B973C9B002C3E04 /* FeedUIIntegrationTests+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF119B22B973C9B002C3E04 /* FeedUIIntegrationTests+Localization.swift */; };
 		0BF119C22B973C9B002C3E04 /* UIControl+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF119B62B973C9B002C3E04 /* UIControl+TestHelpers.swift */; };
-		0BF119C32B973C9B002C3E04 /* FeedViewController+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF119B92B973C9B002C3E04 /* FeedViewController+TestHelpers.swift */; };
+		0BF119C32B973C9B002C3E04 /* ListViewController+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF119B92B973C9B002C3E04 /* ListViewController+TestHelpers.swift */; };
 		0BF119C52B973CC0002C3E04 /* FeedUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF119C42B973CC0002C3E04 /* FeedUIIntegrationTests.swift */; };
 		0BF119C72B973EB9002C3E04 /* FeedAcceptanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF119C62B973EB9002C3E04 /* FeedAcceptanceTests.swift */; };
 /* End PBXBuildFile section */
@@ -95,7 +95,7 @@
 		0BF119B62B973C9B002C3E04 /* UIControl+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+TestHelpers.swift"; sourceTree = "<group>"; };
 		0BF119B72B973C9B002C3E04 /* UIRefreshControl+TestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIRefreshControl+TestHelper.swift"; sourceTree = "<group>"; };
 		0BF119B82B973C9B002C3E04 /* FeedViewControllerTests+Assertions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedViewControllerTests+Assertions.swift"; sourceTree = "<group>"; };
-		0BF119B92B973C9B002C3E04 /* FeedViewController+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedViewController+TestHelpers.swift"; sourceTree = "<group>"; };
+		0BF119B92B973C9B002C3E04 /* ListViewController+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListViewController+TestHelpers.swift"; sourceTree = "<group>"; };
 		0BF119C42B973CC0002C3E04 /* FeedUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedUIIntegrationTests.swift; sourceTree = "<group>"; };
 		0BF119C62B973EB9002C3E04 /* FeedAcceptanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedAcceptanceTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -136,7 +136,7 @@
 				0BF119B72B973C9B002C3E04 /* UIRefreshControl+TestHelper.swift */,
 				0BF119B42B973C9B002C3E04 /* UIButton+TestHelper.swift */,
 				0BF119B62B973C9B002C3E04 /* UIControl+TestHelpers.swift */,
-				0BF119B92B973C9B002C3E04 /* FeedViewController+TestHelpers.swift */,
+				0BF119B92B973C9B002C3E04 /* ListViewController+TestHelpers.swift */,
 				0BF119B02B973C9A002C3E04 /* FeedImage+TestHelpers.swift */,
 				0BF119B32B973C9B002C3E04 /* FeedViewControllerTests+LoaderSpy.swift */,
 				0BF119B82B973C9B002C3E04 /* FeedViewControllerTests+Assertions.swift */,
@@ -318,7 +318,7 @@
 				0BF119BA2B973C9B002C3E04 /* UIRefreshControl+TestHelper.swift in Sources */,
 				0BF119BD2B973C9B002C3E04 /* UIImage+TestHelpers.swift in Sources */,
 				0BF119BF2B973C9B002C3E04 /* UIButton+TestHelper.swift in Sources */,
-				0BF119C32B973C9B002C3E04 /* FeedViewController+TestHelpers.swift in Sources */,
+				0BF119C32B973C9B002C3E04 /* ListViewController+TestHelpers.swift in Sources */,
 				0BF119BB2B973C9B002C3E04 /* FeedViewControllerTests+Assertions.swift in Sources */,
 				0BF119C12B973C9B002C3E04 /* FeedUIIntegrationTests+Localization.swift in Sources */,
 				0BF119BE2B973C9B002C3E04 /* FeedImage+TestHelpers.swift in Sources */,
@@ -408,7 +408,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -465,7 +465,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -540,7 +540,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 34UZ636LAD;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "Sailor-Saturn.EssentialAppTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -560,7 +560,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 34UZ636LAD;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "Sailor-Saturn.EssentialAppTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
