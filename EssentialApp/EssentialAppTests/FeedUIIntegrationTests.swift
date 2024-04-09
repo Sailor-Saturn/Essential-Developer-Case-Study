@@ -423,6 +423,17 @@ class FeedUIIntegrationTests: XCTestCase {
         XCTAssertEqual(view0?.isShowingImageLoadingIndicator, false, "Expected no loading indicator when image loads successfully after view becomes visible again")
     }
     
+    func test_loadMoreActions_requestMoreFromLoader() {
+        let (sut, loader) = makeSUT()
+        sut.simulateAppearance()
+        loader.completeFeedLoading()
+        XCTAssertEqual(loader.loadMoreCallCount, 0, "Expected no requests until load more action. ")
+        
+        sut.simulateLoadMoreFeedAction()
+        
+        XCTAssertEqual(loader.loadMoreCallCount, 1, "Expected a load more request.")
+    }
+    
     // MARK: Helpers
     private func makeSUT(selection: @escaping(FeedImage)-> Void = {_ in},file: StaticString = #filePath, line: UInt = #line) -> (sut: ListViewController, loader: LoaderSpy) {
         let loader = LoaderSpy()
