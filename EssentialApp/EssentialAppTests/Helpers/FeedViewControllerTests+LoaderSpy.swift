@@ -6,22 +6,27 @@ import Combine
 extension FeedUIIntegrationTests {
     class LoaderSpy: FeedImageDataLoader {
         private var feedRequests = [PassthroughSubject<Paginated<FeedImage>, Error>]()
+        private var loadMoreRequests = [PassthroughSubject<Paginated<FeedImage>, Error>]()
         
         var loadFeedCallCount: Int {
             feedRequests.count
         }
         
-        private(set) var loadMoreCallCount: Int = 0
+        var loadMoreCallCount: Int {
+            loadMoreRequests.count
+        }
         
         func loadPublisher() ->  AnyPublisher<Paginated<FeedImage>, Error> {
-           let publisher = PassthroughSubject<Paginated<FeedImage>, Error>()
+            let publisher = PassthroughSubject<Paginated<FeedImage>, Error>()
             feedRequests.append(publisher)
             return publisher.eraseToAnyPublisher()
         }
         
         func completeFeedLoading(with feedModel: [FeedImage] = [], at index: Int = 0) {
-            feedRequests[index].send(Paginated(items: feedModel) { [weak self] _ in
-                self?.loadMoreCallCount += 1
+            feedRequests[index].send(Paginated(items: feedModel) { [weak self]  in
+                let publisher = PassthroughSubject<Paginated<FeedImage>, Error>()
+                self?.loadMoreRequests.append(publisher)
+                return publisher.eraseToAnyPublisher()
             })
         }
         
@@ -60,6 +65,20 @@ extension FeedUIIntegrationTests {
         
         func completeImageLoadingWithError(at index: Int) {
             imageRequests[index].completion(.failure(anyNSError()))
+        }
+        
+        func completeLoadMore(with feedModel: [FeedImage] = [], lastPage: Bool = false, at index: Int = 0) {
+            loadMoreRequests[index].send(Paginated(
+                items: feedModel, loadMorePublisher: lastPage ? nil : { [weak self] in
+                let publisher = PassthroughSubject<Paginated<FeedImage>, Error>()
+                self?.loadMoreRequests.append(publisher)
+                return publisher.eraseToAnyPublisher()
+            }))
+        }
+        
+        func completeLoadMoreWithError(at index: Int) {
+            let error = NSError(domain: "an error", code: 0)
+            loadMoreRequests[index].send(completion: .failure(error))
         }
     }
 }
