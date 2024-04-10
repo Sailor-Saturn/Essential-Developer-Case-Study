@@ -8,6 +8,12 @@ extension FeedUIIntegrationTests {
         private var feedRequests = [PassthroughSubject<Paginated<FeedImage>, Error>]()
         private var loadMoreRequests = [PassthroughSubject<Paginated<FeedImage>, Error>]()
         
+        func loadMorePublisher() -> AnyPublisher<Paginated<FeedImage>, Error> {
+            let publisher = PassthroughSubject<Paginated<FeedImage>, Error>()
+            loadMoreRequests.append(publisher)
+            return publisher.eraseToAnyPublisher()
+        }
+        
         var loadFeedCallCount: Int {
             feedRequests.count
         }
@@ -23,11 +29,9 @@ extension FeedUIIntegrationTests {
         }
         
         func completeFeedLoading(with feedModel: [FeedImage] = [], at index: Int = 0) {
-            feedRequests[index].send(Paginated(items: feedModel) { [weak self]  in
-                let publisher = PassthroughSubject<Paginated<FeedImage>, Error>()
-                self?.loadMoreRequests.append(publisher)
-                return publisher.eraseToAnyPublisher()
-            })
+            feedRequests[index].send(Paginated(items: feedModel, loadMorePublisher: { [weak self] in
+                self?.loadMorePublisher() ?? Empty().eraseToAnyPublisher()
+            }))
         }
         
         func completeFeedLoadingWithError(at index: Int) {
@@ -69,11 +73,10 @@ extension FeedUIIntegrationTests {
         
         func completeLoadMore(with feedModel: [FeedImage] = [], lastPage: Bool = false, at index: Int = 0) {
             loadMoreRequests[index].send(Paginated(
-                items: feedModel, loadMorePublisher: lastPage ? nil : { [weak self] in
-                let publisher = PassthroughSubject<Paginated<FeedImage>, Error>()
-                self?.loadMoreRequests.append(publisher)
-                return publisher.eraseToAnyPublisher()
-            }))
+                items: feedModel,
+                loadMorePublisher: lastPage ? nil : { [weak self] in
+                    self?.loadMorePublisher() ?? Empty().eraseToAnyPublisher()
+                }))
         }
         
         func completeLoadMoreWithError(at index: Int) {
