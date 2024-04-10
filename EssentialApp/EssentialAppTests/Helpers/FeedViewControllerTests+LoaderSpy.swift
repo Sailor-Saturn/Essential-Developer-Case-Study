@@ -79,7 +79,7 @@ extension FeedUIIntegrationTests {
                 }))
         }
         
-        func completeLoadMoreWithError(at index: Int) {
+        func completeLoadMoreWithError(at index: Int = 0) {
             let error = NSError(domain: "an error", code: 0)
             loadMoreRequests[index].send(completion: .failure(error))
         }
