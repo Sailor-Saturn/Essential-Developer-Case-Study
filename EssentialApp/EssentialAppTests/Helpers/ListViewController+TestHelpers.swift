@@ -159,6 +159,10 @@ extension ListViewController {
         
         return view
     }
+    
+    var canLoadMore: Bool {
+        loadMoreFeedCell() != nil
+    }
 }
 
 
