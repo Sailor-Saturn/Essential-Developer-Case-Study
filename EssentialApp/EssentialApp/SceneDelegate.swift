@@ -88,6 +88,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 (items + newItems, newItems.last)
             }.map(makePage)
             .delay(for: 2, scheduler: DispatchQueue.main)
+            .flatMap{ _ in
+                Fail(error: NSError())
+            }
             .caching(to: localFeedLoader)
         
     }
