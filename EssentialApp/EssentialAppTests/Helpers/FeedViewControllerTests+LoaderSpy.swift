@@ -6,20 +6,9 @@ import Combine
 extension FeedUIIntegrationTests {
     class LoaderSpy: FeedImageDataLoader {
         private var feedRequests = [PassthroughSubject<Paginated<FeedImage>, Error>]()
-        private var loadMoreRequests = [PassthroughSubject<Paginated<FeedImage>, Error>]()
-        
-        func loadMorePublisher() -> AnyPublisher<Paginated<FeedImage>, Error> {
-            let publisher = PassthroughSubject<Paginated<FeedImage>, Error>()
-            loadMoreRequests.append(publisher)
-            return publisher.eraseToAnyPublisher()
-        }
         
         var loadFeedCallCount: Int {
             feedRequests.count
-        }
-        
-        var loadMoreCallCount: Int {
-            loadMoreRequests.count
         }
         
         func loadPublisher() ->  AnyPublisher<Paginated<FeedImage>, Error> {
@@ -35,8 +24,7 @@ extension FeedUIIntegrationTests {
         }
         
         func completeFeedLoadingWithError(at index: Int) {
-            let error = NSError(domain: "an error", code: 0)
-            feedRequests[index].send(completion: .failure(error))
+            feedRequests[index].send(completion: .failure(anyNSError()))
         }
         
         // MARK: - FeedImageDataLoader
@@ -71,6 +59,20 @@ extension FeedUIIntegrationTests {
             imageRequests[index].completion(.failure(anyNSError()))
         }
         
+        // MARK: - LoadMoreFeedLoader
+
+        private var loadMoreRequests = [PassthroughSubject<Paginated<FeedImage>, Error>]()
+
+        var loadMoreCallCount: Int {
+            return loadMoreRequests.count
+        }
+        
+        func loadMorePublisher() -> AnyPublisher<Paginated<FeedImage>, Error> {
+            let publisher = PassthroughSubject<Paginated<FeedImage>, Error>()
+            loadMoreRequests.append(publisher)
+            return publisher.eraseToAnyPublisher()
+        }
+        
         func completeLoadMore(with feedModel: [FeedImage] = [], lastPage: Bool = false, at index: Int = 0) {
             loadMoreRequests[index].send(Paginated(
                 items: feedModel,
@@ -81,7 +83,7 @@ extension FeedUIIntegrationTests {
         
         func completeLoadMoreWithError(at index: Int = 0) {
             let error = NSError(domain: "an error", code: 0)
-            loadMoreRequests[index].send(completion: .failure(error))
+            loadMoreRequests[index].send(completion: .failure(anyNSError()))
         }
     }
 }
