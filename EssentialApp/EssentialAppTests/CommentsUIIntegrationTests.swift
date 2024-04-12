@@ -200,8 +200,7 @@ final class CommentsUIIntegrationTests: XCTestCase {
         }
         
         func completeCommentsLoadingWithError(at index: Int) {
-            let error = NSError(domain: "an error", code: 0)
-            requests[index].send(completion: .failure(error))
+            requests[index].send(completion: .failure(NSError()))
         }
     }
     
