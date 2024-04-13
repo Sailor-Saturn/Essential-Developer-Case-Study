@@ -86,6 +86,31 @@ extension ListViewController {
         ds?.tableView?(tableView, cancelPrefetchingForRowsAt: [index])
     }
     
+    func simulateLoadMoreFeedAction() {
+        guard let view = loadMoreFeedCell() else { return }
+        let delegate = tableView.delegate
+        let index = IndexPath(row: 0, section: feedLoadMoreSection)
+        delegate?.tableView?(tableView, willDisplay: view, forRowAt: index)
+    }
+    
+    func simulateTapOnLoadMoreFeedError() {
+        let index = IndexPath(row: 0, section: feedLoadMoreSection)
+        let delegate = tableView.delegate
+        delegate?.tableView?(tableView, didSelectRowAt: index)
+    }
+    
+    var loadMoreFeedErrorMessage: String? {
+        return loadMoreFeedCell()?.message
+    }
+    
+    var isShowingLoadMoreFeedIndicator: Bool {
+        loadMoreFeedCell()?.isLoading == true
+    }
+    
+    private func loadMoreFeedCell() -> LoadMoreCell? {
+        cell(row: 0, section: feedLoadMoreSection) as? LoadMoreCell
+    }
+    
     func renderedFeedImageData(at index: Int) -> Data? {
         return simulateFeedImageViewVisible(at: index)?.renderedImage
     }
@@ -98,13 +123,29 @@ extension ListViewController {
         return 0
     }
     
+    private var feedLoadMoreSection: Int {
+        return 1
+    }
+    
     func feedImageView(at row: Int) -> UITableViewCell? {
         guard numberOfRenderedFeedImageViews() > row else {
             return nil
         }
         
+        return cell(row: row, section: feedImageSection)
+    }
+    
+    func numberOfRows(in section: Int) -> Int {
+            tableView.numberOfSections > section ? tableView.numberOfRows(inSection: section) : 0
+        }
+    
+    func cell(row: Int, section: Int) -> UITableViewCell? {
+        guard numberOfRows(in: section) > row else {
+            return nil
+        }
+        
         let ds = tableView.dataSource
-        let index = IndexPath(row: row, section: feedImageSection)
+        let index = IndexPath(row: row, section: section)
         return ds?.tableView(tableView, cellForRowAt: index)
     }
     
@@ -117,6 +158,10 @@ extension ListViewController {
         delegate?.tableView?(tableView, willDisplay: view!, forRowAt: index)
         
         return view
+    }
+    
+    var canLoadMore: Bool {
+        loadMoreFeedCell() != nil
     }
 }
 
@@ -144,7 +189,7 @@ extension ListViewController {
     func commentMessage(at row: Int) -> String? {
         commentView(at: row)?.messageLabel.text
     }
-        
+    
     func commentUsername(at row: Int) -> String? {
         commentView(at: row)?.usernameLabel.text
     }

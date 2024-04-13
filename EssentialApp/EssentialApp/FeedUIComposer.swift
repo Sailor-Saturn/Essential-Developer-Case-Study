@@ -6,12 +6,14 @@ import Combine
 public final class FeedUIComposer {
     private init() {}
     
+    private typealias FeedPresentationAdapter = LoadResourcePresentationAdapter<Paginated<FeedImage>, FeedViewAdapter>
+    
     public static func feedComposedWith(
-        feedLoader: @escaping () -> AnyPublisher<[FeedImage], Error>,
+        feedLoader: @escaping () -> AnyPublisher<Paginated<FeedImage>, Error>,
         imageLoader: @escaping (URL) -> FeedImageDataLoader.Publisher,
         selection: @escaping (FeedImage) -> Void = {_ in}
     ) -> ListViewController {
-        let presentationAdapter = LoadResourcePresentationAdapter<[FeedImage], FeedViewAdapter>(loader: { feedLoader().dispatchOnMainThread() })
+        let presentationAdapter = FeedPresentationAdapter(loader: { feedLoader().dispatchOnMainThread() })
         
         let feedController = ListViewController.makeFeedViewControllerWith( title: FeedPresenter.title)
         feedController.onRefresh = presentationAdapter.loadResource
@@ -25,7 +27,7 @@ public final class FeedUIComposer {
                    imageLoader($0).dispatchOnMainThread()
                 },
                 selection: selection),
-            mapper: FeedPresenter.map
+            mapper: { $0 }
         )
         
         return feedController
@@ -48,6 +50,8 @@ private final class FeedViewAdapter: ResourceView {
     private let imageLoader: (URL) -> FeedImageDataLoader.Publisher
     private let selection: (FeedImage) -> Void
     
+    private typealias ImageDataPresentationAdapter = LoadResourcePresentationAdapter<Data, WeakRefVirtualProxy<FeedImageCellController>>
+    private typealias LoadMorePresentationAdapter = LoadResourcePresentationAdapter<Paginated<FeedImage>, FeedViewAdapter>
     init(
         controller: ListViewController,
         imageLoader: @escaping (URL) -> FeedImageDataLoader.Publisher,
@@ -58,9 +62,9 @@ private final class FeedViewAdapter: ResourceView {
         self.selection = selection
     }
     
-    func display(_ viewModel: FeedViewModel) {
-        controller?.display(viewModel.feed.map { model in
-            let adapter = LoadResourcePresentationAdapter<Data, WeakRefVirtualProxy<FeedImageCellController>>(loader: { [imageLoader] in
+    func display(_ viewModel: Paginated<FeedImage>) {
+        let feedSection: [CellController] = viewModel.items.map { model in
+            let adapter = ImageDataPresentationAdapter(loader: { [imageLoader] in
                 imageLoader(model.url)
             })
             let view = FeedImageCellController(
@@ -84,7 +88,25 @@ private final class FeedViewAdapter: ResourceView {
                 })
             
             return CellController(id: model, view)
-        })
+        }
+        
+        guard let loadMorePublisher = viewModel.loadMorePublisher else {
+            controller?.display(feedSection)
+            return
+        }
+        let loadMoreAdapter = LoadMorePresentationAdapter(loader: { loadMorePublisher().dispatchOnMainThread() })
+        let loadMoreCellController = LoadMoreCellController(callback: loadMoreAdapter.loadResource)
+
+        loadMoreAdapter.presenter = LoadResourcePresenter(
+            errorView: WeakRefVirtualProxy(loadMoreCellController),
+            loadingView: WeakRefVirtualProxy(loadMoreCellController),
+            resourceView: self,
+            mapper: { $0 }
+        )
+        
+        let loadMoreSection = [CellController(id: UUID(), loadMoreCellController)]
+        
+        controller?.display(feedSection, loadMoreSection)
     }
 }
 private struct InvalidImageData: Error {}
