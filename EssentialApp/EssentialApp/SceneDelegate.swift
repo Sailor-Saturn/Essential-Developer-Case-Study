@@ -4,7 +4,7 @@
 //
 //  Created by Vera Dias on 21/02/2024.
 //
-
+import os
 import UIKit
 import EssentialDeveloper
 import EssentialDeveloperiOS
@@ -21,6 +21,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         selection: showComments
     ))
     
+    private lazy var logger = Logger(subsystem: "com.essentialdeveloper.EssentialAppCaseStudy", category: "main")
+    
     private lazy var baseURL = URL(string: "https://ile-api.essentialdeveloper.com/essential-feed")!
     
     private lazy var httpClient: HTTPClient = {
@@ -32,6 +34,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return try CoreDataFeedStore(storeURL: NSPersistentContainer.defaultDirectoryURL().appending(path: "feed-store.sqlite"))
         } catch {
             assertionFailure("Failed to instantiate CoreData store with error: \(error.localizedDescription)")
+            logger.fault("Failed to instantiate CoreData store with error: \(error.localizedDescription)")
             return NullStore()
         }
     }()
