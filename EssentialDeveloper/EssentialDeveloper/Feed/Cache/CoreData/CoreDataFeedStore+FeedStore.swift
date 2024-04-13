@@ -4,8 +4,7 @@ extension CoreDataFeedStore: FeedStore {
     public func deleteCachedFeed(completion: @escaping DeletionCompletion) {
         perform { context in
             do {
-                try ManagedCache.findAndDestroy(in: context)
-                try context.save()
+                try ManagedCache.deleteCache(in: context)
 
                 completion(.success(()))
             }catch {
