@@ -7,9 +7,14 @@ class FeedImageDataStoreSpy: FeedImageDataStore {
     }
     
     private var retrievalCompletions = [(FeedImageDataStore.RetrievalResult) -> Void]()
-    private var insertionCompletions = [(LocalFeedImageDataLoader.SaveResult) -> Void]()
+    private var insertionResult: Result<Void, Error>?
     
     var receivedMessages = [Message]()
+    
+    func insert(_ data: Data, for url: URL) throws {
+        receivedMessages.append(.insert(data: data, for: url))
+        try insertionResult?.get()
+    }
     
     func retrieve(dataForURL url: URL, completion: @escaping (FeedImageDataStore.RetrievalResult) -> Void) {
         receivedMessages.append(.retrieve)
@@ -24,16 +29,11 @@ class FeedImageDataStoreSpy: FeedImageDataStore {
         retrievalCompletions[index](.success(data))
     }
     
-    func insert(_ data: Data, for url: URL, completion: @escaping (LocalFeedImageDataLoader.SaveResult) -> Void) {
-        receivedMessages.append(.insert(data: data, for: url))
-        insertionCompletions.append(completion)
-    }
-    
     func completeInsertion(with error: Error, at index: Int = 0){
-        insertionCompletions[index](.failure(error))
+        insertionResult = .failure(error)
     }
     
     func completeInsertionSuccessfully(at index: Int = 0) {
-        insertionCompletions[index](.success(()))
+        insertionResult = .success(())
     }
 }
