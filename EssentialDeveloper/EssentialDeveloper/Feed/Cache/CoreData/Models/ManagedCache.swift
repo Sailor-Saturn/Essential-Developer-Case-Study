@@ -16,11 +16,11 @@ public class ManagedCache: NSManagedObject {
     }
     
     public static func createNewUniqueInstance(in context: NSManagedObjectContext) throws -> ManagedCache {
-        try findAndDestroy(in: context)
+        try deleteCache(in: context)
         return ManagedCache(context: context)
     }
     
-    static func findAndDestroy(in context: NSManagedObjectContext) throws {
-        try find(in: context).map(context.delete)
-    }
+    static func deleteCache(in context: NSManagedObjectContext) throws {
+            try find(in: context).map(context.delete).map(context.save)
+        }
 }
