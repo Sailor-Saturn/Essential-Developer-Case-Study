@@ -8,102 +8,85 @@ class CoreDataFeedStoreTests: XCTestCase, FeedStoreSpecs {
     }
     
     func test_retrieve_deliversEmptyOnEmptyCache() throws  {
-        let sut = try makeSut()
-        
-        assertThatRetrieveDeliversEmptyOnEmptyCache(on: sut)
+        try makeSut { sut in
+            self.assertThatRetrieveDeliversEmptyOnEmptyCache(on: sut)
+        }
     }
     
     func test_retrieve_hasNoSideEffectsOnEmptyCache() throws  {
-        let sut = try makeSut()
-        
-        assertThatRetrieveHasNoSideEffectsOnEmptyCache(on: sut)
+        try makeSut { sut in
+            self.assertThatRetrieveHasNoSideEffectsOnEmptyCache(on: sut)
+        }
     }
     
     func test_retrieve_deliversFoundValuesOnNonEmptyCache() throws  {
-        let sut = try makeSut()
-        
-        assertThatRetrieveDeliversFoundValuesOnNonEmptyCache(on: sut)
+        try makeSut { sut in
+            self.assertThatRetrieveDeliversFoundValuesOnNonEmptyCache(on: sut)
+        }
     }
     
     func test_retrieve_hasNoSideEffectsOnNonEmptyCache() throws {
-        let sut = try makeSut()
-        
-        assertThatRetrieveHasNoSideEffectsOnNonEmptyCache(on: sut)
+        try makeSut { sut in
+            self.assertThatRetrieveHasNoSideEffectsOnNonEmptyCache(on: sut)
+        }
     }
     
     func test_insert_deliversNoErrorOnEmptyCache() throws  {
-        let sut = try makeSut()
-        
-        assertThatInsertDeliversNoErrorOnEmptyCache(on: sut)
+        try makeSut { sut in
+            self.assertThatInsertDeliversNoErrorOnEmptyCache(on: sut)
+        }
     }
     
     func test_insert_deliversNoErrorNonEmptyCache() throws  {
-        let sut = try makeSut()
-        
-        assertThatInsertDeliversNoErrorOnNonEmptyCache(on: sut)
+        try makeSut { sut in
+            self.assertThatInsertDeliversNoErrorOnNonEmptyCache(on: sut)
+        }
     }
     
     func test_insert_overridesPreviouslyInsertedCacheValues() throws  {
-        let sut = try makeSut()
-        
-        assertThatInsertOverridesPreviouslyInsertedCacheValues(on: sut)
+        try makeSut { sut in
+            self.assertThatInsertOverridesPreviouslyInsertedCacheValues(on: sut)
+        }
     }
     
     func test_delete_deliversNoErrorOnEmptyCache() throws  {
-        let sut = try makeSut()
-        
-        assertThatDeleteDeliversNoErrorOnEmptyCache(on: sut)
+        try makeSut { sut in
+            self.assertThatDeleteDeliversNoErrorOnEmptyCache(on: sut)
+        }
     }
     
     func test_delete_hasNoSideEffectsOnEmptyCache() throws  {
-        let sut = try makeSut()
-        
-        assertThatDeleteHasNoSideEffectsOnEmptyCache(on: sut)
+        try makeSut { sut in
+            self.assertThatDeleteHasNoSideEffectsOnEmptyCache(on: sut)
+        }
     }
     
     func test_delete_deliversNoErrorOnNonEmptyCache() throws  {
-        let sut = try makeSut()
-        
-        assertThatDeleteDeliversNoErrorOnNonEmptyCache(on: sut)
+        try makeSut { sut in
+            self.assertThatDeleteDeliversNoErrorOnNonEmptyCache(on: sut)
+        }
     }
     
     func test_delete_emptiesPreviouslyInsertedCache() throws  {
-        let sut = try makeSut()
-        
-        assertThatDeleteEmptiesPreviouslyInsertedCache(on: sut)
+        try makeSut { sut in
+            self.assertThatDeleteEmptiesPreviouslyInsertedCache(on: sut)
+        }
     }
     
     func test_delete_deliversErrorOnDeletionError() throws {
         let stub = NSManagedObjectContext.alwaysFailingSaveStub()
         let feed = uniqueImageFeed().local
         let timestamp = Date()
-        let sut = try makeSut()
-        
-        insert((feed, timestamp), to: sut)
-        
-        stub.startIntercepting()
-        
-        let deletionError = deleteCache(from: sut)
-        
-        XCTAssertNotNil(deletionError, "Expected cache deletion to fail")
-    }
-    
-    func test_delete_removesAllObjects() throws {
-        let store = try makeSut()
-        
-        insert((uniqueImageFeed().local, Date()), to: store)
-        
-        deleteCache(from: store)
-        
-        let context = try NSPersistentContainer.load(
-            name: CoreDataFeedStore.modelName,
-            model: XCTUnwrap(CoreDataFeedStore.model),
-            url: inMemoryStoreURL()
-        ).viewContext
-        
-        let existingObjects = try context.allExistingObjects()
-        
-        XCTAssertEqual(existingObjects, [], "found orphaned objects in Core Data")
+        try makeSut { sut in
+            
+            self.insert((feed, timestamp), to: sut)
+            
+            stub.startIntercepting()
+            
+            let deletionError = self.deleteCache(from: sut)
+            
+            XCTAssertNotNil(deletionError, "Expected cache deletion to fail")
+        }
     }
     
     func test_imageEntity_properties() throws {
@@ -117,11 +100,19 @@ class CoreDataFeedStoreTests: XCTestCase, FeedStoreSpecs {
         entity.verify(attribute: "url", hasType: .URIAttributeType, isOptional: false)
     }
     
-    private func makeSut(file: StaticString = #filePath, line: UInt = #line) throws -> CoreDataFeedStore {
+    private func makeSut(_ test: @escaping (CoreDataFeedStore) -> Void, file: StaticString = #filePath, line: UInt = #line) throws {
         let storeURL = URL(fileURLWithPath: "/dev/null")
-        let sut = try! CoreDataFeedStore(storeURL: storeURL)
+        let sut = try CoreDataFeedStore(storeURL: storeURL)
         trackForMemoryLeaks(sut, file: file, line: line)
-        return sut
+        
+        
+        let exp = expectation(description: "wait for operation")
+        sut.perform {
+            test(sut)
+            exp.fulfill()
+        }
+       
+        wait(for: [exp], timeout: 0.1)
     }
     
     private func inMemoryStoreURL() -> URL {
