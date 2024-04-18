@@ -17,7 +17,12 @@ public final class CoreDataFeedStore {
         case failedToLoadPersistentContainer(Error)
     }
     
-    public init(storeURL: URL) throws {
+    public enum ContextQueue {
+        case main
+        case background
+    }
+    
+    public init(storeURL: URL, contextQueue: ContextQueue = .background) throws {
         guard let model = CoreDataFeedStore.model else {
             throw StoreError.modelNotFound(CoreDataFeedStore.modelName)
         }
@@ -28,7 +33,7 @@ public final class CoreDataFeedStore {
                 model: model,
                 url: storeURL
             )
-            context = container.newBackgroundContext()
+            context = contextQueue == .main ? container.viewContext : container.newBackgroundContext()
         } catch {
             throw StoreError.failedToLoadPersistentContainer(error)
             
