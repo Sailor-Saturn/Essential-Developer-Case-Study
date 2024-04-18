@@ -13,8 +13,6 @@
 		0B1ED6912B861B6500B99E42 /* EssentialDeveloperiOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0B1ED68D2B861B6500B99E42 /* EssentialDeveloperiOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0B1ED69A2B8773E300B99E42 /* SharedHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1ED6992B8773E300B99E42 /* SharedHelpers.swift */; };
 		0B1ED69F2B87B6CD00B99E42 /* XCT+TrackMemoryLeaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1ED69E2B87B6CD00B99E42 /* XCT+TrackMemoryLeaks.swift */; };
-		0B6B631D2B8DF0FD005C1C65 /* FeedImageLoaderStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6B631C2B8DF0FD005C1C65 /* FeedImageLoaderStub.swift */; };
-		0B6B631F2B8DF4AE005C1C65 /* XCTestCase+FeedImageDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6B631E2B8DF4AE005C1C65 /* XCTestCase+FeedImageDataLoader.swift */; };
 		0B7857D32B86191C00CF67DD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7857D22B86191C00CF67DD /* AppDelegate.swift */; };
 		0B7857D52B86191C00CF67DD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7857D42B86191C00CF67DD /* SceneDelegate.swift */; };
 		0B7857D72B86191C00CF67DD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7857D62B86191C00CF67DD /* ViewController.swift */; };
@@ -71,8 +69,6 @@
 		0B1ED68D2B861B6500B99E42 /* EssentialDeveloperiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = EssentialDeveloperiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B1ED6992B8773E300B99E42 /* SharedHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedHelpers.swift; sourceTree = "<group>"; };
 		0B1ED69E2B87B6CD00B99E42 /* XCT+TrackMemoryLeaks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCT+TrackMemoryLeaks.swift"; sourceTree = "<group>"; };
-		0B6B631C2B8DF0FD005C1C65 /* FeedImageLoaderStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageLoaderStub.swift; sourceTree = "<group>"; };
-		0B6B631E2B8DF4AE005C1C65 /* XCTestCase+FeedImageDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+FeedImageDataLoader.swift"; sourceTree = "<group>"; };
 		0B7857CF2B86191C00CF67DD /* EssentialApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EssentialApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B7857D22B86191C00CF67DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0B7857D42B86191C00CF67DD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -145,8 +141,6 @@
 				0BF119B52B973C9B002C3E04 /* UIRefreshControl+Fake.swift */,
 				0B1ED6992B8773E300B99E42 /* SharedHelpers.swift */,
 				0B1ED69E2B87B6CD00B99E42 /* XCT+TrackMemoryLeaks.swift */,
-				0B6B631C2B8DF0FD005C1C65 /* FeedImageLoaderStub.swift */,
-				0B6B631E2B8DF4AE005C1C65 /* XCTestCase+FeedImageDataLoader.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -330,8 +324,6 @@
 				0B1ED69A2B8773E300B99E42 /* SharedHelpers.swift in Sources */,
 				0BF119C22B973C9B002C3E04 /* UIControl+TestHelpers.swift in Sources */,
 				0BF119C72B973EB9002C3E04 /* FeedAcceptanceTests.swift in Sources */,
-				0B6B631D2B8DF0FD005C1C65 /* FeedImageLoaderStub.swift in Sources */,
-				0B6B631F2B8DF4AE005C1C65 /* XCTestCase+FeedImageDataLoader.swift in Sources */,
 				0BF1199D2B96359B002C3E04 /* SceneDelegateTests.swift in Sources */,
 				0BF119C02B973C9B002C3E04 /* FeedViewControllerTests+LoaderSpy.swift in Sources */,
 				0BD3DD492BBC4834003B11C1 /* CommentsUIIntegrationTests.swift in Sources */,

@@ -1,111 +1,144 @@
 import XCTest
 import EssentialDeveloper
 
-final class CoreDataFeedImageStoreTests: XCTestCase {
-    func test_retrieveImageData_deliversNotFoundWhenEmpty() {
-        let sut = makeSUT()
-        
-        expect(sut, toCompleteRetrievalWith: .success(.none), for: anyURL())
+final class CoreDataFeedImageStoreTests: XCTestCase, FeedImageDataStoreSpecs {
+    func test_retrieveImageData_deliversNotFoundWhenEmpty() throws {
+        try makeSUT { sut, imageDataURL in
+            self.assertThatRetrieveImageDataDeliversNotFoundOnEmptyCache(on: sut, imageDataURL: imageDataURL)
+        }
     }
     
-    func test_retrieveImageData_deliversNotFoundWhenStoredDataURLDoesNotMatch() {
-        let sut = makeSUT()
-        let url = URL(string: "http://a-url.com")!
-        let nonMatchingURL = URL(string: "http://another-url.com")!
-        
-        insert(anyData(), for: url, into: sut)
-        
-        expect(sut, toCompleteRetrievalWith: .success(.none), for: nonMatchingURL)
+    func test_retrieveImageData_deliversNotFoundWhenStoredDataURLDoesNotMatch() throws {
+        try makeSUT { sut, imageDataURL in
+            self.assertThatRetrieveImageDataDeliversNotFoundWhenStoredDataURLDoesNotMatch(on: sut, imageDataURL: imageDataURL)
+        }
     }
     
-    func test_retrieveImageData_deliversFoundDataWhenThereIsAStoredImageDataMatchingURL() {
-        let sut = makeSUT()
+    func test_retrieveImageData_deliversFoundDataWhenThereIsAStoredImageDataMatchingURL() throws {
+        try makeSUT { sut, imageDataURL in
+            self.assertThatRetrieveImageDataDeliversFoundDataWhenThereIsAStoredImageDataMatchingURL(on: sut, imageDataURL: imageDataURL)
+        }
+    }
+
+    func test_retrieveImageData_deliversLastInsertedValue() throws {
+        try makeSUT { sut, imageDataURL in
+            self.assertThatRetrieveImageDataDeliversLastInsertedValueForURL(on: sut, imageDataURL: imageDataURL)
+        }
+    }
+    
+    
+    private func makeSUT(_ test: @escaping (CoreDataFeedStore, URL) -> Void, file: StaticString = #filePath, line: UInt = #line) throws {
+        let storeURL = URL(fileURLWithPath: "/dev/null")
+        let sut = try CoreDataFeedStore(storeURL: storeURL)
+        trackForMemoryLeaks(sut, file: file, line: line)
+        
+        let exp = expectation(description: "wait for operation")
+        sut.perform {
+            let imageDataURL = URL(string: "http://a-url.com")!
+            insertFeedImage(with: imageDataURL, into: sut, file: file, line: line)
+            test(sut, imageDataURL)
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 0.1)
+    }
+}
+
+private func insertFeedImage(with url: URL, into sut: CoreDataFeedStore, file: StaticString = #filePath, line: UInt = #line) {
+    do {
+        let image = LocalFeedImage(id: UUID(), description: "any", location: "any", url: url)
+        try sut.insert([image], timestamp: Date())
+    } catch {
+        XCTFail("Failed to insert feed image with URL \(url) - error: \(error)", file: file, line: line)
+    }
+}
+protocol FeedImageDataStoreSpecs {
+    func test_retrieveImageData_deliversNotFoundWhenEmpty() throws
+    func test_retrieveImageData_deliversNotFoundWhenStoredDataURLDoesNotMatch() throws
+    func test_retrieveImageData_deliversFoundDataWhenThereIsAStoredImageDataMatchingURL() throws
+    func test_retrieveImageData_deliversLastInsertedValue() throws
+}
+
+
+extension FeedImageDataStoreSpecs where Self: XCTestCase {
+    
+    func assertThatRetrieveImageDataDeliversNotFoundOnEmptyCache(
+        on sut: FeedImageDataStore,
+        imageDataURL: URL = anyURL(),
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) {
+        expect(sut, toCompleteRetrievalWith: notFound(), for: imageDataURL, file: file, line: line)
+    }
+    
+    func assertThatRetrieveImageDataDeliversNotFoundWhenStoredDataURLDoesNotMatch(
+        on sut: FeedImageDataStore,
+        imageDataURL: URL = anyURL(),
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) {
+        let nonMatchingURL = URL(string: "http://a-non-matching-url.com")!
+        
+        insert(anyData(), for: imageDataURL, into: sut, file: file, line: line)
+        
+        expect(sut, toCompleteRetrievalWith: notFound(), for: nonMatchingURL, file: file, line: line)
+    }
+    
+    func assertThatRetrieveImageDataDeliversFoundDataWhenThereIsAStoredImageDataMatchingURL(
+        on sut: FeedImageDataStore,
+        imageDataURL: URL = anyURL(),
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) {
         let storedData = anyData()
-        let matchingURL = URL(string: "http://a-url.com")!
         
-        insert(storedData, for: matchingURL, into: sut)
+        insert(storedData, for: imageDataURL, into: sut, file: file, line: line)
         
-        expect(sut, toCompleteRetrievalWith: .success(storedData), for: matchingURL)
+        expect(sut, toCompleteRetrievalWith: found(storedData), for: imageDataURL, file: file, line: line)
     }
     
-    func test_retrieveImageData_deliversLastInsertedValue() {
-        let sut = makeSUT()
+    func assertThatRetrieveImageDataDeliversLastInsertedValueForURL(
+        on sut: FeedImageDataStore,
+        imageDataURL: URL = anyURL(),
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) {
         let firstStoredData = Data("first".utf8)
         let lastStoredData = Data("last".utf8)
-        let url = URL(string: "http://a-url.com")!
         
-        insert(firstStoredData, for: url, into: sut)
-        insert(lastStoredData, for: url, into: sut)
+        insert(firstStoredData, for: imageDataURL, into: sut, file: file, line: line)
+        insert(lastStoredData, for: imageDataURL, into: sut, file: file, line: line)
         
-        expect(sut, toCompleteRetrievalWith: .success(lastStoredData), for: url)
+        expect(sut, toCompleteRetrievalWith: found(lastStoredData), for: imageDataURL, file: file, line: line)
+    }
+}
+
+
+extension FeedImageDataStoreSpecs where Self: XCTestCase {
+    func notFound() -> Result<Data?, Error> {
+        .success(.none)
     }
     
-    func test_sideEffects_runSerially() {
-        let sut = makeSUT()
-        let url = anyURL()
+    func found(_ data: Data) -> Result<Data?, Error> {
+        .success(data)
+    }
+    
+    func expect(_ sut: FeedImageDataStore, toCompleteRetrievalWith expectedResult: Result<Data?, Error>, for url: URL,  file: StaticString = #filePath, line: UInt = #line) {
+        let receivedResult = Result { try sut.retrieve(dataForURL: url) }
         
-        let op1 = expectation(description: "Operation 1")
-        sut.insert([localImage(url: url)], timestamp: Date()) { _ in
-            op1.fulfill()
+        switch (receivedResult, expectedResult) {
+        case let (.success( receivedData), .success(expectedData)):
+            XCTAssertEqual(receivedData, expectedData, file: file, line: line)
+            
+        default:
+            XCTFail("Expected \(expectedResult), got \(receivedResult) instead", file: file, line: line)
         }
-        
-        let op2 = expectation(description: "Operation 2")
-        sut.insert(anyData(), for: url) { _ in    op2.fulfill() }
-        
-        let op3 = expectation(description: "Operation 3")
-        sut.insert(anyData(), for: url) { _ in op3.fulfill() }
-        
-        wait(for: [op1, op2, op3], timeout: 5.0, enforceOrder: true)
     }
     
-    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> CoreDataFeedStore {
-        let storeURL = URL(fileURLWithPath: "/dev/null")
-        let sut = try! CoreDataFeedStore(storeURL: storeURL)
-        trackForMemoryLeaks(sut, file: file, line: line)
-        return sut
-    }
-    
-    private func inMemoryStoreURL() -> URL {
-        URL(fileURLWithPath: "/dev/null")
-            .appendingPathComponent("\(type(of: self)).store")
-    }
-    
-    private func expect(_ sut: CoreDataFeedStore, toCompleteRetrievalWith expectedResult: FeedImageDataStore.RetrievalResult, for url: URL,  file: StaticString = #filePath, line: UInt = #line) {
-        let exp = expectation(description: "Wait for load completion")
-        sut.retrieve(dataForURL: url) { receivedResult in
-            switch (receivedResult, expectedResult) {
-            case let (.success( receivedData), .success(expectedData)):
-                XCTAssertEqual(receivedData, expectedData, file: file, line: line)
-                
-            default:
-                XCTFail("Expected \(expectedResult), got \(receivedResult) instead", file: file, line: line)
-            }
-            exp.fulfill()
+    func insert(_ data: Data, for url: URL, into sut: FeedImageDataStore, file: StaticString = #filePath, line: UInt = #line) {
+        do {
+            try sut.insert(data, for: url)
+        } catch {
+            XCTFail("Failed to insert image data: \(data) - error: \(error)", file: file, line: line)
         }
-        wait(for: [exp], timeout: 1.0)
-    }
-    
-    private func insert(_ data: Data, for url: URL, into sut: CoreDataFeedStore, file: StaticString = #filePath, line: UInt = #line) {
-        let exp = expectation(description: "Wait for cache insertion")
-        let image = localImage(url: url)
-        sut.insert([image], timestamp: Date()) { result in
-            switch result {
-            case let .failure(error):
-                XCTFail("Failed to save \(image) with error \(error)", file: file, line: line)
-                
-            case .success:
-                sut.insert(data, for: url) { result in
-                    if case let Result.failure(error) = result {
-                        XCTFail("Failed to insert \(data) with error \(error)", file: file, line: line)
-                    }
-                }
-            }
-            exp.fulfill()
-        }
-        wait(for: [exp], timeout: 1.0)
-    }
-    
-    private func localImage(url: URL) -> LocalFeedImage {
-        return LocalFeedImage(id: UUID(), description: "any", location: "any", url: url)
     }
 }
