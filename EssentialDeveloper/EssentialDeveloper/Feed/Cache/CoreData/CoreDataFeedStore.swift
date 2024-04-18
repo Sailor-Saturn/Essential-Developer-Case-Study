@@ -6,7 +6,7 @@ public final class CoreDataFeedStore {
     
     
     private let container: NSPersistentContainer
-    private let context: NSManagedObjectContext
+    let context: NSManagedObjectContext
     
     public struct ModelNotFound: Error {
         public let modelName: String
@@ -43,8 +43,12 @@ public final class CoreDataFeedStore {
     public func performSync<R>(_ action: (NSManagedObjectContext) -> Result<R, Error>) throws -> R {
         let context = self.context
         var result: Result<R, Error>!
-        context.performAndWait { result = action(context) }
+         result = action(context)
         return try result.get()
+    }
+    
+    public func perform(_ action: @escaping () -> Void) {
+        context.perform(action)
     }
     
     private func cleanUpReferencesToPersistentStores() {

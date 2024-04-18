@@ -129,7 +129,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             loadMorePublisher: last.map { last in
                 { self.makeRemoteLoadMoreLoader(last: last)}
             }
-            
         )
     }
     
