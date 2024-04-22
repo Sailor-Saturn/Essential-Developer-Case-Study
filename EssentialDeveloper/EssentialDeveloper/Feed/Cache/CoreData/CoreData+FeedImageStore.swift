@@ -2,7 +2,7 @@ import CoreData
 
 extension CoreDataFeedStore: FeedImageDataStore {
     public func insert(_ data: Data, for url: URL) throws {
-        try ManagedFeedImage.find(in: context, url: url)
+        try ManagedFeedImage.first(with: url, in: context)
             .map { $0.data = data}
             .map(context.save)
     }

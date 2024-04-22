@@ -115,6 +115,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             .map { (cachedItems, newItems) in
                 (cachedItems + newItems, newItems.last)
             }.map(makePage)
+            .receive(on: scheduler)
             .caching(to: localFeedLoader)
             .subscribe(on: scheduler)
             .eraseToAnyPublisher()
@@ -149,12 +150,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return localImageLoader
             .loadImageDataPublisher(from: url)
             .logCacheMisses(url: url, logger: logger)
-            .fallback(to: { [httpClient, logger] in
+            .fallback(to: { [httpClient, logger, scheduler] in
                 httpClient
                     .getPublisher(url: url)
                     .logError(url: url, logger: logger)
                     .logElapsedTime(url: url, logger: logger)
                     .tryMap(FeedImageDataMapper.map)
+                    .receive(on: scheduler)
                     .caching(to: localImageLoader, using: url)
                     .eraseToAnyPublisher()
             })

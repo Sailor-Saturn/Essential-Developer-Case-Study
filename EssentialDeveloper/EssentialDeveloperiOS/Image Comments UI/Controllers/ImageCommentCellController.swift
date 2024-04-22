@@ -18,6 +18,7 @@ public class ImageCommentCellController: NSObject, UITableViewDataSource {
         cell.messageLabel.text = model.message
         cell.dateLabel.text = model.date
         cell.usernameLabel.text = model.username
+        cell.selectionStyle = .none
         
         return cell
     }

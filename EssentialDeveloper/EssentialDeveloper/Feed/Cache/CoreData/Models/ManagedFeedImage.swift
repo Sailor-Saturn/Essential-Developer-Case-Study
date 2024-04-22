@@ -12,7 +12,7 @@ public class ManagedFeedImage: NSManagedObject {
     
     static func data(with url: URL, in context: NSManagedObjectContext) throws -> Data? {
         if let data = context.userInfo[url] as? Data {return data}
-        return try find(in: context, url: url)?.data
+        return try first(with: url, in: context)?.data
     }
     
     static func images(from localFeed: [LocalFeedImage], in context: NSManagedObjectContext) -> NSOrderedSet {
@@ -31,8 +31,8 @@ public class ManagedFeedImage: NSManagedObject {
         return images
     }
     
-    public static func find(in context: NSManagedObjectContext, url: URL) throws -> ManagedFeedImage? {
-        let request = NSFetchRequest<ManagedFeedImage>(entityName: ManagedFeedImage.entity().name!)
+    static func first(with url: URL, in context: NSManagedObjectContext) throws -> ManagedFeedImage? {
+        let request = NSFetchRequest<ManagedFeedImage>(entityName: entity().name!)
         request.predicate = NSPredicate(format: "%K = %@", argumentArray: [#keyPath(ManagedFeedImage.url), url])
         request.returnsObjectsAsFaults = false
         request.fetchLimit = 1
